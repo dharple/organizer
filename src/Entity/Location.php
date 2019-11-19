@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Location
 {
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -54,4 +55,5 @@ class Location
 
         return $this;
     }
+
 }

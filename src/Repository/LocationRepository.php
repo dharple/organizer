@@ -14,6 +14,7 @@ use Doctrine\Common\Persistence\ManagerRegistry;
  */
 class LocationRepository extends ServiceEntityRepository
 {
+
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Location::class);
@@ -28,7 +29,7 @@ class LocationRepository extends ServiceEntityRepository
             ->andWhere('l.parent_location_id IS NULL')
             ->orderBy('l.label', 'ASC')
             ->getQuery()
-            ->getResult()
-        ;
+            ->getResult();
     }
+
 }

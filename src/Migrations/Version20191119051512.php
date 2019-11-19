@@ -12,6 +12,7 @@ use Doctrine\Migrations\AbstractMigration;
  */
 final class Version20191119051512 extends AbstractMigration
 {
+
     public function getDescription() : string
     {
         return '';
@@ -34,4 +35,5 @@ final class Version20191119051512 extends AbstractMigration
         $this->addSql('DROP TABLE box');
         $this->addSql('DROP TABLE location');
     }
+
 }

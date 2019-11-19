@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Box
 {
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -88,4 +89,5 @@ class Box
 
         return $this;
     }
+
 }

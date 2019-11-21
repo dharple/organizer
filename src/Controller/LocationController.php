@@ -14,7 +14,6 @@ class LocationController extends AbstractController
     public function index()
     {
         return $this->render('location/index.html.twig', [
-            'label' => 'Top Level Locations',
             'locations' => $this->getDoctrine()->getRepository(Location::class)->getTopLevelLocations(),
         ]);
     }
@@ -26,7 +25,7 @@ class LocationController extends AbstractController
     {
         $repo = $this->getDoctrine()->getRepository(Location::class);
         return $this->render('location/index.html.twig', [
-            'label' => $repo->findOneById($id)->getLabel(),
+            'currentLocation' => $repo->findOneById($id),
             'locations' => $repo->getSubLocations($id),
         ]);
     }

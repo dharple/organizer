@@ -23,6 +23,19 @@ class LocationRepository extends ServiceEntityRepository
     /**
      * @return Location[] Returns an array of Location objects
      */
+    public function getSublocations(int $id)
+    {
+        return $this->createQueryBuilder('l')
+            ->andWhere('l.parent_location_id = :id')
+            ->orderBy('l.label', 'ASC')
+            ->setParameter('id', $id)
+            ->getQuery()
+            ->getResult();
+    }
+
+    /**
+     * @return Location[] Returns an array of Location objects
+     */
     public function getTopLevelLocations()
     {
         return $this->createQueryBuilder('l')

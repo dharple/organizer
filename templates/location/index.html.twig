@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Organizer: {{ label }}{% endblock %}
+
+{% block body %}
+<div class="container main-window text-center">
+    <div class="row mb-3">
+        <div class="col">
+            <h4>{{ label }}</h4>
+        </div>
+    </div>
+    {% for location in locations %}
+        <div class="row mb-3">
+            <div class="col">
+                <button type="button" class="btn btn-block btn-outline-primary" data-type="location" data-id="{{ location.id | escape('html_attr') }}">{{ location.label }}</button>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

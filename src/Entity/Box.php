@@ -33,9 +33,9 @@ class Box
     private $location_id;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="integer", nullable=true)
      */
-    private $image_file;
+    private $box_type_id;
 
     public function getId(): ?int
     {
@@ -78,16 +78,20 @@ class Box
         return $this;
     }
 
-    public function getImageFile(): ?string
+    public function getBoxTypeId(): ?int
     {
-        return $this->image_file;
+        return $this->box_type_id;
     }
 
-    public function setImageFile(?string $image_file): self
+    public function setBoxTypeId(?int $box_type_id): self
     {
-        $this->image_file = $image_file;
+        $this->box_type_id = $box_type_id;
 
         return $this;
     }
 
+    public function getDisplayLabel()
+    {
+        return sprintf("Box %04d - %s", $this->getId(), $this->getLabel());
+    }
 }

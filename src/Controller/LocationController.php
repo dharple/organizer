@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Entity\Box;
 use App\Entity\Location;
 
 class LocationController extends AbstractController
@@ -15,6 +16,7 @@ class LocationController extends AbstractController
     {
         return $this->render('location/index.html.twig', [
             'locations' => $this->getDoctrine()->getRepository(Location::class)->getTopLevelLocations(),
+            'boxes' => [],
         ]);
     }
 
@@ -27,6 +29,7 @@ class LocationController extends AbstractController
         return $this->render('location/index.html.twig', [
             'currentLocation' => $repo->findOneById($id),
             'locations' => $repo->getSubLocations($id),
+            'boxes' => $this->getDoctrine()->getRepository(Box::class)->getByLocation($id),
         ]);
     }
 }

@@ -20,4 +20,17 @@ class BoxRepository extends ServiceEntityRepository
         parent::__construct($registry, Box::class);
     }
 
+    /**
+     * @return Box[] Returns an array of Box objects
+     */
+    public function getByLocation(int $id)
+    {
+        return $this->createQueryBuilder('b')
+            ->andWhere('b.location_id = :id')
+            ->orderBy('b.label', 'ASC')
+            ->setParameter('id', $id)
+            ->getQuery()
+            ->getResult();
+    }
+
 }

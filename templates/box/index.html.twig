@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Organizer: {{ currentBox.label }}
+{% endblock %}
+
+{% block body %}
+<div class="container main-window text-center">
+    <div class="row mb-3">
+        <div class="col">
+            <h4>{{ currentBox.displayLabel }}</h4>
+        </div>
+    </div>
+    <div class="row mb-3 text-left">
+        <div class="col">
+            <a class="btn btn-light" href="/location/{{ currentBox.locationId | e('url') }}">&lt; Back</a>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col">
+            {{ currentBox.label }}
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col">
+            {{ currentBox.description }}
+        </div>
+    </div>
+</div>
+{% endblock %}

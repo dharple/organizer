@@ -33,5 +33,12 @@
             </div>
         </div>
     {% endfor %}
+    {% for box in boxes %}
+        <div class="row mb-3">
+            <div class="col">
+                <a class="btn btn-block btn-outline-primary" href="/box/{{ box.id | e('url') }}">{{ box.displayLabel }}</a>
+            </div>
+        </div>
+    {% endfor %}
 </div>
 {% endblock %}

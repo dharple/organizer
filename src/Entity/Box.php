@@ -90,8 +90,13 @@ class Box
         return $this;
     }
 
+    public function getDisplayId()
+    {
+        return empty($this->getId()) ? '' : sprintf("%04d", $this->getId());
+    }
+
     public function getDisplayLabel()
     {
-        return sprintf("Box %04d - %s", $this->getId(), $this->getLabel());
+        return empty($this->getId()) ? '' : sprintf("Box %04d - %s", $this->getId(), $this->getLabel());
     }
 }

@@ -1,42 +1,20 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    {% if currentLocation is defined %}
-        Organizer: {{ currentLocation.label }}
-    {% else %}
-        Organizer
-    {% endif %}
+    Organizer
 {% endblock %}
 
 {% block body %}
 <div class="container main-window text-center">
     <div class="row mb-3">
         <div class="col">
-            {% if currentLocation is defined %}
-                <h4>{{ currentLocation.label }}</h4>
-            {% else %}
-                <h4>Welcome</h4>
-            {% endif %}
+            <h4>Welcome</h4>
         </div>
     </div>
-    {% if currentLocation is defined %}
-        <div class="row mb-3 text-left">
-            <div class="col">
-                <a class="btn btn-light" href="/location/{{ currentLocation.parentLocationId | e('url') }}">&lt; Back</a>
-            </div>
-        </div>
-    {% endif %}
     {% for location in locations %}
         <div class="row mb-3">
             <div class="col">
                 <a class="btn btn-block btn-primary" href="/location/{{ location.id | e('url') }}">{{ location.label }}</a>
-            </div>
-        </div>
-    {% endfor %}
-    {% for box in boxes %}
-        <div class="row mb-3">
-            <div class="col">
-                <a class="btn btn-block btn-outline-primary" href="/box/{{ box.id | e('url') }}">{{ box.displayLabel }}</a>
             </div>
         </div>
     {% endfor %}

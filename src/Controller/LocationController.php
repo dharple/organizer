@@ -10,7 +10,7 @@ use App\Entity\Location;
 class LocationController extends AbstractController
 {
     /**
-     * @Route("/location", name="location")
+     * @Route("/", name="location")
      */
     public function index()
     {
@@ -26,8 +26,10 @@ class LocationController extends AbstractController
     public function sublocation(int $id)
     {
         $repo = $this->getDoctrine()->getRepository(Location::class);
-        return $this->render('location/index.html.twig', [
-            'currentLocation' => $repo->findOneById($id),
+        $location = $repo->findOneById($id);
+        return $this->render('location/sublocation.html.twig', [
+            'currentLocation' => $location,
+            'parentLocation' => $location->getParentLocation(),
             'locations' => $repo->getSubLocations($id),
             'boxes' => $this->getDoctrine()->getRepository(Box::class)->getByLocation($id),
         ]);

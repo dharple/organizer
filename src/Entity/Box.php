@@ -28,14 +28,9 @@ class Box
     private $description;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Location", inversedBy="boxes")
      */
-    private $location_id;
-
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private $box_type_id;
+    private $location;
 
     public function getId(): ?int
     {
@@ -66,30 +61,6 @@ class Box
         return $this;
     }
 
-    public function getLocationId(): ?int
-    {
-        return $this->location_id;
-    }
-
-    public function setLocationId(int $location_id): self
-    {
-        $this->location_id = $location_id;
-
-        return $this;
-    }
-
-    public function getBoxTypeId(): ?int
-    {
-        return $this->box_type_id;
-    }
-
-    public function setBoxTypeId(?int $box_type_id): self
-    {
-        $this->box_type_id = $box_type_id;
-
-        return $this;
-    }
-
     public function getDisplayId()
     {
         return empty($this->getId()) ? '' : sprintf("%04d", $this->getId());
@@ -98,5 +69,17 @@ class Box
     public function getDisplayLabel()
     {
         return empty($this->getId()) ? '' : sprintf("Box %04d - %s", $this->getId(), $this->getLabel());
+    }
+
+    public function getLocation(): ?Location
+    {
+        return $this->location;
+    }
+
+    public function setLocation(?Location $location): self
+    {
+        $this->location = $location;
+
+        return $this;
     }
 }

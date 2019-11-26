@@ -26,7 +26,7 @@ class LocationRepository extends ServiceEntityRepository
     public function getSublocations(int $id)
     {
         return $this->createQueryBuilder('l')
-            ->andWhere('l.parent_location_id = :id')
+            ->andWhere('l.parentLocation = :id')
             ->orderBy('l.label', 'ASC')
             ->setParameter('id', $id)
             ->getQuery()
@@ -39,7 +39,7 @@ class LocationRepository extends ServiceEntityRepository
     public function getTopLevelLocations()
     {
         return $this->createQueryBuilder('l')
-            ->andWhere('l.parent_location_id IS NULL')
+            ->andWhere('l.parentLocation IS NULL')
             ->orderBy('l.label', 'ASC')
             ->getQuery()
             ->getResult();

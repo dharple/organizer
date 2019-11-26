@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -23,9 +25,19 @@ class Location
     private $label;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\ManyToOne(targetEntity="App\Entity\Location")
      */
-    private $parent_location_id;
+    private $parentLocation;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Box", mappedBy="location")
+     */
+    private $boxes;
+
+    public function __construct()
+    {
+        $this->boxes = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -44,14 +56,45 @@ class Location
         return $this;
     }
 
-    public function getParentLocationId(): ?int
+    /**
+     * @return Collection|Box[]
+     */
+    public function getBoxes(): Collection
     {
-        return $this->parent_location_id;
+        return $this->boxes;
     }
 
-    public function setParentLocationId(?int $parent_location_id): self
+    public function addBox(Box $box): self
     {
-        $this->parent_location_id = $parent_location_id;
+        if (!$this->boxes->contains($box)) {
+            $this->boxes[] = $box;
+            $box->setLocation($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBox(Box $box): self
+    {
+        if ($this->boxes->contains($box)) {
+            $this->boxes->removeElement($box);
+            // set the owning side to null (unless already changed)
+            if ($box->getLocation() === $this) {
+                $box->setLocation(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getParentLocation(): ?self
+    {
+        return $this->parentLocation;
+    }
+
+    public function setParentLocation(?self $parentLocation): self
+    {
+        $this->parentLocation = $parentLocation;
 
         return $this;
     }

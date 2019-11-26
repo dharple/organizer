@@ -26,7 +26,7 @@ class BoxRepository extends ServiceEntityRepository
     public function getByLocation(int $id)
     {
         return $this->createQueryBuilder('b')
-            ->andWhere('b.location_id = :id')
+            ->andWhere('b.location = :id')
             ->orderBy('b.label', 'ASC')
             ->setParameter('id', $id)
             ->getQuery()

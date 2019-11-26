@@ -12,6 +12,7 @@ use Doctrine\Migrations\AbstractMigration;
  */
 final class Version20191126035812 extends AbstractMigration
 {
+
     public function getDescription() : string
     {
         return '';
@@ -42,4 +43,5 @@ final class Version20191126035812 extends AbstractMigration
         $this->addSql('INSERT INTO box (id, label, description, location_id) SELECT id, label, description, location_id FROM __temp__box');
         $this->addSql('DROP TABLE __temp__box');
     }
+
 }

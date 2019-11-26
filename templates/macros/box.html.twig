@@ -1,0 +1,19 @@
+{% macro draw(box, showLocation) %}
+    <div class="card mb-3">
+        <div class="card-header">
+            {{ box.displayLabel }}
+        </div>
+        <div class="card-body">
+            <a class="card-link float-right" href="/box/{{ box.id | e('url') }}">Edit</a>
+            <p class="card-text">
+                {% if box.description is not empty %}
+                    Description: {{ box.description[:90] }}{% if box.description | length > 100 %} ...{% endif %}
+                    <br />
+                {% endif %}
+                {% if showLocation %}
+                    Location: {{ box.location.displayLabel }}
+                {% endif %}
+            </p>
+        </div>
+    </div>
+{% endmacro %}

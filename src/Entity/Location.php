@@ -99,4 +99,9 @@ class Location
         return $this;
     }
 
+    public function getDisplayLabel()
+    {
+        $parentLocation = $this->getParentLocation();
+        return ($parentLocation !== null ? $parentLocation->getDisplayLabel() . ' - ' : '') . $this->getLabel();
+    }
 }

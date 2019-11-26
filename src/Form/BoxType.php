@@ -18,7 +18,7 @@ class BoxType extends AbstractType
             ->add('label')
             ->add('description')
             ->add('location', EntityType::class, [
-                'choice_label' => 'label',
+                'choice_label' => 'displayLabel',
                 'class'        => Location::class,
             ])
             ->add('save', SubmitType::class)

@@ -54,21 +54,21 @@ class Box
         return $this->description;
     }
 
-    public function setDescription(string $description): self
+    public function setDescription(?string $description): self
     {
-        $this->description = $description;
+        $this->description = $description ?? '';
 
         return $this;
     }
 
     public function getDisplayId()
     {
-        return empty($this->getId()) ? '' : sprintf("%04d", $this->getId());
+        return empty($this->getId()) ? '' : sprintf('%04d', $this->getId());
     }
 
     public function getDisplayLabel()
     {
-        return empty($this->getId()) ? '' : sprintf("Box %04d - %s", $this->getId(), $this->getLabel());
+        return empty($this->getId()) ? '' : sprintf('Box %04d - %s', $this->getId(), $this->getLabel());
     }
 
     public function getLocation(): ?Location
@@ -82,4 +82,5 @@ class Box
 
         return $this;
     }
+
 }

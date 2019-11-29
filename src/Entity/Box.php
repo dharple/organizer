@@ -23,7 +23,7 @@ class Box
     private $label;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="text", nullable=true)
      */
     private $description;
 
@@ -31,6 +31,11 @@ class Box
      * @ORM\ManyToOne(targetEntity="App\Entity\Location", inversedBy="boxes")
      */
     private $location;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\BoxModel", inversedBy="boxes")
+     */
+    private $boxModel;
 
     public function getId(): ?int
     {
@@ -79,6 +84,18 @@ class Box
     public function setLocation(?Location $location): self
     {
         $this->location = $location;
+
+        return $this;
+    }
+
+    public function getBoxModel(): ?BoxModel
+    {
+        return $this->boxModel;
+    }
+
+    public function setBoxModel(?BoxModel $boxModel): self
+    {
+        $this->boxModel = $boxModel;
 
         return $this;
     }

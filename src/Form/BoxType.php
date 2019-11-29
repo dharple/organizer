@@ -3,7 +3,9 @@
 namespace App\Form;
 
 use App\Entity\Box;
+use App\Entity\BoxModel;
 use App\Entity\Location;
+use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -20,6 +22,18 @@ class BoxType extends AbstractType
             ->add('location', EntityType::class, [
                 'choice_label' => 'displayLabel',
                 'class'        => Location::class,
+                'placeholder'  => 'Choose a location...',
+                'required'     => false,
+            ])
+            ->add('boxModel', EntityType::class, [
+                'choice_label' => 'label',
+                'class'        => BoxModel::class,
+                'placeholder'  => 'Choose a model...',
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('m')
+                        ->orderBy('m.label', 'ASC');
+                },
+                'required'     => false,
             ])
             ->add('save', SubmitType::class)
         ;

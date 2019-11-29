@@ -7,15 +7,15 @@
             <a class="card-link float-right" href="/box/{{ box.id | e('url') }}">Edit</a>
             <p class="card-text">
                 {% if box.description is not empty %}
-                    Description: {{ box.description[:90] }}{% if box.description | length > 100 %} ...{% endif %}
+                    {{ box.description[:90] }}{% if box.description | length > 100 %} ...{% endif %}
                     <br />
                 {% endif %}
                 {% if showLocation %}
-                    Location: {{ box.location.displayLabel }}
+                    <em>{{ box.location.displayLabel }}</em>
                     <br />
                 {% endif %}
                 {% if box.boxModel is not empty %}
-                    Model: {{ box.boxModel.label }}
+                    <em>{{ box.boxModel.label }}</em>
                 {% endif %}
             </p>
         </div>

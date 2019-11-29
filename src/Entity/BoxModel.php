@@ -28,6 +28,31 @@ class BoxModel
      */
     private $boxes;
 
+    /**
+     * @ORM\Column(type="string", length=64, nullable=true)
+     */
+    private $make;
+
+    /**
+     * @ORM\Column(type="string", length=64, nullable=true)
+     */
+    private $model;
+
+    /**
+     * @ORM\Column(type="string", length=64, nullable=true)
+     */
+    private $size;
+
+    /**
+     * @ORM\Column(type="string", length=64, nullable=true)
+     */
+    private $color;
+
+    /**
+     * @ORM\Column(type="string", length=16, nullable=true)
+     */
+    private $latch;
+
     public function __construct()
     {
         $this->boxes = new ArrayCollection();
@@ -77,6 +102,66 @@ class BoxModel
                 $box->setBoxModel(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getMake(): ?string
+    {
+        return $this->make;
+    }
+
+    public function setMake(?string $make): self
+    {
+        $this->make = $make;
+
+        return $this;
+    }
+
+    public function getModel(): ?string
+    {
+        return $this->model;
+    }
+
+    public function setModel(string $model): self
+    {
+        $this->model = $model;
+
+        return $this;
+    }
+
+    public function getSize(): ?string
+    {
+        return $this->size;
+    }
+
+    public function setSize(string $size): self
+    {
+        $this->size = $size;
+
+        return $this;
+    }
+
+    public function getColor(): ?string
+    {
+        return $this->color;
+    }
+
+    public function setColor(?string $color): self
+    {
+        $this->color = $color;
+
+        return $this;
+    }
+
+    public function getLatch(): ?string
+    {
+        return $this->latch;
+    }
+
+    public function setLatch(?string $latch): self
+    {
+        $this->latch = $latch;
 
         return $this;
     }

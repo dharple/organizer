@@ -1,5 +1,5 @@
 {% extends 'base.html.twig' %}
-{% import 'macros/box.html.twig' as boxCard %}
+{% import 'macros/box_card.html.twig' as boxCard %}
 
 {% block title %}
     Organizer: All Boxes
@@ -17,8 +17,16 @@
             <a class="btn btn-light" href="/">&lt; Back to Top</a>
         </div>
     </div>
-    {% for box in boxes %}
-        {{ boxCard.draw(box, true) }}
+    {% for row in boxes|batch(3, 'skip') %}
+        <div class="row mb-3">
+            {% for box in row %}
+                <div class="col-md-12 col-lg-4">
+                    {% if box != 'skip' %}
+                        {{ boxCard.draw(box, true) }}
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
     {% endfor %}
 </div>
 {% endblock %}

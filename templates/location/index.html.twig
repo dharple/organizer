@@ -33,7 +33,7 @@
             {% for box in row %}
                 <div class="col-md-12 col-lg-4">
                     {% if box != 'skip' %}
-                        {{ boxCard.draw(box, true) }}
+                        {{ boxCard.draw(box, false) }}
                     {% endif %}
                 </div>
             {% endfor %}

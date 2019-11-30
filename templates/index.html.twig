@@ -1,23 +1,41 @@
 {% extends 'base.html.twig' %}
+{% import 'macros/box_card.html.twig' as boxCard %}
 
 {% block title %}
     Organizer
 {% endblock %}
 
 {% block body %}
-<div class="container main-window text-center">
-    <div class="row mb-3">
+<div class="container main-window">
+    <div class="row mb-3 text-center">
         <div class="col">
             <h4>Welcome</h4>
         </div>
     </div>
-    {% for location in locations %}
-        <div class="row mb-3">
-            <div class="col">
-                <a class="btn btn-block btn-primary" href="/location/{{ location.id | e('url') }}">{{ location.label }}</a>
+    <div class="accordion">
+        {% for location in locations %}
+            {% set accordionTarget = 'children-' ~ location.id | e('html_attr') %}
+            <div class="row mb-3">
+                <div class="col">
+                    <button class="btn btn-block btn-primary btn-accordion" type="button" data-toggle="collapse" data-target="#{{ accordionTarget }}">
+                        {{ location.displayLabel }}
+                    </button>
+                </div>
             </div>
-        </div>
-    {% endfor %}
+            <div class="container collapse accordionTarget" id="{{ accordionTarget }}">
+                {% for row in location.getBoxes()|batch(3, 'skip') %}
+                    <div class="row mb-3">
+                        {% for box in row %}
+                            <div class="col-md-12 col-lg-4">
+                                {% if box != 'skip' %}
+                                    {{ boxCard.draw(box, false) }}
+                                {% endif %}
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endfor %}
     <div class="row mb-3">
         <div class="col">
             <a class="btn btn-block btn-primary" href="/allBoxes">Show All Boxes</a>

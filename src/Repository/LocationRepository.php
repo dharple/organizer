@@ -23,6 +23,27 @@ class LocationRepository extends ServiceEntityRepository
     /**
      * @return Location[] Returns an array of Location objects
      */
+    public function getLocationsWithBoxes()
+    {
+        $ret = $this->createQueryBuilder('l')
+            ->where('l.id IN (SELECT DISTINCT IDENTITY(b.location) FROM App\Entity\Box b)')
+            ->getQuery()
+            ->getResult();
+
+        usort($ret, function($a, $b) {
+            $a = $a->getDisplayLabel();
+            $b = $b->getDisplayLabel();
+            if ($a == $b) {
+                return 0;
+            }
+            return ($a < $b) ? -1 : 1;
+        });
+
+        return $ret;
+    }
+    /**
+     * @return Location[] Returns an array of Location objects
+     */
     public function getSublocations(int $id)
     {
         return $this->createQueryBuilder('l')

@@ -15,7 +15,7 @@ class IndexController extends AbstractController
     public function index()
     {
         return $this->render('index.html.twig', [
-            'locations' => $this->getDoctrine()->getRepository(Location::class)->getTopLevelLocations(),
+            'locations' => $this->getDoctrine()->getRepository(Location::class)->getLocationsWithBoxes(),
         ]);
     }
 

@@ -21,9 +21,32 @@ class LocationRepository extends ServiceEntityRepository
     }
 
     /**
+     * Sorted by displayLabel
+     *
      * @return Location[] Returns an array of Location objects
      */
-    public function getLocationsWithBoxes()
+    public function getSortedLocations()
+    {
+        $ret = $this->createQueryBuilder('l')
+            ->getQuery()
+            ->getResult();
+
+        usort($ret, function($a, $b) {
+            $a = $a->getDisplayLabel();
+            $b = $b->getDisplayLabel();
+            if ($a == $b) {
+                return 0;
+            }
+            return ($a < $b) ? -1 : 1;
+        });
+
+        return $ret;
+    }
+
+    /**
+     * @return Location[] Returns an array of Location objects
+     */
+    public function getSortedLocationsWithBoxes()
     {
         $ret = $this->createQueryBuilder('l')
             ->where('l.id IN (SELECT DISTINCT IDENTITY(b.location) FROM App\Entity\Box b)')
@@ -41,6 +64,7 @@ class LocationRepository extends ServiceEntityRepository
 
         return $ret;
     }
+
     /**
      * @return Location[] Returns an array of Location objects
      */

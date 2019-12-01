@@ -26,11 +26,7 @@ class BoxController extends AbstractController
             $em->persist($box);
             $em->flush();
 
-            if ($box->getLocation() !== null) {
-                return $this->redirectToRoute('Location Page', ['id' => $box->getLocation()->getId()]);
-            } else {
-                return $this->redirectToRoute('Home Page');
-            }
+            return $this->redirectToRoute('Home Page');
         }
 
         return $this->render('box/index.html.twig', [
@@ -55,7 +51,7 @@ class BoxController extends AbstractController
             $em->persist($box);
             $em->flush();
 
-            return $this->redirectToRoute('Box Page', ['id' => $box->getId()]);
+            return $this->redirectToRoute('Home Page');
         }
 
         return $this->render('box/index.html.twig', [

@@ -18,9 +18,9 @@ class LocationController extends AbstractController
         $location = $repo->findOneById($id);
         return $this->render('location/index.html.twig', [
             'currentLocation' => $location,
-            'parentLocation' => $location->getParentLocation(),
-            'locations' => $repo->getSubLocations($id),
-            'boxes' => $this->getDoctrine()->getRepository(Box::class)->getByLocation($id),
+            'parentLocation'  => $location->getParentLocation(),
+            'locations'       => $repo->getSubLocations($id),
+            'boxes'           => $location->getBoxes(),
         ]);
     }
 }

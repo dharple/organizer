@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Box;
 use App\Entity\BoxModel;
 use App\Entity\Location;
+use App\Repository\LocationRepository;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -14,6 +15,13 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class BoxType extends AbstractType
 {
+    protected $lr;
+
+    public function __construct(LocationRepository $lr)
+    {
+        $this->lr = $lr;
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -22,6 +30,7 @@ class BoxType extends AbstractType
             ->add('location', EntityType::class, [
                 'choice_label' => 'displayLabel',
                 'class'        => Location::class,
+                'choices'      => $this->lr->getSortedLocations(),
                 'placeholder'  => 'Choose a location...',
                 'required'     => false,
             ])

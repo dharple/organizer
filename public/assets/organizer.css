@@ -2,6 +2,11 @@
     width: 100%;
 }
 
+.login-window {
+    width: 100%;
+    max-width: 400px;
+}
+
 .card-header {
     background-color: cyan;
 }

@@ -103,14 +103,59 @@ class Location
 
     public function setParentLocation(?self $parentLocation): self
     {
+        $hold = $this->parentLocation;
+
         $this->parentLocation = $parentLocation;
+
+        try {
+            // check for recursion and bail if we find it
+            iterator_to_array($this->parentWalker());
+        } catch (Exception $e) {
+            $this->parentLocation = $hold;
+            throw $e;
+        }
 
         return $this;
     }
 
+    /**
+     * Generator that walks back through parents and yields each generation in
+     * turn.
+     *
+     * Throws an exception if the same ID appears twice.
+     *
+     * @return Location
+     */
+    protected function parentWalker()
+    {
+        $ids = [];
+
+        $location = $this;
+        while ($location !== null) {
+            if (in_array($location->getId(), $ids)) {
+                throw new \Exception('Recursive location hierarchy found');
+            }
+            $ids[] = $location->getId();
+
+            yield $location;
+            $location = $location->getParentLocation();
+        }
+    }
+
+    /**
+     * Generates the display label for this class, showing its full place on
+     * the tree.
+     *
+     * @return string A full display label for this location.  For instance
+     *                "Home - Garage - Wire Rack".
+     */
     public function getDisplayLabel()
     {
-        $parentLocation = $this->getParentLocation();
-        return ($parentLocation !== null ? $parentLocation->getDisplayLabel() . ' - ' : '') . $this->getLabel();
+        $build = [];
+        foreach ($this->parentWalker() as $location) {
+            $build[] = $location->getLabel();
+        }
+
+        return implode(' - ', array_reverse($build));
     }
 }

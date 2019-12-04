@@ -1,43 +1,25 @@
 {% extends 'base.html.twig' %}
-{% import 'macros/box_card.html.twig' as boxCard %}
 
 {% block title %}
-    Organizer: {{ currentLocation.label }}
+    Organizer: {{ location.label }}
 {% endblock %}
 
 {% block body %}
 <div class="container main-window">
     <div class="row mb-3 text-center">
         <div class="col">
-            <h4>{{ currentLocation.displayLabel }}</h4>
+            {% if location.id is not null %}
+                <h4>{{ location.displayLabel }}</h4>
+            {% else %}
+                <h4>New Location</h4>
+            {% endif %}
         </div>
     </div>
     <div class="row mb-3 text-left">
         <div class="col">
-            {% if parentLocation is not null %}
-                <a class="btn btn-light" href="/location/{{ parentLocation.id | e('url') }}">&lt; Back to {{ parentLocation.displayLabel }}</a>
-            {% else %}
-                <a class="btn btn-light" href="/">&lt; Back to Top</a>
-            {% endif %}
+            <a class="btn btn-light" href="/">&lt; Back</a>
         </div>
     </div>
-    {% for location in locations %}
-        <div class="row mb-3 text-center">
-            <div class="col">
-                <a class="btn btn-block btn-primary" href="/location/{{ location.id | e('url') }}">{{ location.label }}</a>
-            </div>
-        </div>
-    {% endfor %}
-    {% for row in boxes|batch(3, 'skip') %}
-        <div class="row mb-3">
-            {% for box in row %}
-                <div class="col-md-12 col-lg-4">
-                    {% if box != 'skip' %}
-                        {{ boxCard.draw(box, false) }}
-                    {% endif %}
-                </div>
-            {% endfor %}
-        </div>
-    {% endfor %}
+    {{ form(form) }}
 </div>
 {% endblock %}

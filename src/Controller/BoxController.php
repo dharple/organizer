@@ -78,4 +78,17 @@ class BoxController extends AbstractController
             ]
         );
     }
+
+    /**
+     * @Route("/box/showAll", name="All Boxes")
+     */
+    public function showAll()
+    {
+        return $this->render(
+            'box/all.html.twig',
+            [
+                'boxes' => $this->getDoctrine()->getRepository(Box::class)->findAll(),
+            ]
+        );
+    }
 }

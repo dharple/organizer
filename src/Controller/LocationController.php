@@ -12,7 +12,9 @@
 namespace App\Controller;
 
 use App\Entity\Location;
+use App\Form\LocationType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -24,17 +26,68 @@ class LocationController extends AbstractController
     /**
      * @Route("/location/{id}", name="Location Page", requirements={"id"="\d+"})
      */
-    public function index(int $id)
+    public function index(Request $request, int $id)
     {
-        $repo = $this->getDoctrine()->getRepository(Location::class);
-        $location = $repo->findOneById($id);
+        $location = $this->getDoctrine()->getRepository(Location::class)->findOneById($id);
+        $form = $this->createForm(LocationType::class, $location);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $location = $form->getData();
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($location);
+            $em->flush();
+
+            return $this->redirectToRoute('Home Page');
+        }
+
         return $this->render(
             'location/index.html.twig',
             [
-                'currentLocation' => $location,
-                'parentLocation'  => $location->getParentLocation(),
-                'locations'       => $repo->getSubLocations($id),
-                'boxes'           => $location->getBoxes(),
+                'location' => $location,
+                'form'     => $form->createView(),
+            ]
+        );
+    }
+
+    /**
+     * @Route("/location/new", name="New Location Page")
+     */
+    public function new(Request $request)
+    {
+        $location = new Location();
+        $form = $this->createForm(LocationType::class, $location);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $location = $form->getData();
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($location);
+            $em->flush();
+
+            return $this->redirectToRoute('Home Page');
+        }
+
+        return $this->render(
+            'location/index.html.twig',
+            [
+                'location' => $location,
+                'form'     => $form->createView(),
+            ]
+        );
+    }
+
+    /**
+     * @Route("/location/showAll", name="All Locationes")
+     */
+    public function showAll()
+    {
+        return $this->render(
+            'location/all.html.twig',
+            [
+                'locations' => $this->getDoctrine()->getRepository(Location::class)->getSorted(),
             ]
         );
     }

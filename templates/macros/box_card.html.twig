@@ -11,7 +11,11 @@
                     <br />
                 {% endif %}
                 {% if showLocation %}
-                    <em>{{ box.location.displayLabel }}</em>
+                    {% if box.location is not empty %}
+                        <em>{{ box.location.displayLabel }}</em>
+                    {% else %}
+                        <em>Location Unknown</em>
+                    {% endif %}
                     <br />
                 {% endif %}
                 {% if box.boxModel is not empty %}

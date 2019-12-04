@@ -15,13 +15,11 @@
             {% endif %}
         </div>
     </div>
-    {% if box.location is not null %}
-        <div class="row mb-3 text-left">
-            <div class="col">
-                <a class="btn btn-light" href="/location/{{ box.location.id | e('url') }}">&lt; Back to {{ box.location.displayLabel }}</a>
-            </div>
+    <div class="row mb-3 text-left">
+        <div class="col">
+            <a class="btn btn-light" href="/">&lt; Back</a>
         </div>
-    {% endif %}
+    </div>
     {% if box.id is not null %}
         <div class="form-group">
             <label for="id">Box</label>

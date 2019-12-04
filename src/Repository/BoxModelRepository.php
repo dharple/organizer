@@ -30,4 +30,17 @@ class BoxModelRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, BoxModel::class);
     }
+
+    /**
+     * Sorted by label
+     *
+     * @return BoxModel[] Returns an array of BoxModel objects
+     */
+    public function getSorted()
+    {
+        return $this->createQueryBuilder('m')
+            ->orderBy('m.label', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
 }

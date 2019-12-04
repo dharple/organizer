@@ -1,18 +1,14 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    Organizer: {{ boxModel.label }}
+    Organizer: All Locations
 {% endblock %}
 
 {% block body %}
 <div class="container main-window">
     <div class="row mb-3 text-center">
         <div class="col">
-            {% if boxModel.id is not null %}
-                <h4>{{ boxModel.label }}</h4>
-            {% else %}
-                <h4>New Box Model</h4>
-            {% endif %}
+            <h4>All Locations</h4>
         </div>
     </div>
     <div class="row mb-3 text-left">
@@ -20,6 +16,12 @@
             <a class="btn btn-light" href="/">&lt; Back</a>
         </div>
     </div>
-    {{ form(form) }}
+    {% for location in locations %}
+        <div class="row mb-3">
+            <div class="col">
+                <a class="btn btn-block btn-primary" type="button" href="/location/{{ location.id | e('html_attr') }}">{{ location.displayLabel }}</a>
+            </div>
+        </div>
+    {% endfor %}
 </div>
 {% endblock %}

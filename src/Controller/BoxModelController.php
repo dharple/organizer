@@ -38,6 +38,8 @@ class BoxModelController extends AbstractController
             $em = $this->getDoctrine()->getManager();
             $em->persist($boxModel);
             $em->flush();
+
+            return $this->redirectToRoute('Home Page');
         }
 
         return $this->render(
@@ -73,6 +75,19 @@ class BoxModelController extends AbstractController
             [
                 'boxModel' => $boxModel,
                 'form'     => $form->createView(),
+            ]
+        );
+    }
+
+    /**
+     * @Route("/box/model/showAll", name="All Box Models")
+     */
+    public function showAll()
+    {
+        return $this->render(
+            'box_model/all.html.twig',
+            [
+                'boxModels' => $this->getDoctrine()->getRepository(BoxModel::class)->getSorted(),
             ]
         );
     }

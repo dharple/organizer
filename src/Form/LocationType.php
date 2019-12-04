@@ -11,12 +11,8 @@
 
 namespace App\Form;
 
-use App\Entity\Box;
-use App\Entity\BoxModel;
 use App\Entity\Location;
-use App\Repository\BoxModelRepository;
 use App\Repository\LocationRepository;
-use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -24,15 +20,10 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * Builds a form for editing a box
+ * Builds a form for editing a location
  */
-class BoxType extends AbstractType
+class LocationType extends AbstractType
 {
-    /**
-     * @var BoxModelRepository
-     */
-    protected $boxModelRepository;
-
     /**
      * @var LocationRepository
      */
@@ -41,11 +32,8 @@ class BoxType extends AbstractType
     /**
      * Constructor
      */
-    public function __construct(
-        BoxModelRepository $boxModelRepository,
-        LocationRepository $locationRepository
-    ) {
-        $this->boxModelRepository = $boxModelRepository;
+    public function __construct(LocationRepository $locationRepository)
+    {
         $this->locationRepository = $locationRepository;
     }
 
@@ -56,26 +44,14 @@ class BoxType extends AbstractType
     {
         $builder
             ->add('label')
-            ->add('description')
             ->add(
-                'location',
+                'parentLocation',
                 EntityType::class,
                 [
                     'choice_label' => 'displayLabel',
                     'class'        => Location::class,
                     'choices'      => $this->locationRepository->getSorted(),
-                    'placeholder'  => 'Choose a location...',
-                    'required'     => false,
-                ]
-            )
-            ->add(
-                'boxModel',
-                EntityType::class,
-                [
-                    'choice_label' => 'label',
-                    'class'        => BoxModel::class,
-                    'choices'      => $this->boxModelRepository->getSorted(),
-                    'placeholder'  => 'Choose a model...',
+                    'placeholder'  => 'This is a Top Level Location',
                     'required'     => false,
                 ]
             )
@@ -88,7 +64,7 @@ class BoxType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Box::class,
+            'data_class' => Location::class,
         ]);
     }
 }

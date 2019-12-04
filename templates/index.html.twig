@@ -9,7 +9,7 @@
 <div class="container main-window">
     <div class="row mb-3 text-center">
         <div class="col">
-            <h4>Welcome</h4>
+            <h4>Overview</h4>
         </div>
     </div>
     <div class="accordion">
@@ -36,15 +36,36 @@
                 {% endfor %}
             </div>
         {% endfor %}
-    <div class="row mb-3">
-        <div class="col">
-            <a class="btn btn-block btn-primary" href="/allBoxes">Show All Boxes</a>
-        </div>
     </div>
     <div class="row mb-3">
         <div class="col">
             <a class="btn btn-block btn-primary" href="/box/new">Add Box</a>
         </div>
+        {% if boxCount > 0 %}
+            <div class="col">
+                <a class="btn btn-block btn-primary" href="/box/showAll">Show All</a>
+            </div>
+        {% endif %}
+    </div>
+    <div class="row mb-3">
+        <div class="col">
+            <a class="btn btn-block btn-primary" href="/box/model/new">Add Box Model</a>
+        </div>
+        {% if boxModelCount > 0 %}
+            <div class="col">
+                <a class="btn btn-block btn-primary" href="/box/model/showAll">Show All</a>
+            </div>
+        {% endif %}
+    </div>
+    <div class="row mb-3">
+        <div class="col">
+            <a class="btn btn-block btn-primary" href="/location/new">Add Location</a>
+        </div>
+        {% if locationCount > 0 %}
+            <div class="col">
+                <a class="btn btn-block btn-primary" href="/location/showAll">Show All</a>
+            </div>
+        {% endif %}
     </div>
 </div>
 {% endblock %}

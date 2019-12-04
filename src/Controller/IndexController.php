@@ -12,6 +12,7 @@
 namespace App\Controller;
 
 use App\Entity\Box;
+use App\Entity\BoxModel;
 use App\Entity\Location;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
@@ -21,29 +22,20 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class IndexController extends AbstractController
 {
-
-    /**
-     * @Route("/allBoxes", name="All Boxes")
-     */
-    public function allBoxes()
-    {
-        return $this->render(
-            'allBoxes.html.twig',
-            [
-                'boxes' => $this->getDoctrine()->getRepository(Box::class)->findAll(),
-            ]
-        );
-    }
-
     /**
      * @Route("/", name="Home Page")
      */
     public function index()
     {
+        $em = $this->getDoctrine();
+
         return $this->render(
             'index.html.twig',
             [
-                'locations' => $this->getDoctrine()->getRepository(Location::class)->getSortedLocationsWithBoxes(),
+                'boxCount'      => $em->getRepository(Box::class)->count([]),
+                'boxModelCount' => $em->getRepository(BoxModel::class)->count([]),
+                'locationCount' => $em->getRepository(Location::class)->count([]),
+                'locations'     => $em->getRepository(Location::class)->getSortedWithBoxes(),
             ]
         );
     }

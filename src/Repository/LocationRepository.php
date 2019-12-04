@@ -36,7 +36,7 @@ class LocationRepository extends ServiceEntityRepository
      *
      * @return Location[] Returns an array of Location objects
      */
-    public function getSortedLocations()
+    public function getSorted()
     {
         $ret = $this->createQueryBuilder('l')
             ->getQuery()
@@ -50,7 +50,7 @@ class LocationRepository extends ServiceEntityRepository
     /**
      * @return Location[] Returns an array of Location objects
      */
-    public function getSortedLocationsWithBoxes()
+    public function getSortedWithBoxes()
     {
         $ret = $this->createQueryBuilder('l')
             ->where('l.id IN (SELECT DISTINCT IDENTITY(b.location) FROM App\Entity\Box b)')

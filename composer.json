@@ -65,6 +65,8 @@
             "cache:clear": "symfony-cmd",
             "assets:install %PUBLIC_DIR%": "symfony-cmd"
         },
+        "phpcbf": "phpcbf",
+        "phpcs": "phpcs",
         "post-install-cmd": [
             "@auto-scripts"
         ],

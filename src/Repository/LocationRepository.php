@@ -1,5 +1,14 @@
 <?php
 
+/**
+ * This file is part of the Organizer package.
+ *
+ * (c) Doug Harple <dharple@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace App\Repository;
 
 use App\Entity\Location;
@@ -14,7 +23,9 @@ use Doctrine\Common\Persistence\ManagerRegistry;
  */
 class LocationRepository extends ServiceEntityRepository
 {
-
+    /**
+     * Constructor
+     */
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Location::class);
@@ -31,14 +42,7 @@ class LocationRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
 
-        usort($ret, function($a, $b) {
-            $a = $a->getDisplayLabel();
-            $b = $b->getDisplayLabel();
-            if ($a == $b) {
-                return 0;
-            }
-            return ($a < $b) ? -1 : 1;
-        });
+        usort($ret, [$this, 'sortByDisplayLabel']);
 
         return $ret;
     }
@@ -53,14 +57,7 @@ class LocationRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
 
-        usort($ret, function($a, $b) {
-            $a = $a->getDisplayLabel();
-            $b = $b->getDisplayLabel();
-            if ($a == $b) {
-                return 0;
-            }
-            return ($a < $b) ? -1 : 1;
-        });
+        usort($ret, [$this, 'sortByDisplayLabel']);
 
         return $ret;
     }
@@ -90,4 +87,16 @@ class LocationRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    /**
+     * Method for sorting locations by display label
+     */
+    public function sortByDisplayLabel(Location $a, Location $b)
+    {
+        $a = $a->getDisplayLabel();
+        $b = $b->getDisplayLabel();
+        if ($a == $b) {
+            return 0;
+        }
+        return ($a < $b) ? -1 : 1;
+    }
 }

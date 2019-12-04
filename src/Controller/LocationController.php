@@ -1,14 +1,26 @@
 <?php
 
+/**
+ * This file is part of the Organizer package.
+ *
+ * (c) Doug Harple <dharple@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace App\Controller;
 
+use App\Entity\Location;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Entity\Box;
-use App\Entity\Location;
 
+/**
+ * Controller for /location
+ */
 class LocationController extends AbstractController
 {
+
     /**
      * @Route("/location/{id}", name="Location Page", requirements={"id"="\d+"})
      */
@@ -16,11 +28,14 @@ class LocationController extends AbstractController
     {
         $repo = $this->getDoctrine()->getRepository(Location::class);
         $location = $repo->findOneById($id);
-        return $this->render('location/index.html.twig', [
-            'currentLocation' => $location,
-            'parentLocation'  => $location->getParentLocation(),
-            'locations'       => $repo->getSubLocations($id),
-            'boxes'           => $location->getBoxes(),
-        ]);
+        return $this->render(
+            'location/index.html.twig',
+            [
+                'currentLocation' => $location,
+                'parentLocation'  => $location->getParentLocation(),
+                'locations'       => $repo->getSubLocations($id),
+                'boxes'           => $location->getBoxes(),
+            ]
+        );
     }
 }

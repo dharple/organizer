@@ -1,5 +1,14 @@
 <?php
 
+/**
+ * This file is part of the Organizer package.
+ *
+ * (c) Doug Harple <dharple@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace App;
 
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
@@ -9,27 +18,21 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Kernel as BaseKernel;
 use Symfony\Component\Routing\RouteCollectionBuilder;
 
+/**
+ * {@inheritdoc}
+ */
 class Kernel extends BaseKernel
 {
     use MicroKernelTrait;
 
+    /**
+     * {@inheritdoc}
+     */
     private const CONFIG_EXTS = '.{php,xml,yaml,yml}';
 
-    public function registerBundles(): iterable
-    {
-        $contents = include $this->getProjectDir() . '/config/bundles.php';
-        foreach ($contents as $class => $envs) {
-            if ($envs[$this->environment] ?? $envs['all'] ?? false) {
-                yield new $class();
-            }
-        }
-    }
-
-    public function getProjectDir(): string
-    {
-        return \dirname(__DIR__);
-    }
-
+    /**
+     * {@inheritdoc}
+     */
     protected function configureContainer(ContainerBuilder $container, LoaderInterface $loader): void
     {
         $container->addResource(new FileResource($this->getProjectDir() . '/config/bundles.php'));
@@ -43,6 +46,9 @@ class Kernel extends BaseKernel
         $loader->load($confDir . '/{services}_' . $this->environment . self::CONFIG_EXTS, 'glob');
     }
 
+    /**
+     * {@inheritdoc}
+     */
     protected function configureRoutes(RouteCollectionBuilder $routes): void
     {
         $confDir = $this->getProjectDir() . '/config';
@@ -52,4 +58,24 @@ class Kernel extends BaseKernel
         $routes->import($confDir . '/{routes}' . self::CONFIG_EXTS, '/', 'glob');
     }
 
+    /**
+     * {@inheritdoc}
+     */
+    public function getProjectDir(): string
+    {
+        return \dirname(__DIR__);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function registerBundles(): iterable
+    {
+        $contents = include $this->getProjectDir() . '/config/bundles.php';
+        foreach ($contents as $class => $envs) {
+            if ($envs[$this->environment] ?? $envs['all'] ?? false) {
+                yield new $class();
+            }
+        }
+    }
 }

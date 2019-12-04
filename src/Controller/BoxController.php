@@ -1,5 +1,14 @@
 <?php
 
+/**
+ * This file is part of the Organizer package.
+ *
+ * (c) Doug Harple <dharple@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace App\Controller;
 
 use App\Entity\Box;
@@ -8,8 +17,12 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * Controller for /box
+ */
 class BoxController extends AbstractController
 {
+
     /**
      * @Route("/box/{id}", name="Box Page", requirements={"id"="\d+"})
      */
@@ -29,10 +42,13 @@ class BoxController extends AbstractController
             return $this->redirectToRoute('Home Page');
         }
 
-        return $this->render('box/index.html.twig', [
-            'box'  => $box,
-            'form' => $form->createView(),
-        ]);
+        return $this->render(
+            'box/index.html.twig',
+            [
+                'box'  => $box,
+                'form' => $form->createView(),
+            ]
+        );
     }
 
     /**
@@ -54,10 +70,12 @@ class BoxController extends AbstractController
             return $this->redirectToRoute('Home Page');
         }
 
-        return $this->render('box/index.html.twig', [
-            'box'  => $box,
-            'form' => $form->createView(),
-        ]);
+        return $this->render(
+            'box/index.html.twig',
+            [
+                'box'  => $box,
+                'form' => $form->createView(),
+            ]
+        );
     }
-
 }

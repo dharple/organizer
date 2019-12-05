@@ -23,6 +23,14 @@ use Symfony\Component\Routing\Annotation\Route;
 class IndexController extends AbstractController
 {
     /**
+     * @Route("/about", name="About Page")
+     */
+    public function about()
+    {
+        return $this->render('about.html.twig');
+    }
+
+    /**
      * @Route("/", name="Home Page")
      */
     public function index()

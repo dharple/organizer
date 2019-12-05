@@ -1,0 +1,15 @@
+#!/bin/sh
+#
+# Convert .svg to .png
+#
+
+COMMENT="Icon by Font Awesome: https://fontawesome.com/license/free
+Conversion: github.com/dharple/organizer/blob/master/bin/makepng"
+
+convert \
+	-size 576x512 \
+	-border 16x48 \
+	-bordercolor white \
+	-comment "$COMMENT" \
+	public/assets/fontawesome/dolly-solid-cornflowerblue.svg \
+	public/assets/fontawesome/dolly-solid-cornflowerblue.png

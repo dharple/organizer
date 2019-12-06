@@ -13,13 +13,13 @@
     </div>
     <div class="row mb-3 text-left">
         <div class="col">
-            <a class="btn btn-light" href="/">&lt; Back</a>
+            <a class="btn btn-light" href="{{ path('app_home') }}">&lt; Back</a>
         </div>
     </div>
     {% for location in locations %}
         <div class="row mb-3">
             <div class="col">
-                <a class="btn btn-block btn-primary" type="button" href="/location/{{ location.id | e('html_attr') }}">{{ location.displayLabel }}</a>
+                <a class="btn btn-block btn-primary" type="button" href="{{ path('app_location', {id: location.id}) }}">{{ location.displayLabel }}</a>
             </div>
         </div>
     {% endfor %}

@@ -24,7 +24,7 @@ class BoxModelController extends AbstractController
 {
 
     /**
-     * @Route("/box/model/{id}", name="Box Model Page", requirements={"id"="\d+"})
+     * @Route("/box/model/{id}", name="app_box_model", requirements={"id"="\d+"})
      */
     public function index(Request $request, int $id)
     {
@@ -39,7 +39,7 @@ class BoxModelController extends AbstractController
             $em->persist($boxModel);
             $em->flush();
 
-            return $this->redirectToRoute('Home Page');
+            return $this->redirectToRoute('app_home');
         }
 
         return $this->render(
@@ -52,7 +52,7 @@ class BoxModelController extends AbstractController
     }
 
     /**
-     * @Route("/box/model/new", name="New Box Model Page")
+     * @Route("/box/model/new", name="app_box_model_new")
      */
     public function new(Request $request)
     {
@@ -67,7 +67,7 @@ class BoxModelController extends AbstractController
             $em->persist($boxModel);
             $em->flush();
 
-            return $this->redirectToRoute('Box Model Page', ['id' => $boxModel->getId()]);
+            return $this->redirectToRoute('app_box_model', ['id' => $boxModel->getId()]);
         }
 
         return $this->render(
@@ -80,7 +80,7 @@ class BoxModelController extends AbstractController
     }
 
     /**
-     * @Route("/box/model/showAll", name="All Box Models")
+     * @Route("/box/model/showAll", name="app_box_model_all")
      */
     public function showAll()
     {

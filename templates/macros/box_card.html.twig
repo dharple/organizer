@@ -4,7 +4,7 @@
             {{ box.displayLabel }}
         </div>
         <div class="card-body">
-            <a class="card-link float-right" href="/box/{{ box.id | e('url') }}">Edit</a>
+            <a class="card-link float-right" href="{{ path('app_box', {id: box.id}) }}">Edit</a>
             <p class="card-text">
                 {% if box.description is not empty %}
                     {{ box.description[:90] }}{% if box.description | length > 100 %} ...{% endif %}

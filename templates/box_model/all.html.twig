@@ -13,13 +13,13 @@
     </div>
     <div class="row mb-3 text-left">
         <div class="col">
-            <a class="btn btn-light" href="/">&lt; Back</a>
+            <a class="btn btn-light" href="{{ path('app_home') }}">&lt; Back</a>
         </div>
     </div>
     {% for boxModel in boxModels %}
         <div class="row mb-3">
             <div class="col">
-                <a class="btn btn-block btn-primary" type="button" href="/box/model/{{ boxModel.id | e('html_attr') }}">{{ boxModel.label }}</a>
+                <a class="btn btn-block btn-primary" type="button" href="{{ path('app_box_model', {id: boxModel.id}) }}">{{ boxModel.label }}</a>
             </div>
         </div>
     {% endfor %}

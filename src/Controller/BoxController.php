@@ -24,7 +24,7 @@ class BoxController extends AbstractController
 {
 
     /**
-     * @Route("/box/{id}", name="Box Page", requirements={"id"="\d+"})
+     * @Route("/box/{id}", name="app_box", requirements={"id"="\d+"})
      */
     public function index(Request $request, int $id)
     {
@@ -39,7 +39,7 @@ class BoxController extends AbstractController
             $em->persist($box);
             $em->flush();
 
-            return $this->redirectToRoute('Home Page');
+            return $this->redirectToRoute('app_home');
         }
 
         return $this->render(
@@ -52,7 +52,7 @@ class BoxController extends AbstractController
     }
 
     /**
-     * @Route("/box/new", name="New Box Page")
+     * @Route("/box/new", name="app_box_new")
      */
     public function new(Request $request)
     {
@@ -67,7 +67,7 @@ class BoxController extends AbstractController
             $em->persist($box);
             $em->flush();
 
-            return $this->redirectToRoute('Home Page');
+            return $this->redirectToRoute('app_home');
         }
 
         return $this->render(
@@ -80,7 +80,7 @@ class BoxController extends AbstractController
     }
 
     /**
-     * @Route("/box/showAll", name="All Boxes")
+     * @Route("/box/showAll", name="app_box_all")
      */
     public function showAll()
     {

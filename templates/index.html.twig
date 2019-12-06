@@ -39,31 +39,31 @@
     </div>
     <div class="row mb-3">
         <div class="col">
-            <a class="btn btn-block btn-primary" href="/box/new">Add Box</a>
+            <a class="btn btn-block btn-primary" href="{{ path('app_box_new') }}">Add Box</a>
         </div>
         {% if boxCount > 0 %}
             <div class="col">
-                <a class="btn btn-block btn-primary" href="/box/showAll">Show All</a>
+                <a class="btn btn-block btn-primary" href="{{ path('app_box_all') }}">Show All</a>
             </div>
         {% endif %}
     </div>
     <div class="row mb-3">
         <div class="col">
-            <a class="btn btn-block btn-primary" href="/box/model/new">Add Box Model</a>
+            <a class="btn btn-block btn-primary" href="{{ path('app_box_model_new') }}">Add Box Model</a>
         </div>
         {% if boxModelCount > 0 %}
             <div class="col">
-                <a class="btn btn-block btn-primary" href="/box/model/showAll">Show All</a>
+                <a class="btn btn-block btn-primary" href="{{ path('app_box_model_all') }}">Show All</a>
             </div>
         {% endif %}
     </div>
     <div class="row mb-3">
         <div class="col">
-            <a class="btn btn-block btn-primary" href="/location/new">Add Location</a>
+            <a class="btn btn-block btn-primary" href="{{ path('app_location_new') }}">Add Location</a>
         </div>
         {% if locationCount > 0 %}
             <div class="col">
-                <a class="btn btn-block btn-primary" href="/location/showAll">Show All</a>
+                <a class="btn btn-block btn-primary" href="{{ path('app_location_all') }}">Show All</a>
             </div>
         {% endif %}
     </div>

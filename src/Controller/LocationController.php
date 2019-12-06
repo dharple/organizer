@@ -24,7 +24,7 @@ class LocationController extends AbstractController
 {
 
     /**
-     * @Route("/location/{id}", name="Location Page", requirements={"id"="\d+"})
+     * @Route("/location/{id}", name="app_location", requirements={"id"="\d+"})
      */
     public function index(Request $request, int $id)
     {
@@ -39,7 +39,7 @@ class LocationController extends AbstractController
             $em->persist($location);
             $em->flush();
 
-            return $this->redirectToRoute('Home Page');
+            return $this->redirectToRoute('app_home');
         }
 
         return $this->render(
@@ -52,7 +52,7 @@ class LocationController extends AbstractController
     }
 
     /**
-     * @Route("/location/new", name="New Location Page")
+     * @Route("/location/new", name="app_location_new")
      */
     public function new(Request $request)
     {
@@ -67,7 +67,7 @@ class LocationController extends AbstractController
             $em->persist($location);
             $em->flush();
 
-            return $this->redirectToRoute('Home Page');
+            return $this->redirectToRoute('app_home');
         }
 
         return $this->render(
@@ -80,7 +80,7 @@ class LocationController extends AbstractController
     }
 
     /**
-     * @Route("/location/showAll", name="All Locationes")
+     * @Route("/location/showAll", name="app_location_all")
      */
     public function showAll()
     {

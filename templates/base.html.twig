@@ -3,41 +3,37 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <title>{% block title %}Organizer{% endblock %}</title>
-        <link rel="icon" type="image/svg+xml" href="/assets/fontawesome/dolly-solid-cornflowerblue.svg" />
-        <link rel="apple-touch-icon" type="image/png" href="/assets/fontawesome/dolly-solid-cornflowerblue.png" />
-        {% block stylesheets %}
-            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-            <link rel="stylesheet" href="/assets/organizer.css">
-        {% endblock %}
+        <title>{% apply spaceless %}{% block title %}Organizer{% endblock %}{% endapply %}</title>
+        <link rel="icon" type="image/svg+xml" href="{{ asset('assets/fontawesome/dolly-solid-cornflowerblue.svg') }}" />
+        <link rel="apple-touch-icon" type="image/png" href="{{ asset('assets/fontawesome/dolly-solid-cornflowerblue.png') }}" />
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet" href="{{ asset('assets/organizer.css') }}">
     </head>
     <body class="py-4">
         {% block body %}{% endblock %}
-        {% block bottomNav %}
-            <div class="container">
-                <div class="row text-center">
-                    <div class="col">
-                        <hr />
-                    </div>
-                </div>
-                <div class="row text-center">
-                    <div class="col">
-                        <p><a href="/about">About</a></p>
-                    </div>
-                    {% if app.user %}
-                        <div class="col">
-                            <p><a href="/logout">Logout</a></p>
-                        </div>
-                    {% endif %}
+        <div class="container">
+            <div class="row text-center">
+                <div class="col">
+                    <hr />
                 </div>
             </div>
-        {% endblock %}
-        {% block javascripts %}
-            <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-            <script src="https://kit.fontawesome.com/9471099de1.js" crossorigin="anonymous"></script>
-            <script src="/assets/organizer.js"></script>
-        {% endblock %}
+            <div class="row text-center">
+                {% if app.request.get('_route') != 'app_about' %}
+                    <div class="col">
+                        <p><a href="{{ path('app_about') }}">About</a></p>
+                    </div>
+                {% endif %}
+                {% if app.user %}
+                    <div class="col">
+                        <p><a href="{{ path('app_logout') }}">Logout</a></p>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+        <script src="https://kit.fontawesome.com/9471099de1.js" crossorigin="anonymous"></script>
+        <script src="{{ asset('assets/organizer.js') }}"></script>
     </body>
 </html>

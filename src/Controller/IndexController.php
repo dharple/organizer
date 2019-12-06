@@ -23,7 +23,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class IndexController extends AbstractController
 {
     /**
-     * @Route("/about", name="About Page")
+     * @Route("/about", name="app_about")
      */
     public function about()
     {
@@ -31,7 +31,7 @@ class IndexController extends AbstractController
     }
 
     /**
-     * @Route("/", name="Home Page")
+     * @Route("/", name="app_home")
      */
     public function index()
     {

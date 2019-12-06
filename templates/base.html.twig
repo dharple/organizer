@@ -18,8 +18,17 @@
                 <div class="row text-center">
                     <div class="col">
                         <hr />
+                    </div>
+                </div>
+                <div class="row text-center">
+                    <div class="col">
                         <p><a href="/about">About</a></p>
                     </div>
+                    {% if app.user %}
+                        <div class="col">
+                            <p><a href="/logout">Logout</a></p>
+                        </div>
+                    {% endif %}
                 </div>
             </div>
         {% endblock %}

@@ -39,7 +39,8 @@ class BoxController extends AbstractController
             $em->persist($box);
             $em->flush();
 
-            return $this->redirectToRoute('app_home');
+            $this->addFlash('success', 'Updated ' . $box->getDisplayLabel());
+            return $this->redirectToRoute('app_box_all');
         }
 
         return $this->render(
@@ -67,7 +68,8 @@ class BoxController extends AbstractController
             $em->persist($box);
             $em->flush();
 
-            return $this->redirectToRoute('app_home');
+            $this->addFlash('success', 'Created ' . $box->getDisplayLabel());
+            return $this->redirectToRoute('app_box_all');
         }
 
         return $this->render(

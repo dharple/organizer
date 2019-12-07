@@ -39,7 +39,8 @@ class LocationController extends AbstractController
             $em->persist($location);
             $em->flush();
 
-            return $this->redirectToRoute('app_home');
+            $this->addFlash('success', 'Updated ' . $location->getDisplayLabel());
+            return $this->redirectToRoute('app_location_all');
         }
 
         return $this->render(
@@ -67,7 +68,8 @@ class LocationController extends AbstractController
             $em->persist($location);
             $em->flush();
 
-            return $this->redirectToRoute('app_home');
+            $this->addFlash('success', 'Created ' . $location->getDisplayLabel());
+            return $this->redirectToRoute('app_location_all');
         }
 
         return $this->render(

@@ -39,7 +39,8 @@ class BoxModelController extends AbstractController
             $em->persist($boxModel);
             $em->flush();
 
-            return $this->redirectToRoute('app_home');
+            $this->addFlash('success', 'Updated ' . $boxModel->getLabel());
+            return $this->redirectToRoute('app_box_model_all');
         }
 
         return $this->render(
@@ -67,7 +68,8 @@ class BoxModelController extends AbstractController
             $em->persist($boxModel);
             $em->flush();
 
-            return $this->redirectToRoute('app_box_model', ['id' => $boxModel->getId()]);
+            $this->addFlash('success', 'Created ' . $boxModel->getLabel());
+            return $this->redirectToRoute('app_box_model_all');
         }
 
         return $this->render(

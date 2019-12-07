@@ -16,7 +16,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\BoxRepository")
  */
-class Box
+class Box implements DisplayableInterface
 {
 
     /**

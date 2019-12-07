@@ -38,9 +38,6 @@ class BoxModelRepository extends ServiceEntityRepository
      */
     public function getSorted()
     {
-        return $this->createQueryBuilder('m')
-            ->orderBy('m.label', 'ASC')
-            ->getQuery()
-            ->getResult();
+        return $this->findBy([], ['label' => 'ASC']);
     }
 }

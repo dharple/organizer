@@ -38,12 +38,8 @@ class LocationRepository extends ServiceEntityRepository
      */
     public function getSorted()
     {
-        $ret = $this->createQueryBuilder('l')
-            ->getQuery()
-            ->getResult();
-
-        usort($ret, [$this, 'sortByDisplayLabel']);
-
+        $ret = $this->findAll();
+        usort($ret, '\App\Utility\Sort::sortByDisplayLabel');
         return $ret;
     }
 
@@ -56,47 +52,7 @@ class LocationRepository extends ServiceEntityRepository
             ->where('l.id IN (SELECT DISTINCT IDENTITY(b.location) FROM App\Entity\Box b)')
             ->getQuery()
             ->getResult();
-
-        usort($ret, [$this, 'sortByDisplayLabel']);
-
+        usort($ret, '\App\Utility\Sort::sortByDisplayLabel');
         return $ret;
-    }
-
-    /**
-     * @return Location[] Returns an array of Location objects
-     */
-    public function getSublocations(int $id)
-    {
-        return $this->createQueryBuilder('l')
-            ->andWhere('l.parentLocation = :id')
-            ->orderBy('l.label', 'ASC')
-            ->setParameter('id', $id)
-            ->getQuery()
-            ->getResult();
-    }
-
-    /**
-     * @return Location[] Returns an array of Location objects
-     */
-    public function getTopLevelLocations()
-    {
-        return $this->createQueryBuilder('l')
-            ->andWhere('l.parentLocation IS NULL')
-            ->orderBy('l.label', 'ASC')
-            ->getQuery()
-            ->getResult();
-    }
-
-    /**
-     * Method for sorting locations by display label
-     */
-    public function sortByDisplayLabel(Location $a, Location $b)
-    {
-        $a = $a->getDisplayLabel();
-        $b = $b->getDisplayLabel();
-        if ($a == $b) {
-            return 0;
-        }
-        return ($a < $b) ? -1 : 1;
     }
 }

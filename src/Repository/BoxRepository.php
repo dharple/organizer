@@ -32,15 +32,12 @@ class BoxRepository extends ServiceEntityRepository
     }
 
     /**
+     * Sorted by id
+     *
      * @return Box[] Returns an array of Box objects
      */
-    public function getByLocation(int $id)
+    public function getSorted()
     {
-        return $this->createQueryBuilder('b')
-            ->andWhere('b.location = :id')
-            ->orderBy('b.label', 'ASC')
-            ->setParameter('id', $id)
-            ->getQuery()
-            ->getResult();
+        return $this->findBy([], ['id' => 'ASC']);
     }
 }

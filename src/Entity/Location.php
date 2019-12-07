@@ -110,7 +110,7 @@ class Location implements DisplayableInterface
         try {
             // check for recursion and bail if we find it
             iterator_to_array($this->parentWalker());
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             $this->parentLocation = $hold;
             throw $e;
         }
@@ -124,9 +124,9 @@ class Location implements DisplayableInterface
      *
      * Throws an exception if the same ID appears twice.
      *
-     * @return Location
+     * @return Location[]
      */
-    protected function parentWalker()
+    protected function parentWalker(): iterable
     {
         $ids = [];
 

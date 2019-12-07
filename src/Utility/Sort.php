@@ -27,8 +27,10 @@ class Sort
 
     /**
      * Method for sorting locations by the method getDisplayLabel
+     *
+     * @return int
      */
-    public static function sortByDisplayLabel(DisplayableInterface $a, DisplayableInterface $b)
+    public static function sortByDisplayLabel(DisplayableInterface $a, DisplayableInterface $b): int
     {
         $a = $a->getDisplayLabel();
         $b = $b->getDisplayLabel();

@@ -10,26 +10,59 @@
         <link rel="stylesheet" href="{{ asset('assets/organizer.css') }}">
     </head>
     <body class="py-4">
+		<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-3">
+			<a class="navbar-brand" href="{{ path('app_home') }}">Organizer</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav mr-auto">
+                    {% if app.user %}
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Boxes
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="{{ path('app_box_all') }}">See All</a>
+                                <a class="dropdown-item" href="{{ path('app_box_new') }}">Add New</a>
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Box Models
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="{{ path('app_box_model_all') }}">See All</a>
+                                <a class="dropdown-item" href="{{ path('app_box_model_new') }}">Add New</a>
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Locations
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="{{ path('app_location_all') }}">See All</a>
+                                <a class="dropdown-item" href="{{ path('app_location_new') }}">Add New</a>
+                            </div>
+                        </li>
+                    {% endif %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('app_about') }}">About</a>
+                    </li>
+                    {% if app.user %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('app_logout') }}">Logout</a>
+                        </li>
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('app_login') }}">Login</a>
+                        </li>
+                    {% endif %}
+				</ul>
+			</div>
+		</nav>
         {% block body %}{% endblock %}
-        <div class="container">
-            <div class="row text-center">
-                <div class="col">
-                    <hr />
-                </div>
-            </div>
-            <div class="row text-center">
-                {% if app.request.get('_route') != 'app_about' %}
-                    <div class="col">
-                        <p><a href="{{ path('app_about') }}">About</a></p>
-                    </div>
-                {% endif %}
-                {% if app.user %}
-                    <div class="col">
-                        <p><a href="{{ path('app_logout') }}">Logout</a></p>
-                    </div>
-                {% endif %}
-            </div>
-        </div>
         <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>

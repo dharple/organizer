@@ -6,16 +6,6 @@
 
 {% block body %}
 <div class="container main-window">
-    <div class="row mb-3 text-center">
-        <div class="col">
-            <h4>All Locations</h4>
-        </div>
-    </div>
-    <div class="row mb-3 text-left">
-        <div class="col">
-            <a class="btn btn-light" href="{{ path('app_home') }}">&lt; Back</a>
-        </div>
-    </div>
     {% for location in locations %}
         <div class="row mb-3">
             <div class="col">

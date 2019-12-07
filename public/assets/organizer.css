@@ -10,3 +10,14 @@
 .card-header {
     background-color: cyan;
 }
+
+/* anything smaller than bootstrap lg gets this styling */
+@media (max-width: 991px) {
+    .navbar-nav .show .dropdown-menu {
+        background-color: rgb(0, 0, 0, 0);
+    }
+
+    .navbar-nav .show .dropdown-item {
+        color: rgba(255, 255, 255, .5);
+    }
+}

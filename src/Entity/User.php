@@ -12,6 +12,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gravatar\Gravatar;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
@@ -118,5 +119,16 @@ class User implements UserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    /**
+     * Returns an avatar URL
+     *
+     * @return string
+     */
+    public function getAvatarUrl(): string
+    {
+        $gravatar = new Gravatar([], true);
+        return $gravatar->avatar($this->getEmail(), [], false);
     }
 }

@@ -50,6 +50,11 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ path('app_about') }}">About</a>
                     </li>
+                    <li class="nav-item d-lg-none">
+                        <a class="nav-link" href="{{ path('app_profile') }}">
+                            Change Your Password
+                        </a>
+                    </li>
                     {% if app.user %}
                         <li class="nav-item">
                             <a class="nav-link" href="{{ path('app_logout') }}">Logout</a>
@@ -61,6 +66,13 @@
                     {% endif %}
                 </ul>
                 {% if app.user %}
+                    <ul class="nav navbar-nav navbar-right mr-3">
+                        <li class="d-none d-lg-inline">
+                            <a href="{{ path('app_profile') }}">
+                                <img src="{{ app.user.avatarUrl }}" class="avatar rounded-circle img-responsive" />
+                            </a>
+                        </li>
+                    </ul>
                     <form class="form-inline my-2 my-lg-0" action="{{ path('app_box_search') }}">
                         <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="q">
                         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>

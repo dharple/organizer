@@ -34,6 +34,7 @@
         <exclude name="Squiz.Commenting.VariableComment.TagNotAllowed" />
 
         <!-- k -->
+        <exclude name="Generic.Files.LineLength.TooLong" />
         <exclude name="Ork.Operators.ComparisonOperatorUsage.ImplicitTrue" />
         <exclude name="Ork.Operators.ComparisonOperatorUsage.NotAllowed" />
         <exclude name="Squiz.PHP.DisallowBooleanStatement.Found" />

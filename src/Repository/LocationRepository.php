@@ -32,6 +32,29 @@ class LocationRepository extends ServiceEntityRepository
     }
 
     /**
+     * Finds any locations whose display label contains the passed string.
+     * Label is case-insensitive.
+     *
+     * @param string $label The label to search for.
+     *
+     * @return Location[]
+     */
+    public function findByDisplayLabel(string $label): array
+    {
+        $ret = [];
+        $all = $this->findAll();
+        foreach ($all as $location) {
+            if (stripos($location->getDisplayLabel(), $label) === false) {
+                continue;
+            }
+
+            $ret[] = $location;
+        }
+
+        return $ret;
+    }
+
+    /**
      * Sorted by displayLabel
      *
      * @return Location[] Returns an array of Location objects

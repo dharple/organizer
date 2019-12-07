@@ -64,6 +64,20 @@ class BoxController extends AbstractController
     }
 
     /**
+     * @Route("/box/search", name="app_box_search")
+     */
+    public function search(Request $request)
+    {
+        $this->addFlash('success', 'Search results for: ' . $request->get('q'));
+        return $this->render(
+            'box/all.html.twig',
+            [
+                'boxes' => $this->getDoctrine()->getRepository(Box::class)->findByKeyword($request->get('q')),
+            ]
+        );
+    }
+
+    /**
      * @Route("/box/showAll", name="app_box_all")
      */
     public function showAll()

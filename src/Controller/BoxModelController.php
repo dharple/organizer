@@ -22,34 +22,31 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class BoxModelController extends AbstractController
 {
+    use CrudTrait;
+
+    /**
+     * Options that renderForm uses
+     *
+     * @var array
+     */
+    protected $formOptions = [
+        'formClass'    => BoxModelType::class,
+        'successRoute' => 'app_box_model_all',
+        'template'     => 'box_model/index.html.twig',
+    ];
 
     /**
      * @Route("/box/model/{id}", name="app_box_model", requirements={"id"="\d+"})
      */
     public function index(Request $request, int $id)
     {
-        $boxModel = $this->getDoctrine()->getRepository(BoxModel::class)->findOneById($id);
-        $form = $this->createForm(BoxModelType::class, $boxModel);
-
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            $boxModel = $form->getData();
-
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($boxModel);
-            $em->flush();
-
-            $this->addFlash('success', 'Updated ' . $boxModel->getLabel());
-            return $this->redirectToRoute('app_box_model_all');
-        }
-
-        return $this->render(
-            'box_model/index.html.twig',
-            [
-                'boxModel' => $boxModel,
-                'form'     => $form->createView(),
-            ]
-        );
+        return $this->renderForm([
+            'entity'          => $this->getDoctrine()->getRepository(BoxModel::class)->findOneById($id),
+            'request'         => $request,
+            'successCallback' => function ($entity) {
+                return 'Updated ' . $entity->getLabel();
+            },
+        ]);
     }
 
     /**
@@ -57,28 +54,13 @@ class BoxModelController extends AbstractController
      */
     public function new(Request $request)
     {
-        $boxModel = new BoxModel();
-        $form = $this->createForm(BoxModelType::class, $boxModel);
-
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            $boxModel = $form->getData();
-
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($boxModel);
-            $em->flush();
-
-            $this->addFlash('success', 'Created ' . $boxModel->getLabel());
-            return $this->redirectToRoute('app_box_model_all');
-        }
-
-        return $this->render(
-            'box_model/index.html.twig',
-            [
-                'boxModel' => $boxModel,
-                'form'     => $form->createView(),
-            ]
-        );
+        return $this->renderForm([
+            'entity'          => new BoxModel(),
+            'request'         => $request,
+            'successCallback' => function ($entity) {
+                return 'Created ' . $entity->getLabel();
+            },
+        ]);
     }
 
     /**

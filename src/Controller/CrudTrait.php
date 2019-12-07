@@ -1,0 +1,71 @@
+<?php
+
+/**
+ * This file is part of the Organizer package.
+ *
+ * (c) Doug Harple <dharple@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+namespace App\Controller;
+
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Annotation\Route;
+
+/**
+ * Trait for basic CRUD operations
+ */
+trait CrudTrait
+{
+
+    /**
+     * All data is passed to the form via the options array
+     *
+     * [
+     *  'entity'          => $box,          // the Entity to edit
+     *  'formClass'       => BoxType::class // the form class to use
+     *  'request'         => $request       // the Request passed in to the controller
+     *  'successCallback' => callable       // what to call if the update
+     *                                         succeeded.  Passes the entity as
+     *                                         the first and only parameter.
+     *  'successRoute'    => 'app_home'     // where to send the user after a successful update
+     *  'template'        => 'box/index.html.twig' // the template to use
+     * ]
+     */
+    protected function renderForm(array $options)
+    {
+        if (isset($this->formOptions)) {
+            $options += $this->formOptions;
+        }
+
+        $entity = $options['entity'];
+        $form = $this->createForm($options['formClass'], $entity);
+
+        $form->handleRequest($options['request']);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entity = $form->getData();
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($entity);
+            $em->flush();
+
+            if (isset($options['successCallback'])) {
+                $this->addFlash('success', call_user_func_array($options['successCallback'], [$entity]));
+            }
+            if (isset($options['successRoute'])) {
+                return $this->redirectToRoute($options['successRoute']);
+            }
+        }
+
+        return $this->render(
+            $options['template'],
+            [
+                'entity'  => $entity,
+                'form'    => $form->createView(),
+            ]
+        );
+    }
+}

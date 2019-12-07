@@ -1,15 +1,15 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    Organizer: {{ location.label }}
+    Organizer: {{ entity.label }}
 {% endblock %}
 
 {% block body %}
 <div class="container main-window">
     <div class="row mb-3 text-center">
         <div class="col">
-            {% if location.id is not null %}
-                <h4>{{ location.displayLabel }}</h4>
+            {% if entity.id is not null %}
+                <h4>{{ entity.displayLabel }}</h4>
             {% else %}
                 <h4>New Location</h4>
             {% endif %}

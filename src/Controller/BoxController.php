@@ -22,34 +22,31 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class BoxController extends AbstractController
 {
+    use CrudTrait;
+
+    /**
+     * Options that renderForm uses
+     *
+     * @var array
+     */
+    protected $formOptions = [
+        'formClass'    => BoxType::class,
+        'successRoute' => 'app_box_all',
+        'template'     => 'box/index.html.twig',
+    ];
 
     /**
      * @Route("/box/{id}", name="app_box", requirements={"id"="\d+"})
      */
     public function index(Request $request, int $id)
     {
-        $box = $this->getDoctrine()->getRepository(Box::class)->findOneById($id);
-        $form = $this->createForm(BoxType::class, $box);
-
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            $box = $form->getData();
-
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($box);
-            $em->flush();
-
-            $this->addFlash('success', 'Updated ' . $box->getDisplayLabel());
-            return $this->redirectToRoute('app_box_all');
-        }
-
-        return $this->render(
-            'box/index.html.twig',
-            [
-                'box'  => $box,
-                'form' => $form->createView(),
-            ]
-        );
+        return $this->renderForm([
+            'entity'          => $this->getDoctrine()->getRepository(Box::class)->findOneById($id),
+            'request'         => $request,
+            'successCallback' => function ($entity) {
+                return 'Updated ' . $entity->getDisplayLabel();
+            },
+        ]);
     }
 
     /**
@@ -57,28 +54,13 @@ class BoxController extends AbstractController
      */
     public function new(Request $request)
     {
-        $box = new Box();
-        $form = $this->createForm(BoxType::class, $box);
-
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            $box = $form->getData();
-
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($box);
-            $em->flush();
-
-            $this->addFlash('success', 'Created ' . $box->getDisplayLabel());
-            return $this->redirectToRoute('app_box_all');
-        }
-
-        return $this->render(
-            'box/index.html.twig',
-            [
-                'box'  => $box,
-                'form' => $form->createView(),
-            ]
-        );
+        return $this->renderForm([
+            'entity'          => new Box(),
+            'request'         => $request,
+            'successCallback' => function ($entity) {
+                return 'Created ' . $entity->getDisplayLabel();
+            },
+        ]);
     }
 
     /**

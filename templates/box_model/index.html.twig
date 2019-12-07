@@ -1,15 +1,15 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    Organizer: {{ boxModel.label }}
+    Organizer: {{ entity.label }}
 {% endblock %}
 
 {% block body %}
 <div class="container main-window">
     <div class="row mb-3 text-center">
         <div class="col">
-            {% if boxModel.id is not null %}
-                <h4>{{ boxModel.label }}</h4>
+            {% if entity.id is not null %}
+                <h4>{{ entity.label }}</h4>
             {% else %}
                 <h4>New Box Model</h4>
             {% endif %}

@@ -22,34 +22,31 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class LocationController extends AbstractController
 {
+    use CrudTrait;
+
+    /**
+     * Options that renderForm uses
+     *
+     * @var array
+     */
+    protected $formOptions = [
+        'formClass'    => LocationType::class,
+        'successRoute' => 'app_location_all',
+        'template'     => 'location/index.html.twig',
+    ];
 
     /**
      * @Route("/location/{id}", name="app_location", requirements={"id"="\d+"})
      */
     public function index(Request $request, int $id)
     {
-        $location = $this->getDoctrine()->getRepository(Location::class)->findOneById($id);
-        $form = $this->createForm(LocationType::class, $location);
-
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            $location = $form->getData();
-
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($location);
-            $em->flush();
-
-            $this->addFlash('success', 'Updated ' . $location->getDisplayLabel());
-            return $this->redirectToRoute('app_location_all');
-        }
-
-        return $this->render(
-            'location/index.html.twig',
-            [
-                'location' => $location,
-                'form'     => $form->createView(),
-            ]
-        );
+        return $this->renderForm([
+            'entity'          => $this->getDoctrine()->getRepository(Location::class)->findOneById($id),
+            'request'         => $request,
+            'successCallback' => function ($entity) {
+                return 'Updated ' . $entity->getDisplayLabel();
+            },
+        ]);
     }
 
     /**
@@ -57,28 +54,13 @@ class LocationController extends AbstractController
      */
     public function new(Request $request)
     {
-        $location = new Location();
-        $form = $this->createForm(LocationType::class, $location);
-
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            $location = $form->getData();
-
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($location);
-            $em->flush();
-
-            $this->addFlash('success', 'Created ' . $location->getDisplayLabel());
-            return $this->redirectToRoute('app_location_all');
-        }
-
-        return $this->render(
-            'location/index.html.twig',
-            [
-                'location' => $location,
-                'form'     => $form->createView(),
-            ]
-        );
+        return $this->renderForm([
+            'entity'          => new Location(),
+            'request'         => $request,
+            'successCallback' => function ($entity) {
+                return 'Created ' . $entity->getDisplayLabel();
+            },
+        ]);
     }
 
     /**

@@ -1,4 +1,5 @@
 {% extends 'base.html.twig' %}
+{% import 'macros/box_model_card.html.twig' as boxModelCard %}
 
 {% block title %}
     Organizer: All Box Models
@@ -6,11 +7,15 @@
 
 {% block body %}
 <div class="container main-window">
-    {% for boxModel in boxModels %}
+    {% for row in boxModels|batch(3, 'skip') %}
         <div class="row mb-3">
-            <div class="col">
-                <a class="btn btn-block btn-primary" type="button" href="{{ path('app_box_model', {id: boxModel.id}) }}">{{ boxModel.label }}</a>
-            </div>
+            {% for boxModel in row %}
+                <div class="col-md-12 col-lg-4">
+                    {% if boxModel != 'skip' %}
+                        {{ boxModelCard.draw(boxModel, true) }}
+                    {% endif %}
+                </div>
+            {% endfor %}
         </div>
     {% endfor %}
 </div>

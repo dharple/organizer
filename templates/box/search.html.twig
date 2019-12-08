@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+{% import 'macros/box_card.html.twig' as boxCard %}
+
+{% block title %}
+    Organizer: Search Results
+{% endblock %}
+
+{% block body %}
+<div class="container main-window">
+    <div class="row mb-3">
+        <div class="col">
+            <div class="p-3 mb-2 bg-secondary text-white">
+                {% if entity is defined %}
+                    {% if type == 'BoxModel' %}
+                        Showing boxes for Box Model: {{ entity.label }}
+                    {% elseif type == 'Location' %}
+                        Showing boxes for Location: {{ entity.displayLabel }}
+                    {% endif %}
+                {% else %}
+                    Search results for "{{ query }}"
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {% if boxes is not empty %}
+        {% for row in boxes|batch(3, 'skip') %}
+            <div class="row mb-3">
+                {% for box in row %}
+                    <div class="col-md-12 col-lg-4">
+                        {% if box != 'skip' %}
+                            {{ boxCard.draw(box, true) }}
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endfor %}
+    {% else %}
+        <div class="row mb-3">
+            <div class="col">
+                <div class="p-3 mb-2 bg-danger text-white">
+                    No results found
+                </div>
+            </div>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

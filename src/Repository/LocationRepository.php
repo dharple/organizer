@@ -78,4 +78,20 @@ class LocationRepository extends ServiceEntityRepository
         usort($ret, '\App\Utility\Sort::sortByDisplayLabel');
         return $ret;
     }
+
+    /**
+     * @return Location[] Returns an array of Location objects
+     */
+    public function getSublocations(int $id)
+    {
+        return $this->findBy(['parentLocation' => $id], ['label' => 'ASC']);
+    }
+
+    /**
+     * @return Location[] Returns an array of Location objects
+     */
+    public function getTopLevelLocations()
+    {
+        return $this->findBy(['parentLocation' => null], ['label' => 'ASC']);
+    }
 }

@@ -1,0 +1,12 @@
+{% macro draw(location) %}
+{% set boxCount = location.boxes.count %}
+    <div class="card mb-3">
+        <div class="card-header">
+            {{ location.displayLabel }}
+        </div>
+        <div class="card-body">
+            <a class="card-link" href="{{ path('app_location', {id: location.id}) }}">Edit</a>
+            <a class="card-link" href="{{ path('app_box_search_location', {id: location.id}) }}">{{ boxCount }} Box{{ boxCount != 1 ? 'es' }}</a>
+        </div>
+    </div>
+{% endmacro %}

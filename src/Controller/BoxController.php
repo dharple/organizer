@@ -12,6 +12,8 @@
 namespace App\Controller;
 
 use App\Entity\Box;
+use App\Entity\BoxModel;
+use App\Entity\Location;
 use App\Form\BoxType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -68,11 +70,55 @@ class BoxController extends AbstractController
      */
     public function search(Request $request)
     {
-        $this->addFlash('success', 'Search results for: ' . $request->get('q'));
+        $query = $request->get('q');
+        $boxes = $this->getDoctrine()->getRepository(Box::class)->findByKeyword($query);
         return $this->render(
-            'box/all.html.twig',
+            'box/search.html.twig',
             [
-                'boxes' => $this->getDoctrine()->getRepository(Box::class)->findByKeyword($request->get('q')),
+                'boxes'  => $boxes,
+                'query'  => $query,
+            ]
+        );
+    }
+
+    /**
+     * @Route("/box/search/location/{id}", name="app_box_search_location", requirements={"id"="\d+"})
+     */
+    public function searchByLocation(int $id)
+    {
+        $entity = $this->getDoctrine()->getRepository(Location::class)->find($id);
+        if (!is_object($entity)) {
+            $this->addFlash('error', 'Unable to show boxes for invalid location ' . $id);
+            return $this->redirectToRoute('app_home');
+        }
+
+        return $this->render(
+            'box/search.html.twig',
+            [
+                'boxes'  => $entity->getBoxes(),
+                'entity' => $entity,
+                'type'   => 'Location',
+            ]
+        );
+    }
+
+    /**
+     * @Route("/box/search/model/{id}", name="app_box_search_model", requirements={"id"="\d+"})
+     */
+    public function searchByModel(int $id)
+    {
+        $entity = $this->getDoctrine()->getRepository(BoxModel::class)->find($id);
+        if (!is_object($entity)) {
+            $this->addFlash('error', 'Unable to show boxes for invalid box model ' . $id);
+            return $this->redirectToRoute('app_home');
+        }
+
+        return $this->render(
+            'box/search.html.twig',
+            [
+                'boxes'  => $entity->getBoxes(),
+                'entity' => $entity,
+                'type'   => 'BoxModel',
             ]
         );
     }

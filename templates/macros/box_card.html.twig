@@ -1,4 +1,4 @@
-{% macro draw(box, showLocation) %}
+{% macro draw(box, showLocation, showModel) %}
     <div class="card mb-3">
         <div class="card-header">
             {{ box.displayLabel }}
@@ -18,7 +18,7 @@
                     {% endif %}
                     <br />
                 {% endif %}
-                {% if box.boxModel is not empty %}
+                {% if showModel and box.boxModel is not empty %}
                     <em>{{ box.boxModel.label }}</em>
                 {% endif %}
             </p>

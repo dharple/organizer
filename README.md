@@ -2,6 +2,12 @@
 
 This project is an attempt at building a system for keeping track of storage boxes.
 
+# Requirements
+
+* PHP
+* Any databsae supported by PDO (SQLite, MySQL, PostgreSQL, et al.)
+* Redis
+
 # Getting Started
 
 Run `composer install`.

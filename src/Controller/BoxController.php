@@ -77,6 +77,7 @@ class BoxController extends AbstractController
             [
                 'boxes'  => $boxes,
                 'query'  => $query,
+                'type'   => null,
             ]
         );
     }

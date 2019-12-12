@@ -38,6 +38,10 @@
         <exclude name="Ork.Operators.ComparisonOperatorUsage.ImplicitTrue" />
         <exclude name="Ork.Operators.ComparisonOperatorUsage.NotAllowed" />
         <exclude name="Squiz.PHP.DisallowBooleanStatement.Found" />
+
+        <!-- wtf -->
+        <exclude name="PEAR.WhiteSpace.ScopeIndent.IncorrectExact" />
+        <exclude name="Squiz.ControlStructures.SwitchDeclaration.BreakIndent" />
     </rule>
 
     <rule ref="PSR12" />
@@ -69,9 +73,18 @@
     <rule ref="Generic.CodeAnalysis.UnusedFunctionParameter.FoundInExtendedClassBeforeLastUsed">
         <exclude-pattern>src/Security/*</exclude-pattern>
     </rule>
+    <rule ref="Generic.CodeAnalysis.UnusedFunctionParameter.FoundInImplementedInterfaceAfterLastUsed">
+        <exclude-pattern>src/Serializer/Normalizer/*</exclude-pattern>
+    </rule>
 
     <!-- k -->
     <rule ref="Generic.Files.LineLength.TooLong">
         <exclude-pattern>src/Kernel.php</exclude-pattern>
     </rule>
+
+    <!-- Symfony Serializer Attributes -->
+    <rule ref="Squiz.Arrays.ArrayDeclaration.KeySpecified">
+        <exclude-pattern>src/Service/ExportService.php</exclude-pattern>
+    </rule>
+
 </ruleset>

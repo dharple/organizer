@@ -72,7 +72,7 @@ class ExportResponse
      */
     public function setData(string $data): self
     {
-        $this->filename = tempnam('/tmp', 'data_export_');
+        $this->filename = tempnam('/tmp', 'export_data_');
         file_put_contents($this->filename, $data);
 
         return $this;

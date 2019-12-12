@@ -36,12 +36,12 @@ class BulkController extends AbstractController
             try {
                 $file = $exportService->export($form->getData());
                 $this->addFlash('success', 'Export complete');
-                $response = $this->file($file->getFilename(), 'export.' . $file->getFormat());
+                $response = $this->file($file->getFilename(), 'export-' . date('YmdHi') . '.' . $file->getFormat());
                 $response->headers->set('Content-Type', $file->getContentType());
+                $response->deleteFileAfterSend();
                 return $response;
             } catch (\Exception $e) {
                 $this->addFlash('error', $e->getMessage());
-                throw $e;
             }
         }
 

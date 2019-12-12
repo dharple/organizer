@@ -43,14 +43,6 @@ class ExportType extends AbstractType
                     ],
                 ]
             )
-            ->add(
-                'export_boxes',
-                CheckboxType::class,
-                [
-                    'label'    => 'Export Box Data',
-                    'required' => false,
-                ]
-            )
             ->add('export', SubmitType::class);
         ;
     }
@@ -61,10 +53,7 @@ class ExportType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data' => [
-                'format'            => 'xlsx',
-                'export_boxes'      => true,
-            ],
+            'data' => ['format' => 'xlsx'],
         ]);
     }
 }

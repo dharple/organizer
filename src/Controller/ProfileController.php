@@ -12,7 +12,6 @@
 namespace App\Controller;
 
 use App\Form\UserType;
-use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -31,7 +30,6 @@ class ProfileController extends AbstractController
     public function index(
         Request $request,
         TokenStorageInterface $tokenStorage,
-        LoggerInterface $logger,
         UserPasswordEncoderInterface $encoder
     ) {
         $user = $tokenStorage->getToken()->getUser();
@@ -48,8 +46,6 @@ class ProfileController extends AbstractController
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $logger->info(get_class($form->get('password')));
-            $logger->info($form->get('password')->getData());
             $user->setPassword($encoder->encodePassword($user, $form->get('password')->getData()));
 
             $em = $this->getDoctrine()->getManager();

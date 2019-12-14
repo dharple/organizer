@@ -7,21 +7,25 @@
 
 {% block body %}
 <div class="container main-window">
-    <div class="row mb-3">
-        <div class="col">
-            <div class="p-3 mb-2 bg-secondary text-white">
-                {% if entity is defined %}
-                    {% if type == 'BoxModel' %}
-                        Showing boxes for Box Model: {{ entity.label }}
-                    {% elseif type == 'Location' %}
-                        Showing boxes for Location: {{ entity.displayLabel }}
+    {% if hideMessage is not defined or hideMessage is empty %}
+        <div class="row mb-3">
+            <div class="col">
+                <div class="p-3 mb-2 bg-secondary text-white">
+                    {% if entity is defined %}
+                        {% if type == 'BoxModel' %}
+                            Showing boxes for Box Model: {{ entity.label }}
+                        {% elseif type == 'Location' %}
+                            Showing boxes for Location: {{ entity.displayLabel }}
+                        {% elseif type == 'Box' %}
+                            Showing Box {{ entity.displayId }}
+                        {% endif %}
+                    {% else %}
+                        Search results for "{{ query }}"
                     {% endif %}
-                {% else %}
-                    Search results for "{{ query }}"
-                {% endif %}
+                </div>
             </div>
         </div>
-    </div>
+    {% endif %}
     {% if boxes is not empty %}
         {% for row in boxes|batch(3, 'skip') %}
             <div class="row mb-3">

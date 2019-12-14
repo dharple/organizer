@@ -18,6 +18,7 @@ use App\Form\BoxType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 /**
  * Controller for /box
@@ -25,6 +26,11 @@ use Symfony\Component\Routing\Annotation\Route;
 class BoxController extends AbstractController
 {
     use CrudTrait;
+
+    /**
+     * Session index for controlling new box behavior.
+     */
+    protected const SESSION_NEW_BOX = 'nübox';
 
     /**
      * Options that renderForm uses
@@ -36,6 +42,19 @@ class BoxController extends AbstractController
         'successRoute' => 'app_box_all',
         'template'     => 'box/index.html.twig',
     ];
+
+    /**
+     * @var SessionInterface
+     */
+    protected $session;
+
+    /**
+     * Constructs a new Box controller
+     */
+    public function __construct(SessionInterface $session)
+    {
+        $this->session = $session;
+    }
 
     /**
      * @Route("/box/{id}", name="app_box", requirements={"id"="\d+"})
@@ -56,11 +75,18 @@ class BoxController extends AbstractController
      */
     public function new(Request $request)
     {
+        $this->session->set(static::SESSION_NEW_BOX, false);
+
         return $this->renderForm([
             'entity'          => new Box(),
             'request'         => $request,
-            'successCallback' => function ($entity) {
-                return 'Created ' . $entity->getDisplayLabel();
+            'successCallback' => function () {
+                return 'Box created successfully.';
+            },
+            'successRoute'    => null,
+            'successRouteCallback' => function ($entity) {
+                $this->session->set(static::SESSION_NEW_BOX, true);
+                return $this->redirectToRoute('app_box_search_id', ['id' => $entity->getId()]);
             },
         ]);
     }
@@ -78,6 +104,31 @@ class BoxController extends AbstractController
                 'boxes'  => $boxes,
                 'query'  => $query,
                 'type'   => null,
+            ]
+        );
+    }
+
+    /**
+     * @Route("/box/search/id/{id}", name="app_box_search_id", requirements={"id"="\d+"})
+     */
+    public function searchById(int $id)
+    {
+        $entity = $this->getDoctrine()->getRepository(Box::class)->find($id);
+        if (!is_object($entity)) {
+            $this->addFlash('error', 'Unable to show box ' . $id);
+            return $this->redirectToRoute('app_home');
+        }
+
+        $hideMessage = $this->session->get(static::SESSION_NEW_BOX, false);
+        $this->session->remove(static::SESSION_NEW_BOX);
+
+        return $this->render(
+            'box/search.html.twig',
+            [
+                'boxes'       => [$entity],
+                'entity'      => $entity,
+                'type'        => 'Box',
+                'hideMessage' => $hideMessage,
             ]
         );
     }

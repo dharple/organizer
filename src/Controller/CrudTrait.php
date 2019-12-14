@@ -31,7 +31,10 @@ trait CrudTrait
      *  'successCallback' => callable       // what to call if the update
      *                                         succeeded.  Passes the entity as
      *                                         the first and only parameter.
+     *                                         Must return a string.
      *  'successRoute'    => 'app_home'     // where to send the user after a successful update
+     *  'successRouteCallback' => callable  // where to send the user after a successful update.
+     *                                         Must return a Result object.
      *  'template'        => 'box/index.html.twig' // the template to use
      * ]
      */
@@ -55,8 +58,13 @@ trait CrudTrait
             if (isset($options['successCallback'])) {
                 $this->addFlash('success', call_user_func_array($options['successCallback'], [$entity]));
             }
+
             if (isset($options['successRoute'])) {
                 return $this->redirectToRoute($options['successRoute']);
+            }
+
+            if (isset($options['successRouteCallback'])) {
+                return call_user_func_array($options['successRouteCallback'], [$entity]);
             }
         }
 

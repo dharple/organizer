@@ -18,49 +18,49 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\BoxModelRepository")
  */
-class BoxModel
+class BoxModel extends AbstractEntity implements EntityInterface
 {
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
-    private $id;
+    protected $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $label;
+    protected $label;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Box", mappedBy="boxModel")
      */
-    private $boxes;
+    protected $boxes;
 
     /**
      * @ORM\Column(type="string", length=64, nullable=true)
      */
-    private $make;
+    protected $make;
 
     /**
      * @ORM\Column(type="string", length=64, nullable=true)
      */
-    private $model;
+    protected $model;
 
     /**
      * @ORM\Column(type="string", length=64, nullable=true)
      */
-    private $size;
+    protected $size;
 
     /**
      * @ORM\Column(type="string", length=64, nullable=true)
      */
-    private $color;
+    protected $color;
 
     /**
      * @ORM\Column(type="string", length=16, nullable=true)
      */
-    private $latch;
+    protected $latch;
 
     public function __construct()
     {
@@ -173,5 +173,10 @@ class BoxModel
         $this->latch = $latch;
 
         return $this;
+    }
+
+    public function getDisplayLabel(): string
+    {
+        return $this->getLabel();
     }
 }

@@ -18,7 +18,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\LocationRepository")
  */
-class Location implements DisplayableInterface
+class Location extends AbstractEntity implements EntityInterface
 {
 
     /**
@@ -26,22 +26,22 @@ class Location implements DisplayableInterface
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
-    private $id;
+    protected $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $label;
+    protected $label;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Location")
      */
-    private $parentLocation;
+    protected $parentLocation;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Box", mappedBy="location")
      */
-    private $boxes;
+    protected $boxes;
 
     public function __construct()
     {

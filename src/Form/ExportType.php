@@ -43,6 +43,19 @@ class ExportType extends AbstractType
                     ],
                 ]
             )
+            ->add(
+                'type',
+                ChoiceType::class,
+                [
+                    'label'    => 'Export Type',
+                    'choices'  => [
+                        'Simple Box Export (box card contents only)' => 'simple',
+                        'Full Export (only supports JSON or XML)'    => 'full',
+                    ],
+                    'expanded' => true,
+                    'multiple' => false,
+                ]
+            )
             ->add('export', SubmitType::class);
         ;
     }
@@ -53,7 +66,10 @@ class ExportType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data' => ['format' => 'xlsx'],
+            'data' => [
+                'format' => 'xlsx',
+                'type'   => 'simple',
+            ],
         ]);
     }
 }

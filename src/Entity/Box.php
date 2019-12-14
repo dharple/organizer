@@ -16,7 +16,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\BoxRepository")
  */
-class Box implements DisplayableInterface
+class Box extends AbstractEntity implements EntityInterface
 {
 
     /**
@@ -24,27 +24,27 @@ class Box implements DisplayableInterface
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
-    private $id;
+    protected $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $label;
+    protected $label;
 
     /**
      * @ORM\Column(type="text", nullable=true)
      */
-    private $description;
+    protected $description;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Location", inversedBy="boxes")
      */
-    private $location;
+    protected $location;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\BoxModel", inversedBy="boxes")
      */
-    private $boxModel;
+    protected $boxModel;
 
     public function getId(): ?int
     {
@@ -75,12 +75,12 @@ class Box implements DisplayableInterface
         return $this;
     }
 
-    public function getDisplayId()
+    public function getDisplayId(): string
     {
         return empty($this->getId()) ? '' : sprintf('%04d', $this->getId());
     }
 
-    public function getDisplayLabel()
+    public function getDisplayLabel(): string
     {
         return empty($this->getId()) ? '' : sprintf('Box %04d - %s', $this->getId(), $this->getLabel());
     }

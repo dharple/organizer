@@ -11,38 +11,22 @@
 
 namespace App\Serializer\Normalizer;
 
-use App\Entity\Box;
+use App\Entity\EntityInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Serializer\Normalizer\CacheableSupportsMethodInterface;
 use Symfony\Component\Serializer\Normalizer\ContextAwareNormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
-use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Serializer\SerializerAwareInterface;
 use Symfony\Component\Serializer\SerializerAwareTrait;
 
 /**
- * Normalizes a Box entity
+ * Normalizes a entity into its IDs
  */
-class BoxNormalizer implements NormalizerInterface, CacheableSupportsMethodInterface, SerializerAwareInterface
+class EntityNormalizer implements NormalizerInterface, CacheableSupportsMethodInterface, SerializerAwareInterface
 {
     use SerializerAwareTrait {
         setSerializer as traitSetSerializer;
-    }
-
-    /**
-     *
-     */
-    protected $useDisplayId = false;
-
-    /**
-     * Constructs a new Box entity normalizer.
-     */
-    public function __construct(bool $useDisplayId = null)
-    {
-        if (!is_null($useDisplayId)) {
-            $this->useDisplayId = $useDisplayId;
-        }
     }
 
     /**
@@ -54,17 +38,11 @@ class BoxNormalizer implements NormalizerInterface, CacheableSupportsMethodInter
     }
 
     /**
-     * Normalizes a box
+     * Normalizes an entity
      */
-    public function normalize($box, $format = null, array $context = []): array
+    public function normalize($entity, $format = null, array $context = []): array
     {
-        return [
-            'ID' => $this->useDisplayId ? $box->getDisplayId() : $box->getId(),
-            'Label' => $box->getLabel(),
-            'Description' => $box->getDescription(),
-            'Type' => $box->getBoxModel() ? $box->getBoxModel()->getDisplayLabel() : null,
-            'Location' => $box->getLocation() ? $box->getLocation()->getDisplayLabel() : null,
-        ];
+        return $entity->getData();
     }
 
     /**
@@ -72,6 +50,6 @@ class BoxNormalizer implements NormalizerInterface, CacheableSupportsMethodInter
      */
     public function supportsNormalization($data, $format = null): bool
     {
-        return $data instanceof Box;
+        return $data instanceof EntityInterface;
     }
 }

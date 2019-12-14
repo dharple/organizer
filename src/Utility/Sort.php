@@ -11,7 +11,7 @@
 
 namespace App\Utility;
 
-use App\Entity\DisplayableInterface;
+use App\Entity\EntityInterface;
 
 /**
  * Methods related to sorting
@@ -30,7 +30,7 @@ class Sort
      *
      * @return int
      */
-    public static function sortByDisplayLabel(DisplayableInterface $a, DisplayableInterface $b): int
+    public static function sortByDisplayLabel(EntityInterface $a, EntityInterface $b): int
     {
         $a = $a->getDisplayLabel();
         $b = $b->getDisplayLabel();

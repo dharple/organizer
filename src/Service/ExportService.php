@@ -12,11 +12,13 @@
 namespace App\Service;
 
 use App\Entity\Box;
+use App\Entity\BoxModel;
+use App\Entity\Location;
 use App\Serializer\Normalizer\BoxNormalizer;
+use App\Serializer\Normalizer\EntityNormalizer;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
-use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Encoder\XmlEncoder;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Encoder\CsvEncoder;
@@ -38,21 +40,14 @@ class ExportService
     protected $logger;
 
     /**
-     * @var ObjectNormalizer
-     */
-    protected $objectNormalizer;
-
-    /**
      * Constructs a new Export service
      */
     public function __construct(
         EntityManagerInterface $em,
-        LoggerInterface $logger,
-        ObjectNormalizer $objectNormalizer
+        LoggerInterface $logger
     ) {
         $this->em = $em;
         $this->logger = $logger;
-        $this->objectNormalizer = $objectNormalizer;
     }
 
     /**
@@ -62,29 +57,74 @@ class ExportService
     {
         $this->logger->info(json_encode($options));
 
-        $boxes = $this->em->getRepository(Box::class)->getSorted();
+        if ($options['type'] == 'simple') {
+            switch ($options['format']) {
+                case 'json':
+                case 'xml':
+                    return $this->simpleUseSerializer($options);
 
-        switch ($options['format']) {
-            case 'json':
-            case 'xml':
-                return $this->useSerializer($options, $boxes);
+                case 'csv':
+                case 'ods':
+                case 'xlsx':
+                    return $this->simpleUsePhpSpreadsheet($options);
 
-            case 'csv':
-            case 'ods':
-            case 'xlsx':
-                return $this->usePhpSpreadsheet($options, $boxes);
+                default:
+                    throw new \Exception('Invalid format: ' . $options['format']);
+            }
+        } else {
+            switch ($options['format']) {
+                case 'json':
+                case 'xml':
+                    return $this->fullUseSerializer($options);
 
-            default:
-                throw new \Exception('Invalid format: ' . $options['format']);
+                case 'csv':
+                case 'ods':
+                case 'xlsx':
+                    throw new \Exception('Format "' . $options['format'] . '" does not support full exports');
+
+                default:
+                    throw new \Exception('Invalid format: ' . $options['format']);
+            }
         }
+    }
+
+    /**
+     * Uses the Symfony serializer to export data
+     */
+    protected function fullUseSerializer(array $options): ExportResponse
+    {
+        $data = [
+            'boxes' => $this->em->getRepository(Box::class)->getSorted(),
+            'boxModels' => $this->em->getRepository(BoxModel::class)->getSorted(),
+            'locations' => $this->em->getRepository(Location::class)->getSorted(),
+        ];
+
+        $encoders = [new XmlEncoder(), new JsonEncoder()];
+        $normalizers = [new EntityNormalizer()];
+        $serializer = new Serializer($normalizers, $encoders);
+
+        $data = $serializer->serialize(
+            $data,
+            $options['format']
+        );
+
+        $this->logger->info($data);
+
+        $response = (new ExportResponse())
+            ->setFormat($options['format'])
+            ->setData($data);
+
+        return $response;
     }
 
     /**
      * Uses PHPSpreadsheet to export data
      */
-    protected function usePhpSpreadsheet(array $options, array $boxes): ExportResponse
+    protected function simpleUsePhpSpreadsheet(array $options): ExportResponse
     {
-        $normalizers = [new BoxNormalizer($this->objectNormalizer), $this->objectNormalizer];
+        $boxes = $this->em->getRepository(Box::class)->getSorted();
+
+        $normalizers = [new BoxNormalizer(false)];
         $serializer = new Serializer($normalizers);
 
         $data = $serializer->normalize(
@@ -164,10 +204,12 @@ class ExportService
     /**
      * Uses the Symfony serializer to export data
      */
-    protected function useSerializer(array $options, array $boxes): ExportResponse
+    protected function simpleUseSerializer(array $options): ExportResponse
     {
+        $boxes = $this->em->getRepository(Box::class)->getSorted();
+
         $encoders = [new XmlEncoder(), new JsonEncoder(), new CsvEncoder()];
-        $normalizers = [new BoxNormalizer($this->objectNormalizer), $this->objectNormalizer];
+        $normalizers = [new BoxNormalizer(true)];
         $serializer = new Serializer($normalizers, $encoders);
 
         $data = $serializer->serialize(

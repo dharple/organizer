@@ -12,14 +12,26 @@
 namespace App\Entity;
 
 /**
- * Defines a class that supports getDisplayLabel
+ * Defines a class that supports getData()
  */
-interface DisplayableInterface
+interface EntityInterface
 {
+    /**
+     * Returns an array containing the raw data for this entity
+     *
+     * @return array
+     */
+    public function getData(): array;
+
     /**
      * Generates the display label for this class.
      *
      * @return string
      */
     public function getDisplayLabel();
+
+    /**
+     * Returns the ID of this entity.
+     */
+    public function getId(): ?int;
 }

@@ -54,7 +54,7 @@ class BoxRepository extends ServiceEntityRepository
      */
     public function findByKeyword($keyword)
     {
-        $threshold = 3;
+        $threshold = 1;
 
         $all = [];
         $counts = [];
@@ -63,14 +63,14 @@ class BoxRepository extends ServiceEntityRepository
         array_push($keywords, $keyword);
         $this->logger->info('keywords: ' . json_encode($keywords));
         foreach ($keywords as $keyword) {
-            if (strlen($keyword) < $threshold) {
-                continue;
-            }
-
             $output = [];
             if (is_numeric($keyword)) {
                 $output = $this->findBy(['id' => ltrim($keyword, '0')]);
             } else {
+                if (strlen($keyword) < $threshold) {
+                    continue;
+                }
+
                 $locations = $this->locationRepository->findByDisplayLabel($keyword);
                 $output = $this->createQueryBuilder('b')
                     ->orWhere('IDENTITY(b.location) IN (?2)')

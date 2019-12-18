@@ -44,6 +44,7 @@
         "preferred-install": {
             "*": "dist"
         },
+        "process-timeout": 0,
         "sort-packages": true
     },
     "autoload": {
@@ -69,6 +70,7 @@
             "cache:clear": "symfony-cmd",
             "assets:install %PUBLIC_DIR%": "symfony-cmd"
         },
+        "go":      "bin/console server:run",
         "phpcbf":  "phpcbf",
         "phpcs":   "phpcs",
         "phpstan": "phpstan analyse",

@@ -11,11 +11,17 @@
 
 namespace App\Entity;
 
+use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
+use Gedmo\Timestampable\Traits\TimestampableEntity;
+
 /**
  * Base entity methods
  */
 abstract class AbstractEntity
 {
+    use SoftDeleteableEntity;
+    use TimestampableEntity;
+
     /**
      * Returns an array containing the raw data for this entity
      *
@@ -38,6 +44,8 @@ abstract class AbstractEntity
                 try {
                     if ($value instanceof EntityInterface) {
                         $value = $value->getId();
+                    } elseif ($value instanceOf \DateTime) {
+                        $value = $value->format('c');
                     } else {
                         $value = (string) $value;
                     }

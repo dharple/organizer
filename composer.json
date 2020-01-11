@@ -6,6 +6,8 @@
         "ext-ctype": "*",
         "ext-iconv": "*",
         "ext-redis": "*",
+        "adrenalinkin/doctrine-utc-date-time": "^1.1",
+        "antishov/doctrine-extensions-bundle": "^1.4",
         "gravatarphp/gravatar": "^2.0",
         "phpoffice/phpspreadsheet": "^1.10",
         "sensio/framework-extra-bundle": "^5.5",

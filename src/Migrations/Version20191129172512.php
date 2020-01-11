@@ -20,7 +20,7 @@ final class Version20191129172512 extends AbstractMigration
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'sqlite', 'Migration can only be executed safely on \'sqlite\'.');
+        $this->skipIf($this->connection->getDatabasePlatform()->getName() !== 'sqlite', 'Migration can only be executed safely on \'sqlite\'.');
 
         $this->addSql('ALTER TABLE box_model ADD COLUMN make VARCHAR(255) DEFAULT NULL');
         $this->addSql('ALTER TABLE box_model ADD COLUMN model VARCHAR(255) DEFAULT NULL');
@@ -32,7 +32,7 @@ final class Version20191129172512 extends AbstractMigration
     public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
-        $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'sqlite', 'Migration can only be executed safely on \'sqlite\'.');
+        $this->skipIf($this->connection->getDatabasePlatform()->getName() !== 'sqlite', 'Migration can only be executed safely on \'sqlite\'.');
 
         $this->addSql('CREATE TEMPORARY TABLE __temp__box_model AS SELECT id, label FROM box_model');
         $this->addSql('DROP TABLE box_model');

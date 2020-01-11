@@ -71,7 +71,7 @@ class LocationController extends AbstractController
         return $this->render(
             'location/all.html.twig',
             [
-                'locations' => $this->getDoctrine()->getRepository(Location::class)->getSorted(),
+                'locations' => $this->getDoctrine()->getRepository(Location::class)->getSortedByDisplayLabel(),
             ]
         );
     }

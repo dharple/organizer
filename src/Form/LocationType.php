@@ -50,7 +50,7 @@ class LocationType extends AbstractType
                 [
                     'choice_label' => 'displayLabel',
                     'class'        => Location::class,
-                    'choices'      => $this->locationRepository->getSorted(),
+                    'choices'      => $this->locationRepository->getSortedByDisplayLabel(),
                     'placeholder'  => 'This is a Top Level Location',
                     'required'     => false,
                 ]

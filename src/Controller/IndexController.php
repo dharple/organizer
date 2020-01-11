@@ -43,7 +43,7 @@ class IndexController extends AbstractController
                 'boxCount'      => $em->getRepository(Box::class)->count([]),
                 'boxModelCount' => $em->getRepository(BoxModel::class)->count([]),
                 'locationCount' => $em->getRepository(Location::class)->count([]),
-                'locations'     => $em->getRepository(Location::class)->getSortedWithBoxes(),
+                'locations'     => $em->getRepository(Location::class)->getSortedByDisplayLabelWithBoxes(),
             ]
         );
     }

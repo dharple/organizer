@@ -60,6 +60,16 @@ class ExportResponse
     }
 
     /**
+     * Suggests a filename for export.
+     *
+     * @return string
+     */
+    public function getSuggestedFilename(): string
+    {
+        return 'export-' . date('YmdHi') . '.' . $this->getFormat();
+    }
+
+    /**
      * Sets the data that's being exported.
      *
      * This writes out a temp file, and stores that.

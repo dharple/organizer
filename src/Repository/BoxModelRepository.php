@@ -32,11 +32,21 @@ class BoxModelRepository extends ServiceEntityRepository
     }
 
     /**
-     * Sorted by label
+     * Sorted by id
      *
      * @return BoxModel[] Returns an array of BoxModel objects
      */
-    public function getSorted()
+    public function getSortedById()
+    {
+        return $this->findBy([], ['id' => 'ASC']);
+    }
+
+    /**
+     * Sorted by display label
+     *
+     * @return BoxModel[] Returns an array of BoxModel objects
+     */
+    public function getSortedByDisplayLabel()
     {
         return $this->findBy([], ['label' => 'ASC']);
     }

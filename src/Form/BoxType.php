@@ -63,7 +63,7 @@ class BoxType extends AbstractType
                 [
                     'choice_label' => 'displayLabel',
                     'class'        => Location::class,
-                    'choices'      => $this->locationRepository->getSorted(),
+                    'choices'      => $this->locationRepository->getSortedByDisplayLabel(),
                     'placeholder'  => 'Choose a location...',
                     'required'     => false,
                 ]
@@ -74,7 +74,7 @@ class BoxType extends AbstractType
                 [
                     'choice_label' => 'label',
                     'class'        => BoxModel::class,
-                    'choices'      => $this->boxModelRepository->getSorted(),
+                    'choices'      => $this->boxModelRepository->getSortedByDisplayLabel(),
                     'placeholder'  => 'Choose a model...',
                     'required'     => false,
                 ]

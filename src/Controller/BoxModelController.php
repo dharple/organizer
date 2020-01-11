@@ -71,7 +71,7 @@ class BoxModelController extends AbstractController
         return $this->render(
             'box_model/all.html.twig',
             [
-                'boxModels' => $this->getDoctrine()->getRepository(BoxModel::class)->getSorted(),
+                'boxModels' => $this->getDoctrine()->getRepository(BoxModel::class)->getSortedByDisplayLabel(),
             ]
         );
     }

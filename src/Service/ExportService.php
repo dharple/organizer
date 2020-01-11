@@ -121,9 +121,9 @@ class ExportService
     {
         $isXml = ($options['format'] == 'xml');
         $data = [
-            $isXml ? 'box'      : 'boxes'     => $this->em->getRepository(Box::class)->getSorted(),
-            $isXml ? 'boxModel' : 'boxModels' => $this->em->getRepository(BoxModel::class)->getSorted(),
-            $isXml ? 'location' : 'locations' => $this->em->getRepository(Location::class)->getSorted(),
+            $isXml ? 'box'      : 'boxes'     => $this->em->getRepository(Box::class)->getSortedById(),
+            $isXml ? 'boxModel' : 'boxModels' => $this->em->getRepository(BoxModel::class)->getSortedById(),
+            $isXml ? 'location' : 'locations' => $this->em->getRepository(Location::class)->getSortedById(),
         ];
 
         $encoders = [
@@ -154,7 +154,7 @@ class ExportService
      */
     protected function simpleUsePhpSpreadsheet(array $options): ExportResponse
     {
-        $boxes = $this->em->getRepository(Box::class)->getSorted();
+        $boxes = $this->em->getRepository(Box::class)->getSortedById();
 
         $normalizers = [new BoxNormalizer(false)];
         $serializer = new Serializer($normalizers);
@@ -240,7 +240,7 @@ class ExportService
     {
         $isXml = ($options['format'] == 'xml');
         $data = [
-            $isXml ? 'box' : 'boxes' => $this->em->getRepository(Box::class)->getSorted(),
+            $isXml ? 'box' : 'boxes' => $this->em->getRepository(Box::class)->getSortedById(),
         ];
 
         $encoders = [

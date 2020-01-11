@@ -18,10 +18,11 @@ use App\Serializer\Normalizer\BoxNormalizer;
 use App\Serializer\Normalizer\EntityNormalizer;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
-use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
-use Symfony\Component\Serializer\Encoder\XmlEncoder;
+use Symfony\Component\Serializer\Encoder\JsonEncode;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
-use Symfony\Component\Serializer\Encoder\CsvEncoder;
+use Symfony\Component\Serializer\Encoder\XmlEncoder;
+use Symfony\Component\Serializer\Encoder\YamlEncoder;
+use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Component\Serializer\Serializer;
 
 /**
@@ -35,9 +36,32 @@ class ExportService
     protected $em;
 
     /**
+     * Context to pass to the encoder.
+     *
+     * @var array
+     */
+    protected $encoderContext = [
+        JsonEncode::OPTIONS        => JSON_PRETTY_PRINT,
+        XmlEncoder::FORMAT_OUTPUT  => true,
+        XmlEncoder::ROOT_NODE_NAME => 'export',
+        'yaml_indent'              => 4,
+        'yaml_inline'              => 10,
+    ];
+
+    /**
      * @var LoggerInterface
      */
     protected $logger;
+
+    /**
+     * YAML configuration options,
+     *
+     * @var array
+     */
+    protected $yamlOptions = [
+        'yaml_indent' => 4,
+        'yaml_inline' => 10,
+    ];
 
     /**
      * Constructs a new Export service
@@ -61,6 +85,7 @@ class ExportService
             switch ($options['format']) {
                 case 'json':
                 case 'xml':
+                case 'yaml':
                     return $this->simpleUseSerializer($options);
 
                 case 'csv':
@@ -75,6 +100,7 @@ class ExportService
             switch ($options['format']) {
                 case 'json':
                 case 'xml':
+                case 'yaml':
                     return $this->fullUseSerializer($options);
 
                 case 'csv':
@@ -93,19 +119,25 @@ class ExportService
      */
     protected function fullUseSerializer(array $options): ExportResponse
     {
+        $isXml = ($options['format'] == 'xml');
         $data = [
-            'boxes' => $this->em->getRepository(Box::class)->getSorted(),
-            'boxModels' => $this->em->getRepository(BoxModel::class)->getSorted(),
-            'locations' => $this->em->getRepository(Location::class)->getSorted(),
+            $isXml ? 'box'      : 'boxes'     => $this->em->getRepository(Box::class)->getSorted(),
+            $isXml ? 'boxModel' : 'boxModels' => $this->em->getRepository(BoxModel::class)->getSorted(),
+            $isXml ? 'location' : 'locations' => $this->em->getRepository(Location::class)->getSorted(),
         ];
 
-        $encoders = [new XmlEncoder(), new JsonEncoder()];
+        $encoders = [
+            new JsonEncoder(),
+            new XmlEncoder(),
+            new YamlEncoder(),
+        ];
         $normalizers = [new EntityNormalizer()];
         $serializer = new Serializer($normalizers, $encoders);
 
         $data = $serializer->serialize(
             $data,
-            $options['format']
+            $options['format'],
+            $this->encoderContext
         );
 
         $this->logger->info($data);
@@ -206,24 +238,33 @@ class ExportService
      */
     protected function simpleUseSerializer(array $options): ExportResponse
     {
-        $boxes = $this->em->getRepository(Box::class)->getSorted();
+        $isXml = ($options['format'] == 'xml');
+        $data = [
+            $isXml ? 'box' : 'boxes' => $this->em->getRepository(Box::class)->getSorted(),
+        ];
 
-        $encoders = [new XmlEncoder(), new JsonEncoder(), new CsvEncoder()];
+        $encoders = [
+            new JsonEncoder(),
+            new XmlEncoder(),
+            new YamlEncoder(),
+        ];
         $normalizers = [new BoxNormalizer(true)];
         $serializer = new Serializer($normalizers, $encoders);
 
+        $context = $this->encoderContext;
+
+        $context[AbstractNormalizer::ATTRIBUTES] = [
+            'displayId',
+            'label',
+            'description',
+            'boxModel' => ['label'],
+            'location' => ['displayLabel'],
+        ];
+
         $data = $serializer->serialize(
-            $boxes,
+            $data,
             $options['format'],
-            [
-                AbstractNormalizer::ATTRIBUTES => [
-                    'displayId',
-                    'label',
-                    'description',
-                    'boxModel' => ['label'],
-                    'location' => ['displayLabel'],
-                ],
-            ]
+            $context
         );
 
         $this->logger->info($data);

@@ -40,6 +40,7 @@ class ExportType extends AbstractType
                         'JSON'  => 'json',
                         'OpenDocument Spreadsheet' => 'ods',
                         'XML'   => 'xml',
+                        'YAML'  => 'yaml',
                     ],
                 ]
             )

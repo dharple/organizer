@@ -29,7 +29,9 @@ abstract class AbstractEntity
      */
     public function getData(): array
     {
-        $ret = [];
+        $ret = [
+            'displayLabel' => $this->getDisplayLabel(),
+        ];
 
         foreach (get_object_vars($this) as $field => $value) {
             if (strpos($field, '__') === 0) {
@@ -59,4 +61,11 @@ abstract class AbstractEntity
 
         return $ret;
     }
+
+    /**
+     * Generates the display label for this class.
+     *
+     * @return string
+     */
+    abstract public function getDisplayLabel();
 }

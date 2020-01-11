@@ -20,7 +20,8 @@ DATABASE_URL=sqlite:///%kernel.project_dir%/var/organizer.db
 
 Populate the schema for your database:
 ```
-bin/console doctrine:migrations:migrate
+bin/console doctrine:database:create
+bin/console doctrine:schema:create
 ```
 
 Create a user:

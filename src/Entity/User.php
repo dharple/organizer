@@ -24,8 +24,8 @@ use Symfony\Component\Security\Core\User\UserInterface;
  */
 class User implements UserInterface
 {
-    use SoftDeleteableEntity;
     use TimestampableEntity;
+    use SoftDeleteableEntity;
 
     /**
      * @ORM\Id()

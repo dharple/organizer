@@ -19,8 +19,8 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
  */
 abstract class AbstractEntity
 {
-    use SoftDeleteableEntity;
     use TimestampableEntity;
+    use SoftDeleteableEntity;
 
     /**
      * Returns an array containing the raw data for this entity

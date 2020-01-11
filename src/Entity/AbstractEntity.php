@@ -44,7 +44,7 @@ abstract class AbstractEntity
                 try {
                     if ($value instanceof EntityInterface) {
                         $value = $value->getId();
-                    } elseif ($value instanceOf \DateTime) {
+                    } elseif ($value instanceof \DateTime) {
                         $value = $value->format('c');
                     } else {
                         $value = (string) $value;

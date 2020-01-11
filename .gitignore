@@ -9,6 +9,4 @@
 /var/
 /vendor/
 /.web-server-pid
-export-*.json
-export-*.yaml
-export-*.xml
+export-*.*

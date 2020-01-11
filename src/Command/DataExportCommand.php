@@ -41,7 +41,8 @@ class DataExportCommand extends Command
         $this
             ->setDescription('Exports box and related data.')
             ->addOption('format', 'f', InputOption::VALUE_REQUIRED, 'Export format.  One of: json, xml, yaml.  Defaults to json.')
-            ->addOption('output', 'o', InputOption::VALUE_REQUIRED, 'Output filename.  Defaults to export-YYYYMMDDHHMM.{format}.');
+            ->addOption('output', 'o', InputOption::VALUE_REQUIRED, 'Output filename.  Defaults to export-YYYYMMDDHHMM.{format}.')
+            ->addOption('type',   't', InputOption::VALUE_REQUIRED, 'Export type.  One of: full, simple.  Defaults to full.');
         ;
     }
 
@@ -59,10 +60,11 @@ class DataExportCommand extends Command
 
         try {
             $format = $input->getOption('format') ?? 'json';
+            $type   = $input->getOption('type')   ?? 'full';
 
             $file = $this->exportService->export([
-                'type'   => 'full',
                 'format' => $format,
+                'type'   => $type,
             ]);
 
             $output = $input->getOption('output') ?? $file->getSuggestedFilename();

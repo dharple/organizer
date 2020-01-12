@@ -21,7 +21,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
- * Symfony Console command to add a user.
+ * Console command to add a user.
  */
 class UserAddCommand extends Command
 {

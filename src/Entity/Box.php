@@ -84,7 +84,7 @@ class Box extends AbstractEntity implements EntityInterface
 
     public function getDisplayLabel(): string
     {
-        return empty($this->getId()) ? '' : sprintf('Box %04d - %s', $this->getId(), $this->getLabel());
+        return empty($this->getId()) ? $this->getLabel() : sprintf('Box %04d - %s', $this->getId(), $this->getLabel());
     }
 
     public function getLocation(): ?Location

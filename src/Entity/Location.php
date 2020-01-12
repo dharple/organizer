@@ -131,13 +131,21 @@ class Location extends AbstractEntity implements EntityInterface
     protected function parentWalker(): iterable
     {
         $ids = [];
+        $objs = [];
 
         $location = $this;
         while ($location !== null) {
-            if (in_array($location->getId(), $ids)) {
-                throw new \Exception('Recursive location hierarchy found');
+            if ($location->getId() !== null) {
+                if (in_array($location->getId(), $ids)) {
+                    throw new \Exception('Recursive location hierarchy found');
+                }
+                $ids[] = $location->getId();
+            } else {
+                if (in_array($location, $objs)) {
+                    throw new \Exception('Recursive location hierarchy found');
+                }
+                $objs[] = $location;
             }
-            $ids[] = $location->getId();
 
             yield $location;
             $location = $location->getParentLocation();

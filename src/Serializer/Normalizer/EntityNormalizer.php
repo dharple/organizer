@@ -12,23 +12,14 @@
 namespace App\Serializer\Normalizer;
 
 use App\Entity\EntityInterface;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Serializer\Normalizer\CacheableSupportsMethodInterface;
-use Symfony\Component\Serializer\Normalizer\ContextAwareNormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
-use Symfony\Component\Serializer\SerializerInterface;
-use Symfony\Component\Serializer\SerializerAwareInterface;
-use Symfony\Component\Serializer\SerializerAwareTrait;
 
 /**
  * Normalizes a entity into its IDs
  */
-class EntityNormalizer implements NormalizerInterface, CacheableSupportsMethodInterface, SerializerAwareInterface
+class EntityNormalizer implements NormalizerInterface, CacheableSupportsMethodInterface
 {
-    use SerializerAwareTrait {
-        setSerializer as traitSetSerializer;
-    }
-
     /**
      * {@inheritdoc}
      */

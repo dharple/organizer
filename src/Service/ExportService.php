@@ -23,6 +23,7 @@ use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Encoder\XmlEncoder;
 use Symfony\Component\Serializer\Encoder\YamlEncoder;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
 
 /**
@@ -44,7 +45,7 @@ class ExportService
         JsonEncode::OPTIONS        => JSON_PRETTY_PRINT,
         XmlEncoder::FORMAT_OUTPUT  => true,
         XmlEncoder::ROOT_NODE_NAME => 'export',
-        'yaml_indent'              => 4,
+        'yaml_indent'              => 0,
         'yaml_inline'              => 10,
     ];
 
@@ -119,19 +120,20 @@ class ExportService
      */
     protected function fullUseSerializer(array $options): ExportResponse
     {
-        $isXml = ($options['format'] == 'xml');
-        $data = [
-            $isXml ? 'box'      : 'boxes'     => $this->em->getRepository(Box::class)->getSortedByDisplayLabel(),
-            $isXml ? 'boxModel' : 'boxModels' => $this->em->getRepository(BoxModel::class)->getSortedByDisplayLabel(),
-            $isXml ? 'location' : 'locations' => $this->em->getRepository(Location::class)->getSortedByDisplayLabel(),
-        ];
+        $data = (new ExportContainer())
+            ->setBoxes($this->em->getRepository(Box::class)->getSortedByDisplayLabel())
+            ->setBoxModels($this->em->getRepository(BoxModel::class)->getSortedByDisplayLabel())
+            ->setLocations($this->em->getRepository(Location::class)->getSortedByDisplayLabel());
 
         $encoders = [
             new JsonEncoder(),
             new XmlEncoder(),
             new YamlEncoder(),
         ];
-        $normalizers = [new EntityNormalizer()];
+        $normalizers = [
+            new EntityNormalizer(),
+            new ObjectNormalizer(),
+        ];
         $serializer = new Serializer($normalizers, $encoders);
 
         $data = $serializer->serialize(
@@ -238,9 +240,8 @@ class ExportService
      */
     protected function simpleUseSerializer(array $options): ExportResponse
     {
-        $isXml = ($options['format'] == 'xml');
         $data = [
-            $isXml ? 'box' : 'boxes' => $this->em->getRepository(Box::class)->getSortedByDisplayLabel(),
+            'boxes' => $this->em->getRepository(Box::class)->getSortedByDisplayLabel(),
         ];
 
         $encoders = [

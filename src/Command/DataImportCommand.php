@@ -53,8 +53,8 @@ class DataImportCommand extends Command
         $this
             ->setDescription('Imports box and related data.')
             ->addArgument('filename', InputArgument::REQUIRED, 'The file to import from.')
-            ->addOption('format', 'f', InputOption::VALUE_REQUIRED, 'Export format.  One of: json, xml, yaml.  Defaults to the file\'s extension.')
-            ->addOption('dry-run', null, InputOption::VALUE_NONE, 'Simulate the import affecting the database.');
+            ->addOption('dry-run', null, InputOption::VALUE_NONE, 'Simulate the import affecting the database.')
+            ->addOption('format', 'f', InputOption::VALUE_REQUIRED, 'Export format.  One of: json, xml, yaml.  Defaults to the file\'s extension.');
     }
 
     /**
@@ -71,9 +71,9 @@ class DataImportCommand extends Command
 
         try {
             $this->importService->import([
+                'dry-run'  => $input->getOption('dry-run'),
                 'filename' => $input->getArgument('filename'),
                 'format'   => $input->getOption('format'),
-                'dry-run'  => $input->getOption('dry-run'),
             ]);
         } catch (\Exception $e) {
             $io->error(sprintf('Failed to export: %s', $e->getMessage()));

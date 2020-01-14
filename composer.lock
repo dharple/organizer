@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "805122bc38454223659dd8e80aa9b3db",
+    "content-hash": "bbf0b685fd93d097c1a7080d797f138f",
     "packages": [
         {
             "name": "adrenalinkin/doctrine-utc-date-time",
@@ -166,34 +166,6 @@
                 "transliterator"
             ],
             "time": "2017-04-04T11:38:05+00:00"
-        },
-        {
-            "name": "dharple/outsanity-phpcs",
-            "version": "0.1.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/dharple/outsanity-phpcs.git",
-                "reference": "fb543871488e957b1fbb98c006d022281e71d78d"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/dharple/outsanity-phpcs/zipball/fb543871488e957b1fbb98c006d022281e71d78d",
-                "reference": "fb543871488e957b1fbb98c006d022281e71d78d",
-                "shasum": ""
-            },
-            "type": "library",
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD 2-Clause License"
-            ],
-            "authors": [
-                {
-                    "name": "Doug Harple",
-                    "email": "dharple@gmail.com"
-                }
-            ],
-            "description": "My personal PHPCS rules",
-            "time": "2020-01-14T05:31:53+00:00"
         },
         {
             "name": "doctrine/annotations",
@@ -6527,6 +6499,34 @@
         }
     ],
     "packages-dev": [
+        {
+            "name": "dharple/outsanity-phpcs",
+            "version": "0.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/dharple/outsanity-phpcs.git",
+                "reference": "fb543871488e957b1fbb98c006d022281e71d78d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/dharple/outsanity-phpcs/zipball/fb543871488e957b1fbb98c006d022281e71d78d",
+                "reference": "fb543871488e957b1fbb98c006d022281e71d78d",
+                "shasum": ""
+            },
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD 2-Clause License"
+            ],
+            "authors": [
+                {
+                    "name": "Doug Harple",
+                    "email": "dharple@gmail.com"
+                }
+            ],
+            "description": "My personal PHPCS rules",
+            "time": "2020-01-14T05:31:53+00:00"
+        },
         {
             "name": "easycorp/easy-log-handler",
             "version": "v1.0.9",

@@ -154,7 +154,6 @@ class ExportContainer
      */
     public function setBoxes(array $boxes)
     {
-
         $this->boxes = $boxes;
         return $this;
     }

@@ -117,21 +117,21 @@ class BoxRepository extends ServiceEntityRepository
     }
 
     /**
-     * Sorted by id
-     *
-     * @return Box[] Returns an array of Box objects
-     */
-    public function getSortedById()
-    {
-        return $this->findBy([], ['id' => 'ASC']);
-    }
-
-    /**
      * Sorted by display label
      *
      * @return Box[] Returns an array of Box objects
      */
     public function getSortedByDisplayLabel()
+    {
+        return $this->findBy([], ['id' => 'ASC']);
+    }
+
+    /**
+     * Sorted by id
+     *
+     * @return Box[] Returns an array of Box objects
+     */
+    public function getSortedById()
     {
         return $this->findBy([], ['id' => 'ASC']);
     }

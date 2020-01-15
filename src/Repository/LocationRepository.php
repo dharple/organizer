@@ -55,16 +55,6 @@ class LocationRepository extends ServiceEntityRepository
     }
 
     /**
-     * Sorted by id
-     *
-     * @return Location[] Returns an array of Location objects
-     */
-    public function getSortedById()
-    {
-        return $this->findBy([], ['id' => 'ASC']);
-    }
-
-    /**
      * Sorted by displayLabel
      *
      * @return Location[] Returns an array of Location objects
@@ -87,6 +77,16 @@ class LocationRepository extends ServiceEntityRepository
             ->getResult();
         usort($ret, '\App\Utility\Sort::sortByDisplayLabel');
         return $ret;
+    }
+
+    /**
+     * Sorted by id
+     *
+     * @return Location[] Returns an array of Location objects
+     */
+    public function getSortedById()
+    {
+        return $this->findBy([], ['id' => 'ASC']);
     }
 
     /**

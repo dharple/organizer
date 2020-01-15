@@ -22,6 +22,10 @@ use Gedmo\Mapping\Annotation as Gedmo;
  */
 class Location extends AbstractEntity implements EntityInterface
 {
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Box", mappedBy="location")
+     */
+    protected $boxes;
 
     /**
      * @ORM\Id()
@@ -40,39 +44,9 @@ class Location extends AbstractEntity implements EntityInterface
      */
     protected $parentLocation;
 
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Box", mappedBy="location")
-     */
-    protected $boxes;
-
     public function __construct()
     {
         $this->boxes = new ArrayCollection();
-    }
-
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
-
-    public function getLabel(): ?string
-    {
-        return $this->label;
-    }
-
-    public function setLabel(string $label): self
-    {
-        $this->label = $label;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Box[]
-     */
-    public function getBoxes(): Collection
-    {
-        return $this->boxes;
     }
 
     public function addBox(Box $box): self
@@ -85,39 +59,44 @@ class Location extends AbstractEntity implements EntityInterface
         return $this;
     }
 
-    public function removeBox(Box $box): self
+    /**
+     * @return Collection|Box[]
+     */
+    public function getBoxes(): Collection
     {
-        if ($this->boxes->contains($box)) {
-            $this->boxes->removeElement($box);
-            // set the owning side to null (unless already changed)
-            if ($box->getLocation() === $this) {
-                $box->setLocation(null);
-            }
+        return $this->boxes;
+    }
+
+    /**
+     * Generates the display label for this class, showing its full place on
+     * the tree.
+     *
+     * @return string A full display label for this location.  For instance
+     *                "Home - Garage - Wire Rack".
+     */
+    public function getDisplayLabel()
+    {
+        $build = [];
+        foreach ($this->parentWalker() as $location) {
+            $build[] = $location->getLabel();
         }
 
-        return $this;
+        return implode(' - ', array_reverse($build));
+    }
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getLabel(): ?string
+    {
+        return $this->label;
     }
 
     public function getParentLocation(): ?self
     {
         return $this->parentLocation;
-    }
-
-    public function setParentLocation(?self $parentLocation): self
-    {
-        $hold = $this->parentLocation;
-
-        $this->parentLocation = $parentLocation;
-
-        try {
-            // check for recursion and bail if we find it
-            iterator_to_array($this->parentWalker());
-        } catch (\Exception $e) {
-            $this->parentLocation = $hold;
-            throw $e;
-        }
-
-        return $this;
     }
 
     /**
@@ -152,20 +131,40 @@ class Location extends AbstractEntity implements EntityInterface
         }
     }
 
-    /**
-     * Generates the display label for this class, showing its full place on
-     * the tree.
-     *
-     * @return string A full display label for this location.  For instance
-     *                "Home - Garage - Wire Rack".
-     */
-    public function getDisplayLabel()
+    public function removeBox(Box $box): self
     {
-        $build = [];
-        foreach ($this->parentWalker() as $location) {
-            $build[] = $location->getLabel();
+        if ($this->boxes->contains($box)) {
+            $this->boxes->removeElement($box);
+            // set the owning side to null (unless already changed)
+            if ($box->getLocation() === $this) {
+                $box->setLocation(null);
+            }
         }
 
-        return implode(' - ', array_reverse($build));
+        return $this;
+    }
+
+    public function setLabel(string $label): self
+    {
+        $this->label = $label;
+
+        return $this;
+    }
+
+    public function setParentLocation(?self $parentLocation): self
+    {
+        $hold = $this->parentLocation;
+
+        $this->parentLocation = $parentLocation;
+
+        try {
+            // check for recursion and bail if we find it
+            iterator_to_array($this->parentWalker());
+        } catch (\Exception $e) {
+            $this->parentLocation = $hold;
+            throw $e;
+        }
+
+        return $this;
     }
 }

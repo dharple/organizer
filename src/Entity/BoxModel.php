@@ -23,6 +23,16 @@ use Gedmo\Mapping\Annotation as Gedmo;
 class BoxModel extends AbstractEntity implements EntityInterface
 {
     /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Box", mappedBy="boxModel")
+     */
+    protected $boxes;
+
+    /**
+     * @ORM\Column(type="string", length=64, nullable=true)
+     */
+    protected $color;
+
+    /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
@@ -35,9 +45,9 @@ class BoxModel extends AbstractEntity implements EntityInterface
     protected $label;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Box", mappedBy="boxModel")
+     * @ORM\Column(type="string", length=16, nullable=true)
      */
-    protected $boxes;
+    protected $latch;
 
     /**
      * @ORM\Column(type="string", length=64, nullable=true)
@@ -54,34 +64,17 @@ class BoxModel extends AbstractEntity implements EntityInterface
      */
     protected $size;
 
-    /**
-     * @ORM\Column(type="string", length=64, nullable=true)
-     */
-    protected $color;
-
-    /**
-     * @ORM\Column(type="string", length=16, nullable=true)
-     */
-    protected $latch;
-
     public function __construct()
     {
         $this->boxes = new ArrayCollection();
     }
 
-    public function getId(): ?int
+    public function addBox(Box $box): self
     {
-        return $this->id;
-    }
-
-    public function getLabel(): ?string
-    {
-        return $this->label;
-    }
-
-    public function setLabel(string $label): self
-    {
-        $this->label = $label;
+        if (!$this->boxes->contains($box)) {
+            $this->boxes[] = $box;
+            $box->setBoxModel($this);
+        }
 
         return $this;
     }
@@ -94,14 +87,44 @@ class BoxModel extends AbstractEntity implements EntityInterface
         return $this->boxes;
     }
 
-    public function addBox(Box $box): self
+    public function getColor(): ?string
     {
-        if (!$this->boxes->contains($box)) {
-            $this->boxes[] = $box;
-            $box->setBoxModel($this);
-        }
+        return $this->color;
+    }
 
-        return $this;
+    public function getDisplayLabel(): string
+    {
+        return $this->getLabel();
+    }
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getLabel(): ?string
+    {
+        return $this->label;
+    }
+
+    public function getLatch(): ?string
+    {
+        return $this->latch;
+    }
+
+    public function getMake(): ?string
+    {
+        return $this->make;
+    }
+
+    public function getModel(): ?string
+    {
+        return $this->model;
+    }
+
+    public function getSize(): ?string
+    {
+        return $this->size;
     }
 
     public function removeBox(Box $box): self
@@ -117,47 +140,6 @@ class BoxModel extends AbstractEntity implements EntityInterface
         return $this;
     }
 
-    public function getMake(): ?string
-    {
-        return $this->make;
-    }
-
-    public function setMake(?string $make): self
-    {
-        $this->make = $make;
-
-        return $this;
-    }
-
-    public function getModel(): ?string
-    {
-        return $this->model;
-    }
-
-    public function setModel(?string $model): self
-    {
-        $this->model = $model;
-
-        return $this;
-    }
-
-    public function getSize(): ?string
-    {
-        return $this->size;
-    }
-
-    public function setSize(?string $size): self
-    {
-        $this->size = $size;
-
-        return $this;
-    }
-
-    public function getColor(): ?string
-    {
-        return $this->color;
-    }
-
     public function setColor(?string $color): self
     {
         $this->color = $color;
@@ -165,9 +147,11 @@ class BoxModel extends AbstractEntity implements EntityInterface
         return $this;
     }
 
-    public function getLatch(): ?string
+    public function setLabel(string $label): self
     {
-        return $this->latch;
+        $this->label = $label;
+
+        return $this;
     }
 
     public function setLatch(?string $latch): self
@@ -177,8 +161,25 @@ class BoxModel extends AbstractEntity implements EntityInterface
         return $this;
     }
 
-    public function getDisplayLabel(): string
+    public function setMake(?string $make): self
     {
-        return $this->getLabel();
+        $this->make = $make;
+
+        return $this;
+    }
+
+    public function setModel(?string $model): self
+    {
+        $this->model = $model;
+
+        return $this;
+    }
+
+
+    public function setSize(?string $size): self
+    {
+        $this->size = $size;
+
+        return $this;
     }
 }

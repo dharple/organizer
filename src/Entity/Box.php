@@ -20,6 +20,15 @@ use Gedmo\Mapping\Annotation as Gedmo;
  */
 class Box extends AbstractEntity implements EntityInterface
 {
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\BoxModel", inversedBy="boxes")
+     */
+    protected $boxModel;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    protected $description;
 
     /**
      * @ORM\Id()
@@ -34,47 +43,18 @@ class Box extends AbstractEntity implements EntityInterface
     protected $label;
 
     /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    protected $description;
-
-    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Location", inversedBy="boxes")
      */
     protected $location;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\BoxModel", inversedBy="boxes")
-     */
-    protected $boxModel;
-
-    public function getId(): ?int
+    public function getBoxModel(): ?BoxModel
     {
-        return $this->id;
-    }
-
-    public function getLabel(): ?string
-    {
-        return $this->label;
-    }
-
-    public function setLabel(string $label): self
-    {
-        $this->label = $label;
-
-        return $this;
+        return $this->boxModel;
     }
 
     public function getDescription(): ?string
     {
         return $this->description;
-    }
-
-    public function setDescription(?string $description): self
-    {
-        $this->description = $description ?? '';
-
-        return $this;
     }
 
     public function getDisplayId(): string
@@ -87,26 +67,45 @@ class Box extends AbstractEntity implements EntityInterface
         return empty($this->getId()) ? $this->getLabel() : sprintf('Box %04d - %s', $this->getId(), $this->getLabel());
     }
 
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getLabel(): ?string
+    {
+        return $this->label;
+    }
+
     public function getLocation(): ?Location
     {
         return $this->location;
     }
 
-    public function setLocation(?Location $location): self
+    public function setBoxModel(?BoxModel $boxModel): self
     {
-        $this->location = $location;
+        $this->boxModel = $boxModel;
 
         return $this;
     }
 
-    public function getBoxModel(): ?BoxModel
+    public function setDescription(?string $description): self
     {
-        return $this->boxModel;
+        $this->description = $description ?? '';
+
+        return $this;
     }
 
-    public function setBoxModel(?BoxModel $boxModel): self
+    public function setLabel(string $label): self
     {
-        $this->boxModel = $boxModel;
+        $this->label = $label;
+
+        return $this;
+    }
+
+    public function setLocation(?Location $location): self
+    {
+        $this->location = $location;
 
         return $this;
     }

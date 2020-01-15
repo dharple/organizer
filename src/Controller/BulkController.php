@@ -36,7 +36,7 @@ class BulkController extends AbstractController
             try {
                 $file = $exportService->export($form->getData());
                 $this->addFlash('success', 'Export complete');
-                $response = $this->file($file->getFilename(), $file->getSuggestedFormat());
+                $response = $this->file($file->getFilename(), $file->getSuggestedFilename());
                 $response->headers->set('Content-Type', $file->getContentType());
                 $response->deleteFileAfterSend();
                 return $response;

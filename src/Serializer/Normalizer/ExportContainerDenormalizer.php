@@ -67,6 +67,11 @@ class ExportContainerDenormalizer implements CacheableSupportsMethodInterface, D
                     ],
                 ]
             );
+
+            if (!($location instanceof Location)) {
+                throw new \Exception('Expected a Location');
+            }
+
             $exportContainer->addLocation($location);
             $cache['locations'][$row['id']] = $location;
 
@@ -109,6 +114,11 @@ class ExportContainerDenormalizer implements CacheableSupportsMethodInterface, D
                     ],
                 ]
             );
+
+            if (!($boxModel instanceof BoxModel)) {
+                throw new \Exception('Expected a BoxModel');
+            }
+
             $exportContainer->addBoxModel($boxModel);
             $cache['boxModels'][$row['id']] = $boxModel;
 
@@ -140,6 +150,11 @@ class ExportContainerDenormalizer implements CacheableSupportsMethodInterface, D
                     ],
                 ]
             );
+
+            if (!($box instanceof Box)) {
+                throw new \Exception('Expected a Box');
+            }
+
             $exportContainer->addBox($box);
             $cache['box'][$row['id']] = $box;
 

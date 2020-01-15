@@ -74,7 +74,7 @@ class ExportContainer
      *
      * @return Box
      */
-    public function getBox(integer $id)
+    public function getBox(int $id)
     {
         foreach ($this->boxes as $box) {
             if ($box->getId() == $id) {
@@ -100,7 +100,7 @@ class ExportContainer
      *
      * @return BoxModel
      */
-    public function getBoxModel(integer $id)
+    public function getBoxModel(int $id)
     {
         foreach ($this->boxModels as $boxModel) {
             if ($boxModel->getId() == $id) {
@@ -126,7 +126,7 @@ class ExportContainer
      *
      * @return Location
      */
-    public function getLocation(integer $id)
+    public function getLocation(int $id)
     {
         foreach ($this->locations as $location) {
             if ($location->getId() == $id) {

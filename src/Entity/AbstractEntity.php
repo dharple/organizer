@@ -59,6 +59,8 @@ abstract class AbstractEntity
             $ret[$field] = $value;
         }
 
+        ksort($ret);
+
         return $ret;
     }
 

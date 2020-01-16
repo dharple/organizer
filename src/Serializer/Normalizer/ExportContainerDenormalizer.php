@@ -75,17 +75,7 @@ class ExportContainerDenormalizer implements CacheableSupportsMethodInterface, D
             $exportContainer->addLocation($location);
             $cache['locations'][$row['id']] = $location;
 
-            if (isset($row['createdAt'])) {
-                $location->setCreatedAt(new \DateTime($row['createdAt'], new \DateTimeZone('UTC')));
-            }
-
-            if (isset($row['updatedAt'])) {
-                $location->setUpdatedAt(new \DateTime($row['updatedAt'], new \DateTimeZone('UTC')));
-            }
-
-            if (isset($row['deletedAt'])) {
-                $location->setDeletedAt(new \DateTime($row['deletedAt'], new \DateTimeZone('UTC')));
-            }
+            $this->normalizeTimestamps($location, $row);
         }
 
         foreach ($data['locations'] as $row) {
@@ -122,17 +112,7 @@ class ExportContainerDenormalizer implements CacheableSupportsMethodInterface, D
             $exportContainer->addBoxModel($boxModel);
             $cache['boxModels'][$row['id']] = $boxModel;
 
-            if (isset($row['createdAt'])) {
-                $boxModel->setCreatedAt(new \DateTime($row['createdAt'], new \DateTimeZone('UTC')));
-            }
-
-            if (isset($row['updatedAt'])) {
-                $boxModel->setUpdatedAt(new \DateTime($row['updatedAt'], new \DateTimeZone('UTC')));
-            }
-
-            if (isset($row['deletedAt'])) {
-                $boxModel->setDeletedAt(new \DateTime($row['deletedAt'], new \DateTimeZone('UTC')));
-            }
+            $this->normalizeTimestamps($boxModel, $row);
         }
 
         foreach ($data['boxes'] as $row) {
@@ -176,17 +156,7 @@ class ExportContainerDenormalizer implements CacheableSupportsMethodInterface, D
                 }
             }
 
-            if (isset($row['createdAt'])) {
-                $box->setCreatedAt(new \DateTime($row['createdAt'], new \DateTimeZone('UTC')));
-            }
-
-            if (isset($row['updatedAt'])) {
-                $box->setUpdatedAt(new \DateTime($row['updatedAt'], new \DateTimeZone('UTC')));
-            }
-
-            if (isset($row['deletedAt'])) {
-                $box->setDeletedAt(new \DateTime($row['deletedAt'], new \DateTimeZone('UTC')));
-            }
+            $this->normalizeTimestamps($box, $row);
         }
 
         return $exportContainer;
@@ -198,6 +168,27 @@ class ExportContainerDenormalizer implements CacheableSupportsMethodInterface, D
     public function hasCacheableSupportsMethod(): bool
     {
         return true;
+    }
+
+    /**
+     * Normalize timestamps
+     *
+     * @param AbstractEntity $entity
+     * @param array          $row
+     */
+    protected function normalizeTimestamps($entity, $row): void
+    {
+        if (isset($row['createdAt'])) {
+            $entity->setCreatedAt(new \DateTime($row['createdAt'], new \DateTimeZone('UTC')));
+        }
+
+        if (isset($row['updatedAt'])) {
+            $entity->setUpdatedAt(new \DateTime($row['updatedAt'], new \DateTimeZone('UTC')));
+        }
+
+        if (isset($row['deletedAt'])) {
+            $entity->setDeletedAt(new \DateTime($row['deletedAt'], new \DateTimeZone('UTC')));
+        }
     }
 
     /**

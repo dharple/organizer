@@ -55,6 +55,7 @@ class BoxMoveCommand extends Command
     {
         $this
             ->setDescription('Move boxes')
+            ->addOption('box', null, InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY, 'Box Number(s) to search on.')
             ->addOption('dry-run', null, InputOption::VALUE_NONE, 'Simulate the move in the database.')
             ->addOption('from', null, InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY, 'Source Location ID.  At least one ID or from location must be specified.')
             ->addOption('id', null, InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY, 'ID(s) to move.')
@@ -77,9 +78,10 @@ class BoxMoveCommand extends Command
             $table = new Table($output);
             $table->setRows(
                 $this->moveService->move([
+                    'box'      => $input->getOption('box'),
                     'dry-run'  => $input->getOption('dry-run'),
-                    'id'       => $input->getOption('id'),
                     'from'     => $input->getOption('from'),
+                    'id'       => $input->getOption('id'),
                     'to'       => $input->getOption('to'),
                 ])
             );

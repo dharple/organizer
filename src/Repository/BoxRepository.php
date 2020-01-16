@@ -65,7 +65,7 @@ class BoxRepository extends ServiceEntityRepository
         foreach ($keywords as $keyword) {
             $output = [];
             if (is_numeric($keyword)) {
-                $output = $this->findBy(['id' => ltrim($keyword, '0')]);
+                $output = $this->findBy(['boxNumber' => ltrim($keyword, '0')]);
             } else {
                 if (strlen($keyword) < $threshold) {
                     continue;
@@ -84,7 +84,7 @@ class BoxRepository extends ServiceEntityRepository
             }
 
             foreach ($output as $box) {
-                $id = $box->getId();
+                $id = $box->getBoxNumber();
                 $all[$id] = $box;
                 if (!isset($counts[$id])) {
                     $counts[$id] = 1;
@@ -117,13 +117,26 @@ class BoxRepository extends ServiceEntityRepository
     }
 
     /**
+     * Get next box number.
+     *
+     * @return int
+     */
+    public function getNextBoxNumber(): int
+    {
+        $this->getEntityManager()->getFilters()->disable('SoftDeleteable');
+        $box = $this->findOneBy([], ['boxNumber' => 'DESC']);
+        $this->getEntityManager()->getFilters()->enable('SoftDeleteable');
+        return is_object($box) ? $box->getBoxNumber() + 1 : 1;
+    }
+
+    /**
      * Sorted by display label
      *
      * @return Box[] Returns an array of Box objects
      */
     public function getSortedByDisplayLabel()
     {
-        return $this->findBy([], ['id' => 'ASC']);
+        return $this->findBy([], ['boxNumber' => 'ASC']);
     }
 
     /**

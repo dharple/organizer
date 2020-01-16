@@ -59,7 +59,7 @@ class BoxNormalizer implements NormalizerInterface, CacheableSupportsMethodInter
     public function normalize($box, $format = null, array $context = []): array
     {
         return [
-            'ID' => $this->useDisplayId ? $box->getDisplayId() : $box->getId(),
+            'Box Number' => $this->useDisplayId ? $box->getDisplayId() : $box->getBoxNumber(),
             'Label' => $box->getLabel(),
             'Description' => $box->getDescription(),
             'Type' => $box->getBoxModel() ? $box->getBoxModel()->getDisplayLabel() : null,

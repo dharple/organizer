@@ -55,8 +55,8 @@ class MoveService
     {
         $this->logger->info(json_encode($options));
 
-        if (empty($options['id']) && empty($options['from'])) {
-            throw new \Exception('At least one Box ID or Source Location must be specified');
+        if (empty($options['box']) && empty($options['id']) && empty($options['from'])) {
+            throw new \Exception('At least one Box ID, Box Number, or Source Location must be specified');
         }
 
         if (!isset($options['to'])) {
@@ -66,6 +66,9 @@ class MoveService
         $toLocation = $this->em->getRepository(Location::class)->find($options['to']);
 
         $query = [];
+        if (!empty($options['box'])) {
+            $query['boxNumber'] = $options['box'];
+        }
         if (!empty($options['id'])) {
             $query['id'] = $options['id'];
         }
@@ -73,7 +76,7 @@ class MoveService
             $query['location'] = $options['from'];
         }
 
-        $boxes = $this->em->getRepository(Box::class)->findBy($query, ['id' => 'ASC']);
+        $boxes = $this->em->getRepository(Box::class)->findBy($query, ['boxNumber' => 'ASC']);
 
         $ret = [];
         foreach ($boxes as $box) {

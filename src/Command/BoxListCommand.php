@@ -52,8 +52,10 @@ class BoxListCommand extends Command
     {
         $this
             ->setDescription('List boxes')
+            ->addOption('box', null, InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY, 'Box Number(s) to search on.')
+            ->addOption('id', null, InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY, 'Box ID(s) to search on.')
             ->addOption('location', null, InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY, 'Location ID(s) to search on.')
-            ->addOption('id', null, InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY, 'Box ID(s) to search on.');
+            ;
     }
 
     /**
@@ -70,6 +72,10 @@ class BoxListCommand extends Command
         $table->setHeaders(['id', 'label', 'location']);
 
         $query = [];
+        $boxNumbers = $input->getOption('box');
+        if (!empty($boxNumbers)) {
+            $query['boxNumber'] = $boxNumbers;
+        }
         $ids = $input->getOption('id');
         if (!empty($ids)) {
             $query['id'] = $ids;
@@ -79,7 +85,7 @@ class BoxListCommand extends Command
             $query['location'] = $locations;
         }
 
-        $boxes = $this->em->getRepository(Box::class)->findBy($query, ['id' => 'ASC']);
+        $boxes = $this->em->getRepository(Box::class)->findBy($query, ['boxNumber' => 'ASC']);
         foreach ($boxes as $box) {
             $table->addRow([
                 $box->getId(),

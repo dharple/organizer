@@ -11,11 +11,14 @@
 
 namespace App\Entity;
 
+use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\BoxRepository")
+ * @ORM\Table(name="box",uniqueConstraints={@ORM\UniqueConstraint(name="box_number_uniq", columns={"box_number"})})
+ * @ORM\HasLifecycleCallbacks()
  * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false, hardDelete=true)
  */
 class Box extends AbstractEntity implements EntityInterface
@@ -24,6 +27,11 @@ class Box extends AbstractEntity implements EntityInterface
      * @ORM\ManyToOne(targetEntity="App\Entity\BoxModel", inversedBy="boxes")
      */
     protected $boxModel;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    protected $boxNumber;
 
     /**
      * @ORM\Column(type="text", nullable=true)
@@ -47,9 +55,26 @@ class Box extends AbstractEntity implements EntityInterface
      */
     protected $location;
 
+    /**
+     * @ORM\PrePersist
+     */
+    public function generateBoxNumber(LifecycleEventArgs $event): void
+    {
+        if (isset($this->boxNumber)) {
+            return;
+        }
+
+        $this->boxNumber = $event->getEntityManager()->getRepository(Box::class)->getNextBoxNumber();
+    }
+
     public function getBoxModel(): ?BoxModel
     {
         return $this->boxModel;
+    }
+
+    public function getBoxNumber(): ?int
+    {
+        return $this->boxNumber;
     }
 
     public function getDescription(): ?string
@@ -59,12 +84,12 @@ class Box extends AbstractEntity implements EntityInterface
 
     public function getDisplayId(): string
     {
-        return empty($this->getId()) ? '' : sprintf('%04d', $this->getId());
+        return empty($this->getBoxNumber()) ? '' : sprintf('%04d', $this->getBoxNumber());
     }
 
     public function getDisplayLabel(): string
     {
-        return empty($this->getId()) ? $this->getLabel() : sprintf('Box %04d - %s', $this->getId(), $this->getLabel());
+        return empty($this->getBoxNumber()) ? $this->getLabel() : sprintf('Box %04d - %s', $this->getBoxNumber(), $this->getLabel());
     }
 
     public function getId(): ?int
@@ -85,6 +110,13 @@ class Box extends AbstractEntity implements EntityInterface
     public function setBoxModel(?BoxModel $boxModel): self
     {
         $this->boxModel = $boxModel;
+
+        return $this;
+    }
+
+    public function setBoxNumber(int $boxNumber): self
+    {
+        $this->boxNumber = $boxNumber;
 
         return $this;
     }

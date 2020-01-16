@@ -51,7 +51,7 @@ class ExportType extends AbstractType
                     'label'    => 'Export Type',
                     'choices'  => [
                         'Simple Box Export (box card contents only)' => 'simple',
-                        'Full Export (only supports JSON or XML)'    => 'full',
+                        'Full Export (supports JSON, XML, YAML)'     => 'full',
                     ],
                     'expanded' => true,
                     'multiple' => false,

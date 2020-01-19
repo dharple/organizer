@@ -11,5 +11,5 @@ convert \
 	-border 40x48 \
 	-bordercolor white \
 	-comment "$COMMENT" \
-	public/assets/fontawesome/dolly-solid-cornflowerblue.svg \
-	public/assets/fontawesome/dolly-solid-cornflowerblue.png
+	public/assets/fontawesome/dolly-solid-multicolor.svg \
+	public/assets/fontawesome/dolly-solid-multicolor.png

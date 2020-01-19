@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ### Changed
 - Upgraded to Symfony 5.0
+- Updated the colors on the dolly icon from Font Awesome.
 
 ## [0.2.1] - 2020-01-15
 ### Changed

@@ -7,9 +7,7 @@ COMMENT="Icon by Font Awesome: https://fontawesome.com/license/free
 Conversion: github.com/dharple/organizer/blob/master/bin/makepng"
 
 convert \
-	-size 144x128 \
-	-border 40x48 \
-	-bordercolor white \
+	-density 13 \
 	-comment "$COMMENT" \
 	public/assets/fontawesome/dolly-solid-multicolor.svg \
 	public/assets/fontawesome/dolly-solid-multicolor.png

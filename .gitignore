@@ -1,12 +1,30 @@
-/.env.local
-/.env.*.local
-/.env.local.php
+###> normal development ###
 *.patch
-/.phpunit
-/.phpunit.result.cache
-/phpunit.xml
+*.orig
+*.rej
+###< normal development ###
+
+###> app ###
+export-*.*
+###< app ###
+
+###> symfony/framework-bundle ###
+/.env.local
+/.env.local.php
+/.env.*.local
+/config/secrets/prod/prod.decrypt.private.php
 /public/bundles/
 /var/
 /vendor/
-/.web-server-pid
-export-*.*
+###< symfony/framework-bundle ###
+
+###> symfony/phpunit-bridge ###
+.phpunit
+.phpunit.result.cache
+/phpunit.xml
+###< symfony/phpunit-bridge ###
+
+###> squizlabs/php_codesniffer ###
+/.phpcs-cache
+/phpcs.xml
+###< squizlabs/php_codesniffer ###

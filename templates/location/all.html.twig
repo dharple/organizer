@@ -7,9 +7,9 @@
 
 {% block body %}
     {% for row in locations|batch(3, 'skip') %}
-        <div class="row mb-3">
+        <div class="row mb-lg-3">
             {% for location in row %}
-                <div class="col-md-12 col-lg-4">
+                <div class="col-12 col-lg-4">
                     {% if location != 'skip' %}
                         {{ locationCard.draw(location, true) }}
                     {% endif %}

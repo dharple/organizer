@@ -7,9 +7,9 @@
 
 {% block body %}
     {% for row in boxModels|batch(3, 'skip') %}
-        <div class="row mb-3">
+        <div class="row mb-lg-3">
             {% for boxModel in row %}
-                <div class="col-md-12 col-lg-4">
+                <div class="col-12 col-lg-4">
                     {% if boxModel != 'skip' %}
                         {{ boxModelCard.draw(boxModel, true) }}
                     {% endif %}

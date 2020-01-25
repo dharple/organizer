@@ -39,7 +39,7 @@ class BoxController extends AbstractController
      */
     protected $formOptions = [
         'formClass'    => BoxType::class,
-        'successRoute' => 'app_box_all',
+        'successRoute' => 'app_box_recent',
         'template'     => 'box/index.html.twig',
     ];
 
@@ -184,6 +184,22 @@ class BoxController extends AbstractController
             'box/all.html.twig',
             [
                 'boxes' => $this->getDoctrine()->getRepository(Box::class)->getSortedByDisplayLabel(),
+                'title' => 'All Boxes',
+            ]
+        );
+    }
+
+
+    /**
+     * @Route("/box/recent", name="app_box_recent")
+     */
+    public function showRecent()
+    {
+        return $this->render(
+            'box/all.html.twig',
+            [
+                'boxes' => $this->getDoctrine()->getRepository(Box::class)->getRecent('-30 days'),
+                'title' => 'Boxes Added or Changed Over the Past 30 Days',
             ]
         );
     }

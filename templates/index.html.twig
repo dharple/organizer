@@ -6,6 +6,27 @@
 {% endblock %}
 
 {% block body %}
+    {% if recentBoxes is not empty %}
+        <div class="row mb-3 justify-content-center">
+            <div class="col mx-3 col-lg-4 text-center border border-primary rounded text-dark pb-1">
+                Recently Added or Changed
+            </div>
+        </div>
+        <div class="row mb-lg-3">
+            {% for box in recentBoxes %}
+                <div class="col-12 col-lg-4">
+                    {% if box != 'skip' %}
+                        {{ boxCard.draw(box, false, true) }}
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+    <div class="row mb-3 justify-content-center">
+        <div class="col mx-3 col-lg-4 text-center border border-primary rounded text-dark pb-1">
+            Locations with Boxes
+        </div>
+    </div>
     <div class="accordion">
         {% for location in locations %}
             {% set accordionTarget = 'children-' ~ location.id | e('html_attr') %}
@@ -18,9 +39,9 @@
             </div>
             <div class="container collapse accordionTarget" id="{{ accordionTarget }}">
                 {% for row in location.getBoxes()|batch(3, 'skip') %}
-                    <div class="row mb-3">
+                    <div class="row mb-lg-3">
                         {% for box in row %}
-                            <div class="col-md-12 col-lg-4">
+                            <div class="col-12 col-lg-4">
                                 {% if box != 'skip' %}
                                     {{ boxCard.draw(box, false, true) }}
                                 {% endif %}

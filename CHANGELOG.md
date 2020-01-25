@@ -5,8 +5,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Added
+- The homepage now shows the three most recently modified boxes.
+- Added a new page to see recently modified boxes.
+
 ### Changed
 - Moved the search bar to the top of the content area on small screens.
+
+### Fixed
+- Responsive margins and column sizes
 
 ## [0.3.0] - 2020-01-22
 ### Changed

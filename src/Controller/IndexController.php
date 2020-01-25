@@ -44,6 +44,7 @@ class IndexController extends AbstractController
                 'boxModelCount' => $em->getRepository(BoxModel::class)->count([]),
                 'locationCount' => $em->getRepository(Location::class)->count([]),
                 'locations'     => $em->getRepository(Location::class)->getSortedByDisplayLabelWithBoxes(),
+                'recentBoxes'   => $em->getRepository(Box::class)->getRecent('-1 week', 3),
             ]
         );
     }

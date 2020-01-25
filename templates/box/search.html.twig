@@ -27,9 +27,9 @@
     {% endif %}
     {% if boxes is not empty %}
         {% for row in boxes|batch(3, 'skip') %}
-            <div class="row mb-3">
+            <div class="row mb-lg-3">
                 {% for box in row %}
-                    <div class="col-md-12 col-lg-4">
+                    <div class="col-12 col-lg-4">
                         {% if box != 'skip' %}
                             {{ boxCard.draw(box, type != 'Location', type != 'BoxModel') }}
                         {% endif %}

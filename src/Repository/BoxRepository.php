@@ -15,6 +15,7 @@ use App\Entity\Box;
 use App\Repository\Location;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\Common\Collections\Criteria;
 use Psr\Log\LoggerInterface;
 
 /**
@@ -127,6 +128,24 @@ class BoxRepository extends ServiceEntityRepository
         $box = $this->findOneBy([], ['boxNumber' => 'DESC']);
         $this->getEntityManager()->getFilters()->enable('SoftDeleteable');
         return is_object($box) ? $box->getBoxNumber() + 1 : 1;
+    }
+
+    /**
+     * Recently updated
+     *
+     * @param string  $recent time string
+     * @param integer $limit
+     *
+     * @return Box[] Returns an array of Box objects
+     */
+    public function getRecent($recent = '-30 days', $limit = null)
+    {
+        return $this->matching(
+            Criteria::create()
+                ->where(Criteria::expr()->gt('updatedAt', new \DateTime($recent)))
+                ->orderBy(['updatedAt' => Criteria::DESC])
+                ->setMaxResults($limit)
+        );
     }
 
     /**

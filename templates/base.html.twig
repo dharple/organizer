@@ -58,12 +58,12 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ path('app_about') }}">About</a>
                     </li>
-                    <li class="nav-item d-lg-none">
-                        <a class="nav-link" href="{{ path('app_profile') }}">
-                            Change Your Password
-                        </a>
-                    </li>
                     {% if app.user %}
+                        <li class="nav-item d-lg-none">
+                            <a class="nav-link" href="{{ path('app_profile') }}">
+                                Change Your Password
+                            </a>
+                        </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ path('app_logout') }}">Logout</a>
                         </li>
@@ -81,10 +81,12 @@
                             </a>
                         </li>
                     </ul>
-                    <form class="form-inline my-2 my-lg-0" action="{{ path('app_box_search') }}">
-                        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="q">
-                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                    </form>
+                    <div class="d-lg-inline d-none">
+                        <form class="form-inline my-2 my-lg-0" action="{{ path('app_box_search') }}">
+                            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="q">
+                            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                        </form>
+                    </div>
                 {% endif %}
             </div>
         </nav>
@@ -100,7 +102,26 @@
                 </div>
             {% endfor %}
         </div>
-        {% block body %}{% endblock %}
+        {% block body_full %}
+            <div class="container main-window">
+                {% block body_search %}
+                    {% if app.user %}
+                        <div class="row justify-content-center d-lg-none d-flex">
+                            <div class="col mb-3">
+                                <form class="form-inline" action="{{ path('app_box_search') }}">
+                                    <div class="input-group">
+                                        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="q">
+                                        <button class="btn btn-outline-primary" type="submit"><i class="fas fa-search"></i></button>
+                                        <a class="btn btn-outline-primary ml-4" href="{{ path('app_box_new') }}"><i class="fas fa-plus"></i></a>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endblock %}
+                {% block body %}{% endblock %}
+            </div>
+        {% endblock %}
         <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>

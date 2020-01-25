@@ -6,7 +6,6 @@
 {% endblock %}
 
 {% block body %}
-<div class="container main-window">
     {% for row in locations|batch(3, 'skip') %}
         <div class="row mb-3">
             {% for location in row %}
@@ -18,5 +17,4 @@
             {% endfor %}
         </div>
     {% endfor %}
-</div>
 {% endblock %}

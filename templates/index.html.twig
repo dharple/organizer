@@ -8,8 +8,8 @@
 {% block body %}
     {% if recentBoxes is not empty %}
         <div class="row mb-3 justify-content-center">
-            <div class="col mx-3 col-lg-4 text-center border border-primary rounded text-dark pb-1">
-                Recently Added or Changed
+            <div class="col">
+                <a class="btn btn-block btn-primary-outline border border-primary rounded text-primary" href="{{ url('app_box_recent') }}" role="button">Recently Added or Changed</a>
             </div>
         </div>
         <div class="row mb-lg-3">
@@ -23,8 +23,8 @@
         </div>
     {% endif %}
     <div class="row mb-3 justify-content-center">
-        <div class="col mx-3 col-lg-4 text-center border border-primary rounded text-dark pb-1">
-            Locations with Boxes
+        <div class="col">
+            <a class="btn btn-block btn-primary-outline border border-primary rounded text-primary" href="{{ url('app_location_all') }}" role="button">Locations with Boxes</a>
         </div>
     </div>
     <div class="accordion">

@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+### Changed
+- Make titles on home page links.
+- Add titles to see all locations and box models.
+
 ## [0.4.0] - 2020-01-25
 ### Added
 - The homepage now shows the three most recently modified boxes.

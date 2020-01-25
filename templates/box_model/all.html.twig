@@ -6,6 +6,11 @@
 {% endblock %}
 
 {% block body %}
+    <div class="row mb-3">
+        <div class="col text-center">
+            All Box Models
+        </div>
+    </div>
     {% for row in boxModels|batch(3, 'skip') %}
         <div class="row mb-lg-3">
             {% for boxModel in row %}

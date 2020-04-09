@@ -4,10 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [0.4.1] - 2020-04-08
 ### Changed
 - Make titles on home page links.
 - Add titles to see all locations and box models.
+
+### Security
+- Updated Symfony dependencies to address potential security risks.
+  [CVE-2020-5255], [CVE-2020-5274], [CVE-2020-5275].
 
 ## [0.4.0] - 2020-01-25
 ### Added
@@ -60,7 +64,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Basic user management.
 - Export basic box information, or all information.
 
-[Unreleased]: https://github.com/dharple/organizer/compare/v0.2.1...develop
+[Unreleased]: https://github.com/dharple/organizer/compare/v0.4.1...develop
+[0.4.1]: https://github.com/dharple/organizer/compare/v0.4.0...v0.4.1
+[0.4.0]: https://github.com/dharple/organizer/compare/v0.3.0...v0.4.0
+[0.3.0]: https://github.com/dharple/organizer/compare/v0.2.1...v0.3.0
 [0.2.1]: https://github.com/dharple/organizer/compare/v0.2.0...v0.2.1
 [0.2.0]: https://github.com/dharple/organizer/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/dharple/organizer/releases/tag/v0.1.0
@@ -71,6 +78,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [#21]: https://github.com/dharple/organizer/issues/21
 [#8]: https://github.com/dharple/organizer/issues/8
 [#7]: https://github.com/dharple/organizer/issues/7
+
+[CVE-2020-5255]: https://nvd.nist.gov/vuln/detail/CVE-2020-5255
+[CVE-2020-5274]: https://nvd.nist.gov/vuln/detail/CVE-2020-5274
+[CVE-2020-5275]: https://nvd.nist.gov/vuln/detail/CVE-2020-5275
 
 [DoctrineExtension]: https://github.com/Atlantic18/DoctrineExtensions
 [ork/phpcs]: https://github.com/AlexHowansky/ork-phpcs

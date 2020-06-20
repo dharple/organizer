@@ -67,7 +67,7 @@ class User implements UserInterface
     public function getAvatarUrl(): string
     {
         $gravatar = new Gravatar([], true);
-        return $gravatar->avatar($this->getEmail(), [], false);
+        return $gravatar->avatar($this->getEmail());
     }
 
     public function getEmail(): ?string

@@ -29,13 +29,14 @@ class BoxModelType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        $lpIgnore = ['attr' => ['data-lpignore' => 'true']];
         $builder
-            ->add('label')
-            ->add('make')
-            ->add('model')
-            ->add('size')
-            ->add('color')
-            ->add('latch')
+            ->add('label', null, $lpIgnore)
+            ->add('make', null, $lpIgnore)
+            ->add('model', null, $lpIgnore)
+            ->add('size', null, $lpIgnore)
+            ->add('color', null, $lpIgnore)
+            ->add('latch', null, $lpIgnore)
             ->add('save', SubmitType::class);
     }
 

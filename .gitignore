@@ -1,9 +1,8 @@
 ###> normal development ###
+*.lock
 *.orig
 *.patch
 *.rej
-composer.lock
-symfony.lock
 ###< normal development ###
 
 ###> app ###

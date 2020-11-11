@@ -3,6 +3,7 @@
 *.patch
 *.rej
 composer.lock
+symfony.lock
 ###< normal development ###
 
 ###> app ###

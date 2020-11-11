@@ -1,7 +1,8 @@
 ###> normal development ###
-*.patch
 *.orig
+*.patch
 *.rej
+composer.lock
 ###< normal development ###
 
 ###> app ###

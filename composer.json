@@ -2,7 +2,7 @@
     "type": "project",
     "license": "BSD-2-Clause",
     "require": {
-        "php": ">=7.2",
+        "php": ">=7.2.5",
         "ext-ctype": "*",
         "ext-iconv": "*",
         "ext-redis": "*",
@@ -43,6 +43,9 @@
         "symfony/test-pack": "*"
     },
     "config": {
+        "platform": {
+            "php": "7.2.5."
+        },
         "preferred-install": {
             "*": "dist"
         },

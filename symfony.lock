@@ -96,11 +96,26 @@
     "egulias/email-validator": {
         "version": "2.1.24"
     },
+    "ezyang/htmlpurifier": {
+        "version": "v4.13.0"
+    },
+    "friendsofphp/proxy-manager-lts": {
+        "version": "v1.0.2"
+    },
     "gedmo/doctrine-extensions": {
         "version": "v3.0.0"
     },
     "gravatarphp/gravatar": {
         "version": "v2.0.0"
+    },
+    "laminas/laminas-code": {
+        "version": "3.4.1"
+    },
+    "laminas/laminas-eventmanager": {
+        "version": "3.2.1"
+    },
+    "laminas/laminas-zendframework-bridge": {
+        "version": "1.1.1"
     },
     "maennchen/zipstream-php": {
         "version": "2.1.0"
@@ -119,9 +134,6 @@
     },
     "nikic/php-parser": {
         "version": "v4.10.3"
-    },
-    "ocramius/proxy-manager": {
-        "version": "2.10.0"
     },
     "ork/phpcs": {
         "version": "2.2.0"
@@ -428,6 +440,9 @@
     "symfony/property-info": {
         "version": "v5.1.9"
     },
+    "symfony/proxy-manager-bridge": {
+        "version": "v5.1.10"
+    },
     "symfony/routing": {
         "version": "5.1",
         "recipe": {
@@ -567,11 +582,5 @@
     },
     "webmozart/assert": {
         "version": "1.9.1"
-    },
-    "zendframework/zend-code": {
-        "version": "3.4.1"
-    },
-    "zendframework/zend-eventmanager": {
-        "version": "3.2.1"
     }
 }

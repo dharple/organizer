@@ -11,6 +11,9 @@
 
 namespace App\Entity;
 
+use DateTime;
+use Doctrine\Common\Collections\Collection;
+use Exception;
 use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 
@@ -43,15 +46,19 @@ abstract class AbstractEntity
             }
 
             if (is_object($value)) {
+                if ($value instanceof Collection) {
+                    continue;
+                }
+
                 try {
                     if ($value instanceof EntityInterface) {
                         $value = $value->getId();
-                    } elseif ($value instanceof \DateTime) {
+                    } elseif ($value instanceof DateTime) {
                         $value = $value->format('c');
                     } else {
                         $value = (string) $value;
                     }
-                } catch (\Exception $e) {
+                } catch (Exception $e) {
                     continue;
                 }
             }

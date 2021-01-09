@@ -15,6 +15,7 @@ use App\Entity\Box;
 use App\Entity\BoxModel;
 use App\Entity\Location;
 use App\Form\BoxType;
+use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -192,6 +193,8 @@ class BoxController extends AbstractController
 
     /**
      * @Route("/box/recent", name="app_box_recent")
+     *
+     * @throws Exception
      */
     public function showRecent()
     {

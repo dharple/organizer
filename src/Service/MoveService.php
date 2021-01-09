@@ -12,15 +12,10 @@
 namespace App\Service;
 
 use App\Entity\Box;
-use App\Entity\BoxModel;
 use App\Entity\Location;
-use App\Serializer\Normalizer\ExportContainerDenormalizer;
 use Doctrine\ORM\EntityManagerInterface;
+use Exception;
 use Psr\Log\LoggerInterface;
-use Symfony\Component\Serializer\Encoder\JsonEncoder;
-use Symfony\Component\Serializer\Encoder\XmlEncoder;
-use Symfony\Component\Serializer\Encoder\YamlEncoder;
-use Symfony\Component\Serializer\Serializer;
 
 /**
  * Moveer
@@ -50,17 +45,19 @@ class MoveService
 
     /**
      * Moves from a file.
+     *
+     * @throws Exception
      */
     public function move(array $options)
     {
         $this->logger->info(json_encode($options));
 
         if (empty($options['box']) && empty($options['id']) && empty($options['from'])) {
-            throw new \Exception('At least one Box ID, Box Number, or Source Location must be specified');
+            throw new Exception('At least one Box ID, Box Number, or Source Location must be specified');
         }
 
         if (!isset($options['to'])) {
-            throw new \Exception('A Destination Location must be specified');
+            throw new Exception('A Destination Location must be specified');
         }
 
         $toLocation = $this->em->getRepository(Location::class)->find($options['to']);

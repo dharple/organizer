@@ -12,6 +12,7 @@
 namespace App\Controller;
 
 use App\Form\UserType;
+use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -26,6 +27,7 @@ class ProfileController extends AbstractController
 {
     /**
      * @Route("/profile", name="app_profile")
+     * @throws Exception
      */
     public function index(
         Request $request,
@@ -34,7 +36,7 @@ class ProfileController extends AbstractController
     ) {
         $user = $tokenStorage->getToken()->getUser();
         if (!is_object($user)) {
-            throw new \Exception('Unable to load user profile');
+            throw new Exception('Unable to load user profile');
         }
 
         //

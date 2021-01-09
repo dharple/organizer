@@ -12,8 +12,8 @@
 namespace App\Command;
 
 use App\Service\ExportService;
+use Exception;
 use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -93,7 +93,7 @@ class DataExportCommand extends Command
             rename($file->getFilename(), $output);
 
             $io->success(sprintf('Wrote %s export to %s', $format, $output));
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $io->error(sprintf('Failed to export: %s', $e->getMessage()));
             return 1;
         }

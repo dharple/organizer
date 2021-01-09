@@ -2,9 +2,10 @@
     "type": "project",
     "license": "BSD-2-Clause",
     "require": {
-        "php": ">=7.2.5",
+        "php": ">=7.4.3",
         "ext-ctype": "*",
         "ext-iconv": "*",
+        "ext-json": "*",
         "ext-redis": "*",
         "adrenalinkin/doctrine-utc-date-time": "^1.1",
         "antishov/doctrine-extensions-bundle": "^1.4",
@@ -44,9 +45,6 @@
         "symfony/test-pack": "*"
     },
     "config": {
-        "platform": {
-            "php": "7.2.5."
-        },
         "preferred-install": {
             "*": "dist"
         },

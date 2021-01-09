@@ -14,6 +14,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Exception;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
@@ -73,6 +74,8 @@ class Location extends AbstractEntity implements EntityInterface
      *
      * @return string A full display label for this location.  For instance
      *                "Home - Garage - Wire Rack".
+     *
+     * @throws Exception
      */
     public function getDisplayLabel()
     {
@@ -106,6 +109,8 @@ class Location extends AbstractEntity implements EntityInterface
      * Throws an exception if the same ID appears twice.
      *
      * @return Location[]
+     *
+     * @throws Exception
      */
     protected function parentWalker(): iterable
     {
@@ -116,12 +121,12 @@ class Location extends AbstractEntity implements EntityInterface
         while ($location !== null) {
             if ($location->getId() !== null) {
                 if (in_array($location->getId(), $ids)) {
-                    throw new \Exception('Recursive location hierarchy found');
+                    throw new Exception('Recursive location hierarchy found');
                 }
                 $ids[] = $location->getId();
             } else {
                 if (in_array($location, $objs)) {
-                    throw new \Exception('Recursive location hierarchy found');
+                    throw new Exception('Recursive location hierarchy found');
                 }
                 $objs[] = $location;
             }
@@ -160,7 +165,7 @@ class Location extends AbstractEntity implements EntityInterface
         try {
             // check for recursion and bail if we find it
             iterator_to_array($this->parentWalker());
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $this->parentLocation = $hold;
             throw $e;
         }

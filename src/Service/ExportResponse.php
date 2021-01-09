@@ -11,9 +11,6 @@
 
 namespace App\Service;
 
-use App\Entity\Box;
-use Doctrine\ORM\EntityManagerInterface;
-use Psr\Log\LoggerInterface;
 use Symfony\Component\Mime\MimeTypes;
 
 /**
@@ -37,8 +34,6 @@ class ExportResponse
      */
     public function getContentType(): string
     {
-        $contentType = 'application/octet-stream';
-
         $mimeTypes = (new MimeTypes())->getMimeTypes($this->format);
         return array_shift($mimeTypes);
     }

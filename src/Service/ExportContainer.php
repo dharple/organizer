@@ -14,6 +14,7 @@ namespace App\Service;
 use App\Entity\Box;
 use App\Entity\BoxModel;
 use App\Entity\Location;
+use Exception;
 
 /**
  * Exporter container
@@ -39,9 +40,9 @@ class ExportContainer
     /**
      * Add box
      *
-     * @param \App\Entity\Box $box
+     * @param Box $box
      */
-    public function addBox(\App\Entity\Box $box)
+    public function addBox(Box $box)
     {
         $this->boxes[] = $box;
         return $this;
@@ -50,7 +51,7 @@ class ExportContainer
     /**
      * Add box model
      *
-     * @param \App\Entity\BoxModel $boxModel
+     * @param BoxModel $boxModel
      */
     public function addBoxModel(BoxModel $boxModel)
     {
@@ -61,7 +62,7 @@ class ExportContainer
     /**
      * Add location
      *
-     * @param \App\Entity\Location $location
+     * @param Location $location
      */
     public function addLocation(Location $location)
     {
@@ -73,6 +74,7 @@ class ExportContainer
      * Get box by id
      *
      * @return Box
+     * @throws Exception
      */
     public function getBox(int $id)
     {
@@ -82,7 +84,7 @@ class ExportContainer
             }
         }
 
-        throw new \Exception('Could not find Box ID ' . $id);
+        throw new Exception('Could not find Box ID ' . $id);
     }
 
     /**
@@ -99,6 +101,7 @@ class ExportContainer
      * Get box model by id
      *
      * @return BoxModel
+     * @throws Exception
      */
     public function getBoxModel(int $id)
     {
@@ -108,7 +111,7 @@ class ExportContainer
             }
         }
 
-        throw new \Exception('Could not find Box Model ID ' . $id);
+        throw new Exception('Could not find Box Model ID ' . $id);
     }
 
     /**
@@ -125,6 +128,7 @@ class ExportContainer
      * Get location by id
      *
      * @return Location
+     * @throws Exception
      */
     public function getLocation(int $id)
     {
@@ -134,7 +138,7 @@ class ExportContainer
             }
         }
 
-        throw new \Exception('Could not find Location ID ' . $id);
+        throw new Exception('Could not find Location ID ' . $id);
     }
 
     /**

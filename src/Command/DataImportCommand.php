@@ -12,6 +12,7 @@
 namespace App\Command;
 
 use App\Service\ImportService;
+use Exception;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -75,7 +76,7 @@ class DataImportCommand extends Command
                 'filename' => $input->getArgument('filename'),
                 'format'   => $input->getOption('format'),
             ]);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $io->error(sprintf('Failed to export: %s', $e->getMessage()));
             return 1;
         }

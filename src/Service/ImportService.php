@@ -16,6 +16,7 @@ use App\Entity\BoxModel;
 use App\Entity\Location;
 use App\Serializer\Normalizer\ExportContainerDenormalizer;
 use Doctrine\ORM\EntityManagerInterface;
+use Exception;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Encoder\XmlEncoder;
@@ -50,6 +51,8 @@ class ImportService
 
     /**
      * Imports from a file.
+     *
+     * @throws Exception
      */
     public function import(array $options)
     {
@@ -60,11 +63,11 @@ class ImportService
             $this->em->getRepository(BoxModel::class)->count([]) > 0 ||
             $this->em->getRepository(Location::class)->count([]) > 0
         ) {
-            throw new \Exception('Database is already populated.  Cannot import with existing data.');
+            throw new Exception('Database is already populated.  Cannot import with existing data.');
         }
 
         if (!isset($options['filename'])) {
-            throw new \Exception('Missing filename');
+            throw new Exception('Missing filename');
         }
 
         if (isset($options['format'])) {
@@ -93,7 +96,7 @@ class ImportService
         );
 
         if (!($container instanceof ExportContainer)) {
-            throw new \Exception('Expected an ExportContainer');
+            throw new Exception('Expected an ExportContainer');
         }
 
         foreach ($container->getLocations() as $location) {

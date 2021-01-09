@@ -10,6 +10,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 - Avoid a doctrine error for now by locking migrations to v2.x.
+- Cleaned up class references.
+- Fixed references to the moved Doctrine ManagerRegistry.
+- Fixed a bug with export due to a change in behavior around Doctrine
+  references.
+- Removed unused variables.
+
+### Thanks
+- PhpStorm for help with static analysis.
 
 ## [0.6.1] - 2020-11-10
 ### Changed

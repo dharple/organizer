@@ -17,6 +17,11 @@ use App\Entity\Location;
 use App\Serializer\Normalizer\BoxNormalizer;
 use App\Serializer\Normalizer\EntityNormalizer;
 use Doctrine\ORM\EntityManagerInterface;
+use Exception;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Csv;
+use PhpOffice\PhpSpreadsheet\Writer\Ods;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Serializer\Encoder\JsonEncode;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
@@ -55,16 +60,6 @@ class ExportService
     protected $logger;
 
     /**
-     * YAML configuration options,
-     *
-     * @var array
-     */
-    protected $yamlOptions = [
-        'yaml_indent' => 4,
-        'yaml_inline' => 10,
-    ];
-
-    /**
      * Constructs a new Export service
      */
     public function __construct(
@@ -77,6 +72,8 @@ class ExportService
 
     /**
      * Builds an export
+     *
+     * @throws Exception
      */
     public function export(array $options): ExportResponse
     {
@@ -95,7 +92,7 @@ class ExportService
                     return $this->simpleUsePhpSpreadsheet($options);
 
                 default:
-                    throw new \Exception('Invalid format: ' . $options['format']);
+                    throw new Exception('Invalid format: ' . $options['format']);
             }
         } else {
             switch ($options['format']) {
@@ -107,10 +104,10 @@ class ExportService
                 case 'csv':
                 case 'ods':
                 case 'xlsx':
-                    throw new \Exception('Format "' . $options['format'] . '" does not support full exports');
+                    throw new Exception('Format "' . $options['format'] . '" does not support full exports');
 
                 default:
-                    throw new \Exception('Invalid format: ' . $options['format']);
+                    throw new Exception('Invalid format: ' . $options['format']);
             }
         }
     }
@@ -144,15 +141,15 @@ class ExportService
 
         $this->logger->info($data);
 
-        $response = (new ExportResponse())
+        return (new ExportResponse())
             ->setFormat($options['format'])
             ->setData($data);
-
-        return $response;
     }
 
     /**
      * Uses PHPSpreadsheet to export data
+     *
+     * @throws Exception
      */
     protected function simpleUsePhpSpreadsheet(array $options): ExportResponse
     {
@@ -176,13 +173,13 @@ class ExportService
         );
 
         if (empty($data)) {
-            throw new \Exception('No data to export');
+            throw new Exception('No data to export');
         }
         $headerRow = array_keys($data[array_key_first($data)]);
 
         $this->logger->info(var_export($data, true));
 
-        $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
+        $spreadsheet = new Spreadsheet();
         $spreadsheet->getProperties()
             ->setCompany('Organizer')
             ->setCreator('Organizer')
@@ -211,28 +208,26 @@ class ExportService
         $filename = tempnam('/tmp', 'export_spreadsheet_');
         switch ($options['format']) {
             case 'csv':
-                $writer = new \PhpOffice\PhpSpreadsheet\Writer\Csv($spreadsheet);
+                $writer = new Csv($spreadsheet);
                 break;
 
             case 'ods':
-                $writer = new \PhpOffice\PhpSpreadsheet\Writer\Ods($spreadsheet);
+                $writer = new Ods($spreadsheet);
                 break;
 
             case 'xlsx':
-                $writer = new \PhpOffice\PhpSpreadsheet\Writer\Xlsx($spreadsheet);
+                $writer = new Xlsx($spreadsheet);
                 break;
 
             default:
-                throw new \Exception('Invalid format: ' . $options['format']);
+                throw new Exception('Invalid format: ' . $options['format']);
         }
 
         $writer->save($filename);
 
-        $response = (new ExportResponse())
+        return (new ExportResponse())
             ->setFormat($options['format'])
             ->setFilename($filename);
-
-        return $response;
     }
 
     /**
@@ -270,10 +265,8 @@ class ExportService
 
         $this->logger->info($data);
 
-        $response = (new ExportResponse())
+        return (new ExportResponse())
             ->setFormat($options['format'])
             ->setData($data);
-
-        return $response;
     }
 }

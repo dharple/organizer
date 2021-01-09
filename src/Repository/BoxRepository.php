@@ -12,10 +12,11 @@
 namespace App\Repository;
 
 use App\Entity\Box;
-use App\Repository\Location;
+use DateTime;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\Common\Collections\Criteria;
+use Doctrine\Persistence\ManagerRegistry;
+use Exception;
 use Psr\Log\LoggerInterface;
 
 /**
@@ -137,12 +138,13 @@ class BoxRepository extends ServiceEntityRepository
      * @param integer $limit
      *
      * @return Box[] Returns an array of Box objects
+     * @throws Exception
      */
     public function getRecent($recent = '-30 days', $limit = null)
     {
         return $this->matching(
             Criteria::create()
-                ->where(Criteria::expr()->gt('updatedAt', new \DateTime($recent)))
+                ->where(Criteria::expr()->gt('updatedAt', new DateTime($recent)))
                 ->orderBy(['updatedAt' => Criteria::DESC])
                 ->setMaxResults($limit)
         );

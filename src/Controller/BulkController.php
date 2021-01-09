@@ -13,8 +13,8 @@ namespace App\Controller;
 
 use App\Form\ExportType;
 use App\Service\ExportService;
+use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -40,7 +40,7 @@ class BulkController extends AbstractController
                 $response->headers->set('Content-Type', $file->getContentType());
                 $response->deleteFileAfterSend();
                 return $response;
-            } catch (\Exception $e) {
+            } catch (Exception $e) {
                 $this->addFlash('error', $e->getMessage());
             }
         }

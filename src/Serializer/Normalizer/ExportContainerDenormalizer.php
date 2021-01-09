@@ -11,15 +11,18 @@
 
 namespace App\Serializer\Normalizer;
 
+use App\Entity\AbstractEntity;
 use App\Entity\Box;
 use App\Entity\BoxModel;
 use App\Entity\Location;
 use App\Service\ExportContainer;
+use DateTime;
+use DateTimeZone;
+use Exception;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Component\Serializer\Normalizer\AbstractObjectNormalizer;
 use Symfony\Component\Serializer\Normalizer\CacheableSupportsMethodInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
-use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 
 /**
@@ -42,6 +45,8 @@ class ExportContainerDenormalizer implements CacheableSupportsMethodInterface, D
 
     /**
      * Denormalizes an entity
+     *
+     * @throws Exception
      */
     public function denormalize($data, $type, $format = null, array $context = [])
     {
@@ -69,7 +74,7 @@ class ExportContainerDenormalizer implements CacheableSupportsMethodInterface, D
             );
 
             if (!($location instanceof Location)) {
-                throw new \Exception('Expected a Location');
+                throw new Exception('Expected a Location');
             }
 
             $exportContainer->addLocation($location);
@@ -86,7 +91,7 @@ class ExportContainerDenormalizer implements CacheableSupportsMethodInterface, D
                 if (array_key_exists($locationId, $cache['locations'])) {
                     $location->setParentLocation($cache['locations'][$locationId]);
                 } else {
-                    throw new \Exception('Could not find Parent Location for Location ID ' . $row['id']);
+                    throw new Exception('Could not find Parent Location for Location ID ' . $row['id']);
                 }
             }
         }
@@ -106,7 +111,7 @@ class ExportContainerDenormalizer implements CacheableSupportsMethodInterface, D
             );
 
             if (!($boxModel instanceof BoxModel)) {
-                throw new \Exception('Expected a BoxModel');
+                throw new Exception('Expected a BoxModel');
             }
 
             $exportContainer->addBoxModel($boxModel);
@@ -132,7 +137,7 @@ class ExportContainerDenormalizer implements CacheableSupportsMethodInterface, D
             );
 
             if (!($box instanceof Box)) {
-                throw new \Exception('Expected a Box');
+                throw new Exception('Expected a Box');
             }
 
             $exportContainer->addBox($box);
@@ -143,7 +148,7 @@ class ExportContainerDenormalizer implements CacheableSupportsMethodInterface, D
                 if (array_key_exists($locationId, $cache['locations'])) {
                     $box->setLocation($cache['locations'][$locationId]);
                 } else {
-                    throw new \Exception('Could not find Location for Box ID ' . $row['id']);
+                    throw new Exception('Could not find Location for Box ID ' . $row['id']);
                 }
             }
 
@@ -152,7 +157,7 @@ class ExportContainerDenormalizer implements CacheableSupportsMethodInterface, D
                 if (array_key_exists($boxModelId, $cache['boxModels'])) {
                     $box->setBoxModel($cache['boxModels'][$boxModelId]);
                 } else {
-                    throw new \Exception('Could not find Box Model for Box ID ' . $row['id']);
+                    throw new Exception('Could not find Box Model for Box ID ' . $row['id']);
                 }
             }
 
@@ -175,19 +180,21 @@ class ExportContainerDenormalizer implements CacheableSupportsMethodInterface, D
      *
      * @param AbstractEntity $entity
      * @param array          $row
+     *
+     * @throws Exception
      */
     protected function normalizeTimestamps($entity, $row): void
     {
         if (isset($row['createdAt'])) {
-            $entity->setCreatedAt(new \DateTime($row['createdAt'], new \DateTimeZone('UTC')));
+            $entity->setCreatedAt(new DateTime($row['createdAt'], new DateTimeZone('UTC')));
         }
 
         if (isset($row['updatedAt'])) {
-            $entity->setUpdatedAt(new \DateTime($row['updatedAt'], new \DateTimeZone('UTC')));
+            $entity->setUpdatedAt(new DateTime($row['updatedAt'], new DateTimeZone('UTC')));
         }
 
         if (isset($row['deletedAt'])) {
-            $entity->setDeletedAt(new \DateTime($row['deletedAt'], new \DateTimeZone('UTC')));
+            $entity->setDeletedAt(new DateTime($row['deletedAt'], new DateTimeZone('UTC')));
         }
     }
 

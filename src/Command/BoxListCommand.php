@@ -15,11 +15,9 @@ use App\Entity\Box;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\Table;
-use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Style\SymfonyStyle;
 
 /**
  * Console command to list boxes.
@@ -55,7 +53,7 @@ class BoxListCommand extends Command
             ->addOption('box', null, InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY, 'Box Number(s) to search on.')
             ->addOption('id', null, InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY, 'Box ID(s) to search on.')
             ->addOption('location', null, InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY, 'Location ID(s) to search on.')
-            ;
+        ;
     }
 
     /**

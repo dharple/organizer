@@ -19,9 +19,9 @@ use App\Serializer\Normalizer\EntityNormalizer;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use PhpOffice\PhpSpreadsheet\Writer\Csv;
-use PhpOffice\PhpSpreadsheet\Writer\Ods;
-use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use PhpOffice\PhpSpreadsheet\Writer\Csv as CsvWriter;
+use PhpOffice\PhpSpreadsheet\Writer\Ods as OdsWriter;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx as XlsxWriter;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Serializer\Encoder\JsonEncode;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
@@ -208,15 +208,15 @@ class ExportService
         $filename = tempnam('/tmp', 'export_spreadsheet_');
         switch ($options['format']) {
             case 'csv':
-                $writer = new Csv($spreadsheet);
+                $writer = new CsvWriter($spreadsheet);
                 break;
 
             case 'ods':
-                $writer = new Ods($spreadsheet);
+                $writer = new OdsWriter($spreadsheet);
                 break;
 
             case 'xlsx':
-                $writer = new Xlsx($spreadsheet);
+                $writer = new XlsxWriter($spreadsheet);
                 break;
 
             default:

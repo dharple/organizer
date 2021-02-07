@@ -10,7 +10,7 @@
         "adrenalinkin/doctrine-utc-date-time": "^1.2",
         "antishov/doctrine-extensions-bundle": "^1.4",
         "doctrine/migrations": "^2.3.0",
-        "gravatarphp/gravatar": "^2.0",
+        "gravatarphp/gravatar": "dev-master",
         "phpoffice/phpspreadsheet": "^1.10",
         "sensio/framework-extra-bundle": "^5.5",
         "symfony/asset": "5.1.*",
@@ -36,8 +36,8 @@
         "symfony/yaml": "5.1.*"
     },
     "require-dev": {
-        "outsanity/phpcs": "*",
-        "phpstan/phpstan": "^0.12.0",
+        "outsanity/phpcs": ">=0.4.0",
+        "phpstan/phpstan": "^0.12.34",
         "squizlabs/php_codesniffer": "^3.5",
         "symfony/debug-pack": "*",
         "symfony/maker-bundle": "^1.0",
@@ -95,5 +95,11 @@
             "allow-contrib": false,
             "require": "5.1.*"
         }
-    }
+    },
+     "repositories": [
+         {
+             "type": "vcs",
+             "url": "https://github.com/dharple/gravatar"
+         }
+     ]
 }

@@ -125,7 +125,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Basic user management.
 - Export basic box information, or all information.
 
-[Unreleased]: https://github.com/dharple/organizer/compare/v0.4.5...main
+[Unreleased]: https://github.com/dharple/organizer/compare/v0.6.1...main
+[0.6.1]: https://github.com/dharple/organizer/compare/v0.6.0...v0.6.1
+[0.6.0]: https://github.com/dharple/organizer/compare/v0.5.1...v0.6.0
+[0.5.1]: https://github.com/dharple/organizer/compare/v0.5.0...v0.5.1
+[0.5.0]: https://github.com/dharple/organizer/compare/v0.4.6...v0.5.0
+[0.4.6]: https://github.com/dharple/organizer/compare/v0.4.5...v0.4.6
 [0.4.5]: https://github.com/dharple/organizer/compare/v0.4.4...v0.4.5
 [0.4.4]: https://github.com/dharple/organizer/compare/v0.4.3...v0.4.4
 [0.4.3]: https://github.com/dharple/organizer/compare/v0.4.2...v0.4.3

@@ -11,11 +11,11 @@
 
 namespace App\Entity;
 
+use App\Utility\Gravatar;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
-use Gravatar\Gravatar;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
@@ -66,8 +66,7 @@ class User implements UserInterface
      */
     public function getAvatarUrl(): string
     {
-        $gravatar = new Gravatar([], true);
-        return $gravatar->avatar($this->getEmail());
+        return Gravatar::getAvatarUrl($this->getEmail());
     }
 
     public function getEmail(): ?string

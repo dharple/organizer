@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "efacca04f6fcf6409d45db4ec47350e1",
+    "content-hash": "797e8c8840eb1b7d87fed8e8c2079d83",
     "packages": [
         {
             "name": "adrenalinkin/doctrine-utc-date-time",
@@ -1895,83 +1895,6 @@
                 "wiki": "https://github.com/Atlantic18/DoctrineExtensions/tree/main/doc"
             },
             "time": "2021-03-27T22:00:19+00:00"
-        },
-        {
-            "name": "gravatarphp/gravatar",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/dharple/gravatar.git",
-                "reference": "80f8c6978a9d162e4ef8ad460e3fbfdb1d2dcd68"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/dharple/gravatar/zipball/80f8c6978a9d162e4ef8ad460e3fbfdb1d2dcd68",
-                "reference": "80f8c6978a9d162e4ef8ad460e3fbfdb1d2dcd68",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=7.1"
-            },
-            "require-dev": {
-                "phpspec/phpspec": "^5.1|^7.0.1"
-            },
-            "default-branch": true,
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.0-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Gravatar\\": "src/"
-                }
-            },
-            "autoload-dev": {
-                "psr-4": {
-                    "spec\\Gravatar\\": "spec/"
-                }
-            },
-            "scripts": {
-                "test": [
-                    "vendor/bin/phpspec run"
-                ],
-                "test-ci": [
-                    "vendor/bin/phpspec run"
-                ]
-            },
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Márk Sági-Kazár",
-                    "email": "mark.sagikazar@gmail.com"
-                }
-            ],
-            "description": "Gravatar URL builder which is most commonly called as a Gravatar library",
-            "homepage": "http://gravatarphp.com",
-            "keywords": [
-                "avatar",
-                "gravatar",
-                "image",
-                "profile"
-            ],
-            "support": {
-                "source": "https://github.com/dharple/gravatar/tree/master"
-            },
-            "funding": [
-                {
-                    "type": "github",
-                    "url": "https://github.com/gmponos"
-                },
-                {
-                    "type": "github",
-                    "url": "https://github.com/sagikazarmark"
-                }
-            ],
-            "time": "2021-01-28T04:17:54+00:00"
         },
         {
             "name": "laminas/laminas-code",
@@ -9427,9 +9350,7 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "gravatarphp/gravatar": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {

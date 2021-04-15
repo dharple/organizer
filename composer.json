@@ -10,7 +10,6 @@
         "adrenalinkin/doctrine-utc-date-time": "^1.2",
         "antishov/doctrine-extensions-bundle": "^1.4",
         "doctrine/migrations": "^2.3.0",
-        "gravatarphp/gravatar": "dev-master",
         "phpoffice/phpspreadsheet": "^1.10",
         "sensio/framework-extra-bundle": "^5.5",
         "symfony/asset": "5.1.*",
@@ -95,11 +94,5 @@
             "allow-contrib": false,
             "require": "5.1.*"
         }
-    },
-     "repositories": [
-         {
-             "type": "vcs",
-             "url": "https://github.com/dharple/gravatar"
-         }
-     ]
+    }
 }

@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - Re-added composer.lock and symfony.lock.
 - Updated 3rd party dependencies.
+  - Upgraded Symfony to 5.2.
 
 ### Fixed
 - Avoid a doctrine error for now by locking migrations to v2.x.

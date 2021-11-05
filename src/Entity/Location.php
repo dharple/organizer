@@ -45,6 +45,11 @@ class Location extends AbstractEntity implements EntityInterface
      */
     protected $parentLocation;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $hidden;
+
     public function __construct()
     {
         $this->boxes = new ArrayCollection();
@@ -169,6 +174,18 @@ class Location extends AbstractEntity implements EntityInterface
             $this->parentLocation = $hold;
             throw $e;
         }
+
+        return $this;
+    }
+
+    public function getHidden(): ?bool
+    {
+        return $this->hidden;
+    }
+
+    public function setHidden(bool $hidden): self
+    {
+        $this->hidden = $hidden;
 
         return $this;
     }

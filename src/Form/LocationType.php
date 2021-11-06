@@ -55,7 +55,6 @@ class LocationType extends AbstractType
                     'required'     => false,
                 ]
             )
-            ->add('hidden')
             ->add('save', SubmitType::class);
     }
 

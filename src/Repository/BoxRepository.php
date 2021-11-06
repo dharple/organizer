@@ -86,10 +86,6 @@ class BoxRepository extends ServiceEntityRepository
             }
 
             foreach ($output as $box) {
-                // if ($box->isHidden()) {
-                //    continue;
-                // }
-
                 $id = $box->getBoxNumber();
                 $all[$id] = $box;
                 if (!isset($counts[$id])) {

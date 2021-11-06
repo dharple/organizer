@@ -107,12 +107,6 @@ class Box extends AbstractEntity implements EntityInterface
         return $this->location;
     }
 
-    public function isHidden(): bool
-    {
-        $location = $this->getLocation();
-        return ($location === null) ? false : $location->getHidden();
-    }
-
     public function setBoxModel(?BoxModel $boxModel): self
     {
         $this->boxModel = $boxModel;

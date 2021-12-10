@@ -36,6 +36,7 @@ trait CrudTrait
      */
     protected function renderForm(array $options)
     {
+        /* @phpstan-ignore-next-line */
         if (isset($this->formOptions)) {
             $options += $this->formOptions;
         }

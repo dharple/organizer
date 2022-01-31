@@ -1,7 +1,4 @@
 {
-    "adrenalinkin/doctrine-utc-date-time": {
-        "version": "v1.1.1"
-    },
     "antishov/doctrine-extensions-bundle": {
         "version": "1.4",
         "recipe": {
@@ -412,9 +409,6 @@
             "src/Kernel.php"
         ]
     },
-    "symfony/http-client-contracts": {
-        "version": "v2.3.1"
-    },
     "symfony/http-foundation": {
         "version": "v5.1.9"
     },
@@ -480,6 +474,9 @@
     },
     "symfony/options-resolver": {
         "version": "v5.1.9"
+    },
+    "symfony/password-hasher": {
+        "version": "v5.4.3"
     },
     "symfony/phpunit-bridge": {
         "version": "4.3",

@@ -25,7 +25,7 @@ class BoxModelController extends AbstractController
     use CrudTrait;
 
     /**
-     * Options that renderForm uses
+     * Options that renderCustomForm uses
      *
      * @var array
      */
@@ -40,7 +40,7 @@ class BoxModelController extends AbstractController
      */
     public function index(Request $request, int $id)
     {
-        return $this->renderForm([
+        return $this->renderCustomForm([
             'entity'          => $this->getDoctrine()->getRepository(BoxModel::class)->findOneById($id),
             'request'         => $request,
             'successCallback' => function ($entity) {
@@ -54,7 +54,7 @@ class BoxModelController extends AbstractController
      */
     public function new(Request $request)
     {
-        return $this->renderForm([
+        return $this->renderCustomForm([
             'entity'          => new BoxModel(),
             'request'         => $request,
             'successCallback' => function ($entity) {

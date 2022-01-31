@@ -7,8 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ### Changed
 - Re-added composer.lock and symfony.lock.
+- Removed UTC date time support.
 - Updated 3rd party dependencies.
-  - Upgraded Symfony to 5.2.
+  - Upgraded Symfony to 5.4.
 
 ### Fixed
 - Avoid a doctrine error for now by locking migrations to v2.x.

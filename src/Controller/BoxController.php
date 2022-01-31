@@ -34,7 +34,7 @@ class BoxController extends AbstractController
     protected const SESSION_NEW_BOX = 'nübox';
 
     /**
-     * Options that renderForm uses
+     * Options that renderCustomForm uses
      *
      * @var array
      */
@@ -62,7 +62,7 @@ class BoxController extends AbstractController
      */
     public function index(Request $request, int $id)
     {
-        return $this->renderForm([
+        return $this->renderCustomForm([
             'entity'          => $this->getDoctrine()->getRepository(Box::class)->findOneById($id),
             'request'         => $request,
             'successCallback' => function ($entity) {
@@ -78,7 +78,7 @@ class BoxController extends AbstractController
     {
         $this->session->set(static::SESSION_NEW_BOX, false);
 
-        return $this->renderForm([
+        return $this->renderCustomForm([
             'entity'          => new Box(),
             'request'         => $request,
             'successCallback' => function () {

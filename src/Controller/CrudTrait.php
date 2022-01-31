@@ -34,7 +34,7 @@ trait CrudTrait
      *  'template'        => 'box/index.html.twig' // the template to use
      * ]
      */
-    protected function renderForm(array $options)
+    protected function renderCustomForm(array $options)
     {
         /* @phpstan-ignore-next-line */
         if (isset($this->formOptions)) {

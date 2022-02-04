@@ -18,6 +18,12 @@ cd $BASE
 
 git stash save
 git pull
-composer install --no-dev -o
+
+if [ -f composer.lock ] ; then
+	composer update --no-dev -o
+else
+	composer install --no-dev -o
+fi
+
 bin/console cache:clear
 bin/console cache:warmup

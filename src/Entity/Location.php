@@ -29,6 +29,16 @@ class Location extends AbstractEntity implements EntityInterface
     protected $boxes;
 
     /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    protected $description;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    protected $hideFromSearch;
+
+    /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
@@ -68,6 +78,11 @@ class Location extends AbstractEntity implements EntityInterface
         return $this->boxes;
     }
 
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
     /**
      * Generates the display label for this class, showing its full place on
      * the tree.
@@ -85,6 +100,11 @@ class Location extends AbstractEntity implements EntityInterface
         }
 
         return implode(' - ', array_reverse($build));
+    }
+
+    public function getHideFromSearch(): ?bool
+    {
+        return $this->hideFromSearch;
     }
 
     public function getId(): ?int
@@ -145,6 +165,20 @@ class Location extends AbstractEntity implements EntityInterface
                 $box->setLocation(null);
             }
         }
+
+        return $this;
+    }
+
+    public function setDescription(?string $description): self
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    public function setHideFromSearch(bool $hideFromSearch): self
+    {
+        $this->hideFromSearch = $hideFromSearch;
 
         return $this;
     }

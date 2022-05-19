@@ -5,6 +5,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Added
+- Added support for hiding boxes in locations from searches.
+- Added support for a description on a location.
+
 ### Changed
 - Updated 3rd party dependencies.
 

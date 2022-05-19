@@ -10,6 +10,9 @@
                     {{ location.description[:90] }}{% if location.description | length > 100 %} ...{% endif %}
                     <br />
                 {% endif %}
+                {% if location.hideFromSearch %}
+                    <em>This location is hidden from searches.</em>
+                {% endif %}
             </p>
             <a class="card-link" href="{{ path('app_location', {id: location.id}) }}">Edit</a>
             <a class="card-link" href="{{ path('app_box_search_location', {id: location.id}) }}">{{ boxCount }} Box{{ boxCount != 1 ? 'es' }}</a>

@@ -56,25 +56,30 @@ class BoxRepository extends ServiceEntityRepository
      */
     public function findByKeyword($keyword)
     {
-        $threshold = 1;
-
-        $all = [];
-        $counts = [];
-
+        $single = true;
         $keywords = preg_split('/[\s,]+/', trim($keyword));
-        array_push($keywords, $keyword);
-        $this->logger->info('keywords: ' . json_encode($keywords));
-        foreach ($keywords as $keyword) {
-            $output = [];
-            if (is_numeric($keyword)) {
-                $output = $this->findBy(['boxNumber' => ltrim($keyword, '0')]);
-            } else {
-                if (strlen($keyword) < $threshold) {
-                    continue;
-                }
+        if (count($keywords) > 1) {
+            $single = false;
+            array_push($keywords, $keyword);
+        }
 
-                $locations = $this->locationRepository->findByDisplayLabel($keyword);
-                $output = $this->createQueryBuilder('b')
+        $this->logger->info('keywords: ' . json_encode($keywords));
+
+        $output = [];
+        $numeric = false;
+        foreach ($keywords as $keyword) {
+            if (is_numeric($keyword)) {
+                $output = array_merge(
+                    $output,
+                    $this->findBy(['boxNumber' => ltrim($keyword, '0')])
+                );
+                $numeric = true;
+            }
+
+            $locations = $this->locationRepository->findByDisplayLabel($keyword);
+            $output = array_merge(
+                $output,
+                $this->createQueryBuilder('b')
                     ->orWhere('IDENTITY(b.location) IN (?2)')
                     ->orWhere('IDENTITY(b.boxModel) IN (SELECT DISTINCT m.id FROM App\Entity\BoxModel m WHERE m.label LIKE ?1)')
                     ->orWhere('b.label LIKE ?1')
@@ -82,21 +87,23 @@ class BoxRepository extends ServiceEntityRepository
                     ->setParameter('1', '%' . $keyword . '%')
                     ->setParameter('2', $locations)
                     ->getQuery()
-                    ->getResult();
+                    ->getResult()
+            );
+        }
+
+        $all = [];
+        $counts = [];
+        foreach ($output as $box) {
+            if ($box->isHidden() && ($single == false || $numeric == false)) {
+                continue;
             }
 
-            foreach ($output as $box) {
-                if ($box->isHidden()) {
-                    continue;
-                }
-
-                $id = $box->getBoxNumber();
+            $id = $box->getBoxNumber();
+            if (!isset($counts[$id])) {
                 $all[$id] = $box;
-                if (!isset($counts[$id])) {
-                    $counts[$id] = 1;
-                } else {
-                    $counts[$id]++;
-                }
+                $counts[$id] = 1;
+            } else {
+                $counts[$id]++;
             }
         }
 

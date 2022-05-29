@@ -10,6 +10,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added support for a description on a location.
 
 ### Changed
+- Searching on a single number will show a hidden box with that exact number,
+  as well as full text searches that match that number.
+- Simplified search logic slightly.
 - Updated 3rd party dependencies.
 
 ## [0.7.0] - 2022-01-31

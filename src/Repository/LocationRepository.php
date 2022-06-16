@@ -73,7 +73,9 @@ class LocationRepository extends ServiceEntityRepository
     {
         $ret = $this->createQueryBuilder('l')
             ->where('l.id IN (SELECT DISTINCT IDENTITY(b.location) FROM App\Entity\Box b)')
+            ->andWhere('l.hideFromSearch = :hidden')
             ->getQuery()
+            ->setParameter(':hidden', false)
             ->getResult();
         usort($ret, '\App\Utility\Sort::sortByDisplayLabel');
         return $ret;

@@ -94,10 +94,7 @@ class BoxRepository extends ServiceEntityRepository
         $all = [];
         $counts = [];
         foreach ($output as $box) {
-            if (
-                $box->isHidden() &&
-                ($single == false || $numeric == false || $box->getBoxNumber() != $keyword)
-            ) {
+            if ($box->isHidden() && ($single == false || $numeric == false)) {
                 continue;
             }
 

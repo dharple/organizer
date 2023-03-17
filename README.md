@@ -34,7 +34,7 @@ bin/console user:add test@hotmail.com mySecurePassword
 
 Start the server:
 ```bash
-bin/console server:run
+composer go
 ```
 
 Connect to http://localhost:8000 and log in.

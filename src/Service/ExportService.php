@@ -77,7 +77,7 @@ class ExportService
      */
     public function export(array $options): ExportResponse
     {
-        $this->logger->info(json_encode($options));
+        $this->logger->info(json_encode($options, JSON_PARTIAL_OUTPUT_ON_ERROR));
 
         if ($options['type'] == 'simple') {
             switch ($options['format']) {

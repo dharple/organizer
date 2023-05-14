@@ -21,28 +21,28 @@ class Gravatar
      *
      * @var string
      */
-    const BASE_URL = 'https://www.gravatar.com/avatar';
+    public const BASE_URL = 'https://www.gravatar.com/avatar';
 
     /**
      * How to handle missing Gravatars.
      *
      * @var string
      */
-    const DEFAULT = 'identicon';
+    public const DEFAULT = 'identicon';
 
     /**
      * Max rating to allow.
      *
      * @var string
      */
-    const RATING = 'g';
+    public const RATING = 'g';
 
     /**
      * Gravatar size in pixels.
      *
      * @var int
      */
-    const SIZE = 40;
+    public const SIZE = 40;
 
     /**
      * Prevent instantiation

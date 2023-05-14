@@ -58,12 +58,12 @@ class BoxRepository extends ServiceEntityRepository
     {
         $single = true;
         $keywords = preg_split('/[\s,]+/', trim($keyword));
-        if (count($keywords) > 1) {
+        if ((is_countable($keywords) ? count($keywords) : 0) > 1) {
             $single = false;
             array_push($keywords, $keyword);
         }
 
-        $this->logger->info('keywords: ' . json_encode($keywords));
+        $this->logger->info('keywords: ' . json_encode($keywords, JSON_PARTIAL_OUTPUT_ON_ERROR));
 
         $output = [];
         $numeric = false;
@@ -123,7 +123,7 @@ class BoxRepository extends ServiceEntityRepository
             }
         );
         asort($counts);
-        $this->logger->info('search results: ' . json_encode($counts));
+        $this->logger->info('search results: ' . json_encode($counts, JSON_PARTIAL_OUTPUT_ON_ERROR));
         $ret = [];
         foreach ($counts as $id => $count) {
             $ret[] = $all[$id];

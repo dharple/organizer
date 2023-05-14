@@ -34,9 +34,6 @@ class Sort
     {
         $a = $a->getDisplayLabel();
         $b = $b->getDisplayLabel();
-        if ($a == $b) {
-            return 0;
-        }
-        return ($a < $b) ? -1 : 1;
+        return $a <=> $b;
     }
 }

@@ -50,7 +50,7 @@ class MoveService
      */
     public function move(array $options)
     {
-        $this->logger->info(json_encode($options));
+        $this->logger->info(json_encode($options, JSON_PARTIAL_OUTPUT_ON_ERROR));
 
         if (empty($options['box']) && empty($options['id']) && empty($options['from'])) {
             throw new Exception('At least one Box ID, Box Number, or Source Location must be specified');

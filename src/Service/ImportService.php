@@ -56,7 +56,7 @@ class ImportService
      */
     public function import(array $options)
     {
-        $this->logger->info(json_encode($options));
+        $this->logger->info(json_encode($options, JSON_PARTIAL_OUTPUT_ON_ERROR));
 
         if (
             $this->em->getRepository(Box::class)->count([]) > 0 ||

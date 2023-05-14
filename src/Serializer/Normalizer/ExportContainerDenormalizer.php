@@ -203,6 +203,6 @@ class ExportContainerDenormalizer implements CacheableSupportsMethodInterface, D
      */
     public function supportsDenormalization($data, $type, $format = null): bool
     {
-        return ($type === 'App\Service\ExportContainer');
+        return ($type === \App\Service\ExportContainer::class);
     }
 }

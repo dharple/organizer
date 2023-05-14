@@ -30,7 +30,7 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="string", length=180, unique=true)
      */
-    private $email;
+    private ?string $email = null;
 
     /**
      * @ORM\Id()
@@ -40,15 +40,15 @@ class User implements UserInterface
     private $id;
 
     /**
-     * @var                       string The hashed password
+     * The hashed password
      * @ORM\Column(type="string")
      */
-    private $password;
+    private ?string $password = null;
 
     /**
      * @ORM\Column(type="json")
      */
-    private $roles = [];
+    private array $roles = [];
 
     /**
      * @see UserInterface

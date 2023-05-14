@@ -41,6 +41,7 @@ class User implements UserInterface
 
     /**
      * The hashed password
+     *
      * @ORM\Column(type="string")
      */
     private ?string $password = null;

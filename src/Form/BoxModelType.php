@@ -22,7 +22,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 class BoxModelType extends AbstractType
 {
-
     /**
      * {@inheritdoc}
      */

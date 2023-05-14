@@ -59,7 +59,7 @@ class Gravatar
     public static function getAvatarUrl(string $email): string
     {
         return sprintf(
-            "%s/%s?d=%s&r=%s&s=%d",
+            '%s/%s?d=%s&r=%s&s=%d',
             static::BASE_URL,
             md5(strtolower(trim($email))),
             urlencode(static::DEFAULT),

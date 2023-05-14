@@ -21,7 +21,6 @@ use Exception;
  */
 class ExportContainer
 {
-
     /**
      * @var Box[]
      */

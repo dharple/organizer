@@ -16,7 +16,6 @@ namespace App\Controller;
  */
 trait CrudTrait
 {
-
     /**
      * All data is passed to the form via the options array
      *

@@ -18,7 +18,6 @@ use Symfony\Component\Mime\MimeTypes;
  */
 class ExportResponse
 {
-
     /**
      * @var string
      */

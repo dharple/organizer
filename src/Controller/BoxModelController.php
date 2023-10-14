@@ -43,9 +43,7 @@ class BoxModelController extends AbstractController
         return $this->renderCustomForm([
             'entity'          => $this->getDoctrine()->getRepository(BoxModel::class)->findOneById($id),
             'request'         => $request,
-            'successCallback' => function ($entity) {
-                return 'Updated ' . $entity->getLabel();
-            },
+            'successCallback' => fn($entity) => 'Updated ' . $entity->getLabel(),
         ]);
     }
 
@@ -57,9 +55,7 @@ class BoxModelController extends AbstractController
         return $this->renderCustomForm([
             'entity'          => new BoxModel(),
             'request'         => $request,
-            'successCallback' => function ($entity) {
-                return 'Created ' . $entity->getLabel();
-            },
+            'successCallback' => fn($entity) => 'Created ' . $entity->getLabel(),
         ]);
     }
 

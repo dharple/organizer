@@ -34,17 +34,13 @@ class UserAddCommand extends Command
 
     /**
      * Entity manager
-     *
-     * @var EntityManagerInterface
      */
-    private $em;
+    private EntityManagerInterface $em;
 
     /**
      * Password encoder
-     *
-     * @var UserPasswordEncoderInterface
      */
-    private $encoder;
+    private UserPasswordEncoderInterface $encoder;
 
     /**
      * Constructor

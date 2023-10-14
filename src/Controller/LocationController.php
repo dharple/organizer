@@ -43,9 +43,7 @@ class LocationController extends AbstractController
         return $this->renderCustomForm([
             'entity'          => $this->getDoctrine()->getRepository(Location::class)->findOneById($id),
             'request'         => $request,
-            'successCallback' => function ($entity) {
-                return 'Updated ' . $entity->getDisplayLabel();
-            },
+            'successCallback' => fn($entity) => 'Updated ' . $entity->getDisplayLabel(),
         ]);
     }
 
@@ -57,9 +55,7 @@ class LocationController extends AbstractController
         return $this->renderCustomForm([
             'entity'          => new Location(),
             'request'         => $request,
-            'successCallback' => function ($entity) {
-                return 'Created ' . $entity->getDisplayLabel();
-            },
+            'successCallback' => fn($entity) => 'Created ' . $entity->getDisplayLabel(),
         ]);
     }
 

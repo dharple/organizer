@@ -1,28 +1,35 @@
 # Changelog
+
 All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
 ### Added
+
 - Added support for hiding boxes in locations from searches.
 - Added support for a description on a location.
 
 ### Changed
+
 - Searching on a single number will show a hidden box with that exact number,
   as well as full text searches that match that number.
 - Simplified search logic slightly.
 - Updated 3rd party dependencies.
 
 ## [0.7.0] - 2022-01-31
+
 ### Changed
+
 - Re-added composer.lock and symfony.lock.
 - Removed UTC date time support.
 - Updated 3rd party dependencies.
   - Upgraded Symfony to 5.4.
 
 ### Fixed
+
 - Avoid a doctrine error for now by locking migrations to v2.x.
 - Cleaned up class references.
 - Fixed references to the moved Doctrine ManagerRegistry.
@@ -31,91 +38,126 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Removed unused variables.
 
 ### Thanks
+
 - PhpStorm for help with static analysis.
 
 ## [0.6.1] - 2020-11-10
+
 ### Changed
+
 - Removed symfony.lock.
 - Added additional symfony config files after resetting symfony.lock.
 
 ## [0.6.0] - 2020-11-10
+
 ### Fixed
+
 - The Box Model editor sets data-lpignore so that LastPass doesn't think it's a
   form that needs to be remembered.
 
 ### Changed
+
 - Removed composer.lock.
 
 ## [0.5.1] - 2020-09-03
+
 ### Fixed
+
 - Don't treat Migrations like services
 
 ### Changed
+
 - Upgraded to Symfony 5.1.
 - Updated 3rd party dependencies.
 
 ## [0.4.6] - 2020-09-02
+
 ### Changed
+
 - Removed unused package symfony/http-client
 - Updated 3rd party dependencies.
 
 ## [0.4.5] - 2020-06-20
+
 ### Fixed
+
 - Gravatars now load over https.
 
 ## [0.4.4] - 2020-06-20
+
 ### Changed
+
 - Updated 3rd party dependencies.
 
 ### Fixed
+
 - Locked doctrine-migrations-bundle due to [backwards compatibility
   breaks](https://github.com/symfony/orm-pack/pull/22#pullrequestreview-355620860).
 
 ## [0.4.3] - 2020-05-21
+
 ### Changed
+
 - Updated 3rd party dependencies.
 
 ## [0.4.2] - 2020-04-24
+
 ### Changed
+
 - Updated 3rd party dependencies.
 
 ## [0.4.1] - 2020-04-09
+
 ### Changed
+
 - Make titles on home page links.
 - Add titles to see all locations and box models.
 
 ### Security
+
 - Updated Symfony dependencies to address potential security risks.
   [CVE-2020-5255], [CVE-2020-5274], [CVE-2020-5275].
 
 ## [0.4.0] - 2020-01-25
+
 ### Added
+
 - The homepage now shows the three most recently modified boxes.
 - Added a new page to see recently modified boxes.
 
 ### Changed
+
 - Moved the search bar to the top of the content area on small screens.
 
 ### Fixed
+
 - Responsive margins and column sizes
 
 ## [0.3.0] - 2020-01-22
+
 ### Changed
+
 - Upgraded to Symfony 5.0
 - Updated the colors on the dolly icon from Font Awesome.
 
 ### Fixed
+
 - Removed a flat tire on the PNG version of the dolly icon.
 
 ## [0.2.1] - 2020-01-15
+
 ### Changed
+
 - Reduced complexity of import/export logic.
 
 ### Fixed
+
 - Switched from 0.0.0 to v0.0.0 tags.
 
 ## [0.2.0] - 2020-01-15
+
 ### Added
+
 - The ability to export from the command line. [#8]
 - The ability to import from the command line. [#8]
 - A Box Number separate from the ID field on the box table.  This ensures data
@@ -129,12 +171,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Migrations for MySQL.
 
 ### Changed
+
 - PHPCS rules are now simpler.  This includes alphabetizing methods and
   properties, thanks to [ork/phpcs].
 - Export formats that support indentation (JSON, XML, YAML) use it.
 
 ## [0.1.0] - 2020-01-07
+
 ### Added
+
 - Basic box management. Create and edit boxes, locations, and box types.
 - Basic user management.
 - Export basic box information, or all information.

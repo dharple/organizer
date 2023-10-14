@@ -11,6 +11,7 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use App\Form\UserType;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -37,6 +38,10 @@ class ProfileController extends AbstractController
         $user = $tokenStorage->getToken()->getUser();
         if (!is_object($user)) {
             throw new Exception('Unable to load user profile');
+        }
+
+        if (!$user instanceof User) {
+            throw new Exception(sprintf('Instances of "%s" are not supported.', get_class($user)));
         }
 
         //

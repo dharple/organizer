@@ -14,6 +14,7 @@ namespace App\Repository;
 use App\Entity\Box;
 use DateTime;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Common\Collections\AbstractLazyCollection;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\Persistence\ManagerRegistry;
 use Exception;
@@ -151,7 +152,8 @@ class BoxRepository extends ServiceEntityRepository
      * @param string  $recent time string
      * @param integer $limit
      *
-     * @return Box[] Returns an array of Box objects
+     * @return AbstractLazyCollection Returns a collection of Box objects
+     *
      * @throws Exception
      */
     public function getRecent($recent = '-30 days', $limit = null)

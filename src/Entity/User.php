@@ -36,6 +36,8 @@ class User implements UserInterface
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     *
+     * @phpstan-ignore-next-line
      */
     private $id;
 

@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.8.0] - 2023-10-14
+
 ### Added
 
 - Added support for hiding boxes in locations from searches.
@@ -184,7 +186,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Basic user management.
 - Export basic box information, or all information.
 
-[Unreleased]: https://github.com/dharple/organizer/compare/v0.7.0...main
+[Unreleased]: https://github.com/dharple/organizer/compare/v0.8.0...main
+[0.8.0]: https://github.com/dharple/organizer/compare/v0.7.0...v0.8.0
 [0.7.0]: https://github.com/dharple/organizer/compare/v0.6.1...v0.7.0
 [0.6.1]: https://github.com/dharple/organizer/compare/v0.6.0...v0.6.1
 [0.6.0]: https://github.com/dharple/organizer/compare/v0.5.1...v0.6.0

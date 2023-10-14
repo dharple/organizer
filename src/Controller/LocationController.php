@@ -15,6 +15,7 @@ use App\Entity\Location;
 use App\Form\LocationType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -62,7 +63,7 @@ class LocationController extends AbstractController
     /**
      * @Route("/location/showAll", name="app_location_all")
      */
-    public function showAll()
+    public function showAll(): Response
     {
         return $this->render(
             'location/all.html.twig',

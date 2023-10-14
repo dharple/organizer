@@ -15,6 +15,7 @@ use App\Entity\BoxModel;
 use App\Form\BoxModelType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -62,7 +63,7 @@ class BoxModelController extends AbstractController
     /**
      * @Route("/box/model/showAll", name="app_box_model_all")
      */
-    public function showAll()
+    public function showAll(): Response
     {
         return $this->render(
             'box_model/all.html.twig',

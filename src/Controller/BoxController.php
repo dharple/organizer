@@ -18,6 +18,7 @@ use App\Form\BoxType;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
@@ -91,7 +92,7 @@ class BoxController extends AbstractController
     /**
      * @Route("/box/search", name="app_box_search")
      */
-    public function search(Request $request)
+    public function search(Request $request): Response
     {
         $query = $request->get('q');
         $boxes = $this->getDoctrine()->getRepository(Box::class)->findByKeyword($query);
@@ -175,7 +176,7 @@ class BoxController extends AbstractController
     /**
      * @Route("/box/showAll", name="app_box_all")
      */
-    public function showAll()
+    public function showAll(): Response
     {
         return $this->render(
             'box/all.html.twig',
@@ -192,7 +193,7 @@ class BoxController extends AbstractController
      *
      * @throws Exception
      */
-    public function showRecent()
+    public function showRecent(): Response
     {
         return $this->render(
             'box/all.html.twig',

@@ -15,6 +15,7 @@ use App\Entity\Box;
 use App\Entity\BoxModel;
 use App\Entity\Location;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -25,7 +26,7 @@ class IndexController extends AbstractController
     /**
      * @Route("/about", name="app_about")
      */
-    public function about()
+    public function about(): Response
     {
         return $this->render('about.html.twig');
     }
@@ -33,7 +34,7 @@ class IndexController extends AbstractController
     /**
      * @Route("/", name="app_home")
      */
-    public function index()
+    public function index(): Response
     {
         $em = $this->getDoctrine();
 

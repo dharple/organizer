@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Enabled Symfony failed login throttling.
+
 ### Changed
 
 - Updated code to fix Symfony deprecation warnings.

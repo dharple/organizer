@@ -29,27 +29,14 @@ use Psr\Log\LoggerInterface;
 class BoxRepository extends ServiceEntityRepository
 {
     /**
-     * @var LocationRepository
-     */
-    protected $locationRepository;
-
-    /**
-     * @var LoggerInterface
-     */
-    protected $logger;
-
-    /**
      * Constructor
      */
     public function __construct(
         ManagerRegistry $registry,
-        LoggerInterface $logger,
-        LocationRepository $locationRepository
+        protected LoggerInterface $logger,
+        protected LocationRepository $locationRepository
     ) {
         parent::__construct($registry, Box::class);
-
-        $this->locationRepository = $locationRepository;
-        $this->logger             = $logger;
     }
 
     /**
@@ -58,7 +45,7 @@ class BoxRepository extends ServiceEntityRepository
     public function findByKeyword($keyword)
     {
         $single = true;
-        $keywords = preg_split('/[\s,]+/', trim($keyword));
+        $keywords = preg_split('/[\s,]+/', trim((string) $keyword));
         if ((is_countable($keywords) ? count($keywords) : 0) > 1) {
             $single = false;
             array_push($keywords, $keyword);
@@ -135,8 +122,6 @@ class BoxRepository extends ServiceEntityRepository
 
     /**
      * Get next box number.
-     *
-     * @return int
      */
     public function getNextBoxNumber(): int
     {

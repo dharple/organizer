@@ -53,8 +53,6 @@ class Gravatar
 
     /**
      * Simple Gravatar URL generator
-     *
-     * @return string
      */
     public static function getAvatarUrl(string $email): string
     {

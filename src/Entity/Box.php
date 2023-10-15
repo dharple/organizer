@@ -109,8 +109,6 @@ class Box extends AbstractEntity implements EntityInterface
 
     /**
      * Checks to see if a box should be hidden from searches.
-     *
-     * @return bool
      */
     public function isHidden(): bool
     {

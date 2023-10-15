@@ -23,9 +23,7 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class BulkController extends AbstractController
 {
-    /**
-     * @Route("/export", name="app_export")
-     */
+    #[Route(path: '/export', name: 'app_export')]
     public function export(Request $request, ExportService $exportService)
     {
         $form = $this->createForm(ExportType::class);

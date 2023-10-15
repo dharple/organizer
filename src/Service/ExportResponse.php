@@ -55,8 +55,6 @@ class ExportResponse
 
     /**
      * Suggests a filename for export.
-     *
-     * @return string
      */
     public function getSuggestedFilename(): string
     {

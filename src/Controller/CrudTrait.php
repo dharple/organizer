@@ -37,7 +37,8 @@ trait CrudTrait
      */
     protected function renderCustomForm(EntityManagerInterface $em, array $options)
     {
-        /* @phpstan-ignore-next-line */
+        // @phpstan-ignore-next-line
+
         if (isset($this->formOptions)) {
             $options += $this->formOptions;
         }

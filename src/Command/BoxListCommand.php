@@ -30,17 +30,11 @@ class BoxListCommand extends Command
     protected static $defaultName = 'box:list';
 
     /**
-     * @var EntityManagerInterface
-     */
-    protected $em;
-
-    /**
      * Constructs a new command
      */
-    public function __construct(EntityManagerInterface $em)
+    public function __construct(protected EntityManagerInterface $em)
     {
         parent::__construct();
-        $this->em = $em;
     }
 
     /**

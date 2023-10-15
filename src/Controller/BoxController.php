@@ -35,11 +35,6 @@ class BoxController extends AbstractController
     protected const SESSION_NEW_BOX = 'nübox';
 
     /**
-     * @var EntityManagerInterface
-     */
-    protected $em;
-
-    /**
      * Options that renderCustomForm uses
      *
      * @var array
@@ -53,14 +48,11 @@ class BoxController extends AbstractController
     /**
      * Constructs a new Box controller
      */
-    public function __construct(EntityManagerInterface $em)
+    public function __construct(protected EntityManagerInterface $em)
     {
-        $this->em = $em;
     }
 
-    /**
-     * @Route("/box/{id}", name="app_box", requirements={"id"="\d+"})
-     */
+    #[Route(path: '/box/{id}', name: 'app_box', requirements: ['id' => '\d+'])]
     public function index(Request $request, int $id)
     {
         return $this->renderCustomForm($this->em, [
@@ -70,9 +62,7 @@ class BoxController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/box/new", name="app_box_new")
-     */
+    #[Route(path: '/box/new', name: 'app_box_new')]
     public function new(Request $request)
     {
         $session = $request->getSession();
@@ -91,9 +81,7 @@ class BoxController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/box/search", name="app_box_search")
-     */
+    #[Route(path: '/box/search', name: 'app_box_search')]
     public function search(Request $request): Response
     {
         $query = $request->get('q');
@@ -108,9 +96,7 @@ class BoxController extends AbstractController
         );
     }
 
-    /**
-     * @Route("/box/search/id/{id}", name="app_box_search_id", requirements={"id"="\d+"})
-     */
+    #[Route(path: '/box/search/id/{id}', name: 'app_box_search_id', requirements: ['id' => '\d+'])]
     public function searchById(Request $request, int $id)
     {
         $session = $request->getSession();
@@ -135,9 +121,7 @@ class BoxController extends AbstractController
         );
     }
 
-    /**
-     * @Route("/box/search/location/{id}", name="app_box_search_location", requirements={"id"="\d+"})
-     */
+    #[Route(path: '/box/search/location/{id}', name: 'app_box_search_location', requirements: ['id' => '\d+'])]
     public function searchByLocation(int $id)
     {
         $entity = $this->em->getRepository(Location::class)->find($id);
@@ -156,9 +140,7 @@ class BoxController extends AbstractController
         );
     }
 
-    /**
-     * @Route("/box/search/model/{id}", name="app_box_search_model", requirements={"id"="\d+"})
-     */
+    #[Route(path: '/box/search/model/{id}', name: 'app_box_search_model', requirements: ['id' => '\d+'])]
     public function searchByModel(int $id)
     {
         $entity = $this->em->getRepository(BoxModel::class)->find($id);
@@ -177,9 +159,7 @@ class BoxController extends AbstractController
         );
     }
 
-    /**
-     * @Route("/box/showAll", name="app_box_all")
-     */
+    #[Route(path: '/box/showAll', name: 'app_box_all')]
     public function showAll(): Response
     {
         return $this->render(
@@ -193,10 +173,9 @@ class BoxController extends AbstractController
 
 
     /**
-     * @Route("/box/recent", name="app_box_recent")
-     *
      * @throws Exception
      */
+    #[Route(path: '/box/recent', name: 'app_box_recent')]
     public function showRecent(): Response
     {
         return $this->render(

@@ -31,19 +31,13 @@ class DataImportCommand extends Command
     protected static $defaultName = 'data:import';
 
     /**
-     * @var ImportService
-     */
-    protected $importService;
-
-    /**
      * Construct a new command.
      *
      * @param ImportService $importService
      */
-    public function __construct(ImportService $importService)
+    public function __construct(protected ImportService $importService)
     {
         parent::__construct();
-        $this->importService = $importService;
     }
 
     /**

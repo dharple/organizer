@@ -25,16 +25,10 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class LocationType extends AbstractType
 {
     /**
-     * @var LocationRepository
-     */
-    protected $locationRepository;
-
-    /**
      * Constructor
      */
-    public function __construct(LocationRepository $locationRepository)
+    public function __construct(protected LocationRepository $locationRepository)
     {
-        $this->locationRepository = $locationRepository;
     }
 
     /**

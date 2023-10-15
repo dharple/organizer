@@ -65,8 +65,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * Returns an avatar URL
-     *
-     * @return string
      */
     public function getAvatarUrl(): string
     {

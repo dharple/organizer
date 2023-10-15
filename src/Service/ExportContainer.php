@@ -38,8 +38,6 @@ class ExportContainer
 
     /**
      * Add box
-     *
-     * @param Box $box
      */
     public function addBox(Box $box)
     {
@@ -49,8 +47,6 @@ class ExportContainer
 
     /**
      * Add box model
-     *
-     * @param BoxModel $boxModel
      */
     public function addBoxModel(BoxModel $boxModel)
     {
@@ -60,8 +56,6 @@ class ExportContainer
 
     /**
      * Add location
-     *
-     * @param Location $location
      */
     public function addLocation(Location $location)
     {

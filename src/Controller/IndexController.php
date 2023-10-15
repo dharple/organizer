@@ -24,17 +24,13 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class IndexController extends AbstractController
 {
-    /**
-     * @Route("/about", name="app_about")
-     */
+    #[Route(path: '/about', name: 'app_about')]
     public function about(): Response
     {
         return $this->render('about.html.twig');
     }
 
-    /**
-     * @Route("/", name="app_home")
-     */
+    #[Route(path: '/', name: 'app_home')]
     public function index(EntityManagerInterface $em): Response
     {
         return $this->render(

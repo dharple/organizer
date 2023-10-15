@@ -29,17 +29,11 @@ class LocationListCommand extends Command
     protected static $defaultName = 'location:list';
 
     /**
-     * @var EntityManagerInterface
-     */
-    protected $em;
-
-    /**
      * Constructs a new command
      */
-    public function __construct(EntityManagerInterface $em)
+    public function __construct(protected EntityManagerInterface $em)
     {
         parent::__construct();
-        $this->em = $em;
     }
 
     /**

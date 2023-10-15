@@ -27,11 +27,6 @@ class LocationController extends AbstractController
     use CrudTrait;
 
     /**
-     * @var EntityManagerInterface
-     */
-    protected $em;
-
-    /**
      * Options that renderCustomForm uses
      *
      * @var array
@@ -45,14 +40,11 @@ class LocationController extends AbstractController
     /**
      * Constructs a new Location controller
      */
-    public function __construct(EntityManagerInterface $em)
+    public function __construct(protected EntityManagerInterface $em)
     {
-        $this->em = $em;
     }
 
-    /**
-     * @Route("/location/{id}", name="app_location", requirements={"id"="\d+"})
-     */
+    #[Route(path: '/location/{id}', name: 'app_location', requirements: ['id' => '\d+'])]
     public function index(Request $request, int $id)
     {
         return $this->renderCustomForm($this->em, [
@@ -62,9 +54,7 @@ class LocationController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/location/new", name="app_location_new")
-     */
+    #[Route(path: '/location/new', name: 'app_location_new')]
     public function new(Request $request)
     {
         return $this->renderCustomForm($this->em, [
@@ -74,9 +64,7 @@ class LocationController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/location/showAll", name="app_location_all")
-     */
+    #[Route(path: '/location/showAll', name: 'app_location_all')]
     public function showAll(): Response
     {
         return $this->render(

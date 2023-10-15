@@ -33,25 +33,13 @@ class UserAddCommand extends Command
     protected static $defaultName = 'user:add';
 
     /**
-     * Entity manager
-     */
-    private EntityManagerInterface $em;
-
-    /**
-     * Password encoder
-     */
-    private UserPasswordHasherInterface $passwordHasher;
-
-    /**
      * Constructor
      */
     public function __construct(
-        EntityManagerInterface $em,
-        UserPasswordHasherInterface $passwordHasher
+        protected EntityManagerInterface $em,
+        protected UserPasswordHasherInterface $passwordHasher
     ) {
         parent::__construct();
-        $this->em = $em;
-        $this->passwordHasher = $passwordHasher;
     }
 
     /**

@@ -30,19 +30,13 @@ class DataExportCommand extends Command
     protected static $defaultName = 'data:export';
 
     /**
-     * @var ExportService
-     */
-    protected $exportService;
-
-    /**
      * Construct a new command.
      *
      * @param ExportService $exportService
      */
-    public function __construct(ExportService $exportService)
+    public function __construct(protected ExportService $exportService)
     {
         parent::__construct();
-        $this->exportService = $exportService;
     }
 
     /**

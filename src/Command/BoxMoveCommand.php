@@ -31,19 +31,13 @@ class BoxMoveCommand extends Command
     protected static $defaultName = 'box:move';
 
     /**
-     * @var MoveService
-     */
-    protected $moveService;
-
-    /**
      * Construct a new command.
      *
      * @param MoveService $moveService
      */
-    public function __construct(MoveService $moveService)
+    public function __construct(protected MoveService $moveService)
     {
         parent::__construct();
-        $this->moveService = $moveService;
     }
 
     /**

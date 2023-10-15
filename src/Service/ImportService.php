@@ -29,24 +29,12 @@ use Symfony\Component\Serializer\Serializer;
 class ImportService
 {
     /**
-     * @var EntityManagerInterface
-     */
-    protected $em;
-
-    /**
-     * @var LoggerInterface
-     */
-    protected $logger;
-
-    /**
      * Constructs a new Import service
      */
     public function __construct(
-        EntityManagerInterface $em,
-        LoggerInterface $logger
+        protected EntityManagerInterface $em,
+        protected LoggerInterface $logger
     ) {
-        $this->em = $em;
-        $this->logger = $logger;
     }
 
     /**
@@ -73,7 +61,7 @@ class ImportService
         if (isset($options['format'])) {
             $format = $options['format'];
         } else {
-            $info = pathinfo($options['filename']);
+            $info = pathinfo((string) $options['filename']);
             $format = $info['extension'];
         }
 

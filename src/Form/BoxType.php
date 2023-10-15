@@ -28,24 +28,12 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class BoxType extends AbstractType
 {
     /**
-     * @var BoxModelRepository
-     */
-    protected $boxModelRepository;
-
-    /**
-     * @var LocationRepository
-     */
-    protected $locationRepository;
-
-    /**
      * Constructor
      */
     public function __construct(
-        BoxModelRepository $boxModelRepository,
-        LocationRepository $locationRepository
+        protected BoxModelRepository $boxModelRepository,
+        protected LocationRepository $locationRepository
     ) {
-        $this->boxModelRepository = $boxModelRepository;
-        $this->locationRepository = $locationRepository;
     }
 
     /**

@@ -28,22 +28,16 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 class ProfileController extends AbstractController
 {
     /**
-     * @var EntityManagerInterface
-     */
-    protected $em;
-
-    /**
      * Constructs a new Location controller
      */
     public function __construct(EntityManagerInterface $em)
     {
-        $this->em = $em;
     }
 
     /**
-     * @Route("/profile", name="app_profile")
      * @throws Exception
      */
+    #[Route(path: '/profile', name: 'app_profile')]
     public function index(
         Request $request,
         TokenStorageInterface $tokenStorage,
@@ -55,7 +49,7 @@ class ProfileController extends AbstractController
         }
 
         if (!$user instanceof User) {
-            throw new Exception(sprintf('Instances of "%s" are not supported.', get_class($user)));
+            throw new Exception(sprintf('Instances of "%s" are not supported.', $user::class));
         }
 
         //

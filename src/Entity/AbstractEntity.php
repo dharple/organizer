@@ -37,7 +37,7 @@ abstract class AbstractEntity
         ];
 
         foreach (get_object_vars($this) as $field => $value) {
-            if (strpos($field, '__') === 0) {
+            if (str_starts_with($field, '__')) {
                 continue;
             }
 
@@ -58,7 +58,7 @@ abstract class AbstractEntity
                     } else {
                         $value = (string) $value;
                     }
-                } catch (Exception $e) {
+                } catch (Exception) {
                     continue;
                 }
             }

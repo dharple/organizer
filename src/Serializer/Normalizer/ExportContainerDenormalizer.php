@@ -31,16 +31,11 @@ use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 class ExportContainerDenormalizer implements CacheableSupportsMethodInterface, DenormalizerInterface
 {
     /**
-     * @var AbstractObjectNormalizer
-     */
-    protected $normalizer;
-
-    /**
      * Construct a new denormalizer
      */
-    public function __construct(?AbstractObjectNormalizer $normalizer = null)
-    {
-        $this->normalizer = $normalizer ?? new ObjectNormalizer();
+    public function __construct(
+        protected AbstractObjectNormalizer $normalizer = new ObjectNormalizer()
+    ) {
     }
 
     /**

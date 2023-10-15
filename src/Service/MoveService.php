@@ -23,24 +23,12 @@ use Psr\Log\LoggerInterface;
 class MoveService
 {
     /**
-     * @var EntityManagerInterface
-     */
-    protected $em;
-
-    /**
-     * @var LoggerInterface
-     */
-    protected $logger;
-
-    /**
      * Constructs a new Move service
      */
     public function __construct(
-        EntityManagerInterface $em,
-        LoggerInterface $logger
+        protected EntityManagerInterface $em,
+        protected LoggerInterface $logger
     ) {
-        $this->em = $em;
-        $this->logger = $logger;
     }
 
     /**

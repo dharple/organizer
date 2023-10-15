@@ -27,8 +27,6 @@ class Sort
 
     /**
      * Method for sorting locations by the method getDisplayLabel
-     *
-     * @return int
      */
     public static function sortByDisplayLabel(EntityInterface $a, EntityInterface $b): int
     {

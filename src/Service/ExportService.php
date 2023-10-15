@@ -37,11 +37,6 @@ use Symfony\Component\Serializer\Serializer;
 class ExportService
 {
     /**
-     * @var EntityManagerInterface
-     */
-    protected $em;
-
-    /**
      * Context to pass to the encoder.
      *
      * @var array
@@ -55,19 +50,12 @@ class ExportService
     ];
 
     /**
-     * @var LoggerInterface
-     */
-    protected $logger;
-
-    /**
      * Constructs a new Export service
      */
     public function __construct(
-        EntityManagerInterface $em,
-        LoggerInterface $logger
+        protected EntityManagerInterface $em,
+        protected LoggerInterface $logger
     ) {
-        $this->em = $em;
-        $this->logger = $logger;
     }
 
     /**
@@ -80,20 +68,11 @@ class ExportService
         $this->logger->info(json_encode($options, JSON_PARTIAL_OUTPUT_ON_ERROR));
 
         if ($options['type'] == 'simple') {
-            switch ($options['format']) {
-                case 'json':
-                case 'xml':
-                case 'yaml':
-                    return $this->simpleUseSerializer($options);
-
-                case 'csv':
-                case 'ods':
-                case 'xlsx':
-                    return $this->simpleUsePhpSpreadsheet($options);
-
-                default:
-                    throw new Exception('Invalid format: ' . $options['format']);
-            }
+            return match ($options['format']) {
+                'json', 'xml', 'yaml' => $this->simpleUseSerializer($options),
+                'csv', 'ods', 'xlsx' => $this->simpleUsePhpSpreadsheet($options),
+                default => throw new Exception('Invalid format: ' . $options['format']),
+            };
         } else {
             switch ($options['format']) {
                 case 'json':
@@ -206,22 +185,12 @@ class ExportService
         }
 
         $filename = tempnam('/tmp', 'export_spreadsheet_');
-        switch ($options['format']) {
-            case 'csv':
-                $writer = new CsvWriter($spreadsheet);
-                break;
-
-            case 'ods':
-                $writer = new OdsWriter($spreadsheet);
-                break;
-
-            case 'xlsx':
-                $writer = new XlsxWriter($spreadsheet);
-                break;
-
-            default:
-                throw new Exception('Invalid format: ' . $options['format']);
-        }
+        $writer = match ($options['format']) {
+            'csv' => new CsvWriter($spreadsheet),
+            'ods' => new OdsWriter($spreadsheet),
+            'xlsx' => new XlsxWriter($spreadsheet),
+            default => throw new Exception('Invalid format: ' . $options['format']),
+        };
 
         $writer->save($filename);
 

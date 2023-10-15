@@ -27,11 +27,6 @@ class BoxModelController extends AbstractController
     use CrudTrait;
 
     /**
-     * @var EntityManagerInterface
-     */
-    protected $em;
-
-    /**
      * Options that renderCustomForm uses
      *
      * @var array
@@ -45,14 +40,11 @@ class BoxModelController extends AbstractController
     /**
      * Constructs a new Box Model controller
      */
-    public function __construct(EntityManagerInterface $em)
+    public function __construct(protected EntityManagerInterface $em)
     {
-        $this->em = $em;
     }
 
-    /**
-     * @Route("/box/model/{id}", name="app_box_model", requirements={"id"="\d+"})
-     */
+    #[Route(path: '/box/model/{id}', name: 'app_box_model', requirements: ['id' => '\d+'])]
     public function index(Request $request, int $id)
     {
         return $this->renderCustomForm($this->em, [
@@ -62,9 +54,7 @@ class BoxModelController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/box/model/new", name="app_box_model_new")
-     */
+    #[Route(path: '/box/model/new', name: 'app_box_model_new')]
     public function new(Request $request)
     {
         return $this->renderCustomForm($this->em, [
@@ -74,9 +64,7 @@ class BoxModelController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/box/model/showAll", name="app_box_model_all")
-     */
+    #[Route(path: '/box/model/showAll', name: 'app_box_model_all')]
     public function showAll(): Response
     {
         return $this->render(

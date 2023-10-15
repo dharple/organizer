@@ -48,7 +48,7 @@ class ExportContainerDenormalizer implements CacheableSupportsMethodInterface, D
      *
      * @throws Exception
      */
-    public function denormalize($data, $type, $format = null, array $context = [])
+    public function denormalize($data, $type, $format = null, array $context = []): mixed
     {
         $exportContainer = new ExportContainer();
 

@@ -11,6 +11,8 @@
 
 namespace App\Controller;
 
+use Doctrine\ORM\EntityManagerInterface;
+
 /**
  * Trait for basic CRUD operations
  */
@@ -33,7 +35,7 @@ trait CrudTrait
      *  'template'        => 'box/index.html.twig' // the template to use
      * ]
      */
-    protected function renderCustomForm(array $options)
+    protected function renderCustomForm(EntityManagerInterface $em, array $options)
     {
         /* @phpstan-ignore-next-line */
         if (isset($this->formOptions)) {
@@ -47,7 +49,6 @@ trait CrudTrait
         if ($form->isSubmitted() && $form->isValid()) {
             $entity = $form->getData();
 
-            $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
 

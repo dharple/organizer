@@ -13,6 +13,7 @@ namespace App\Controller;
 
 use App\Entity\BoxModel;
 use App\Form\BoxModelType;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -26,6 +27,11 @@ class BoxModelController extends AbstractController
     use CrudTrait;
 
     /**
+     * @var EntityManagerInterface
+     */
+    protected $em;
+
+    /**
      * Options that renderCustomForm uses
      *
      * @var array
@@ -37,12 +43,20 @@ class BoxModelController extends AbstractController
     ];
 
     /**
+     * Constructs a new Box Model controller
+     */
+    public function __construct(EntityManagerInterface $em)
+    {
+        $this->em = $em;
+    }
+
+    /**
      * @Route("/box/model/{id}", name="app_box_model", requirements={"id"="\d+"})
      */
     public function index(Request $request, int $id)
     {
-        return $this->renderCustomForm([
-            'entity'          => $this->getDoctrine()->getRepository(BoxModel::class)->findOneById($id),
+        return $this->renderCustomForm($this->em, [
+            'entity'          => $this->em->getRepository(BoxModel::class)->findOneById($id),
             'request'         => $request,
             'successCallback' => fn($entity) => 'Updated ' . $entity->getLabel(),
         ]);
@@ -53,7 +67,7 @@ class BoxModelController extends AbstractController
      */
     public function new(Request $request)
     {
-        return $this->renderCustomForm([
+        return $this->renderCustomForm($this->em, [
             'entity'          => new BoxModel(),
             'request'         => $request,
             'successCallback' => fn($entity) => 'Created ' . $entity->getLabel(),
@@ -68,7 +82,7 @@ class BoxModelController extends AbstractController
         return $this->render(
             'box_model/all.html.twig',
             [
-                'boxModels' => $this->getDoctrine()->getRepository(BoxModel::class)->getSortedByDisplayLabel(),
+                'boxModels' => $this->em->getRepository(BoxModel::class)->getSortedByDisplayLabel(),
             ]
         );
     }

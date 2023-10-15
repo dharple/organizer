@@ -13,6 +13,7 @@ namespace App\Controller;
 
 use App\Entity\Location;
 use App\Form\LocationType;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -26,6 +27,11 @@ class LocationController extends AbstractController
     use CrudTrait;
 
     /**
+     * @var EntityManagerInterface
+     */
+    protected $em;
+
+    /**
      * Options that renderCustomForm uses
      *
      * @var array
@@ -37,12 +43,20 @@ class LocationController extends AbstractController
     ];
 
     /**
+     * Constructs a new Location controller
+     */
+    public function __construct(EntityManagerInterface $em)
+    {
+        $this->em = $em;
+    }
+
+    /**
      * @Route("/location/{id}", name="app_location", requirements={"id"="\d+"})
      */
     public function index(Request $request, int $id)
     {
-        return $this->renderCustomForm([
-            'entity'          => $this->getDoctrine()->getRepository(Location::class)->findOneById($id),
+        return $this->renderCustomForm($this->em, [
+            'entity'          => $this->em->getRepository(Location::class)->findOneById($id),
             'request'         => $request,
             'successCallback' => fn($entity) => 'Updated ' . $entity->getDisplayLabel(),
         ]);
@@ -53,7 +67,7 @@ class LocationController extends AbstractController
      */
     public function new(Request $request)
     {
-        return $this->renderCustomForm([
+        return $this->renderCustomForm($this->em, [
             'entity'          => new Location(),
             'request'         => $request,
             'successCallback' => fn($entity) => 'Created ' . $entity->getDisplayLabel(),
@@ -68,7 +82,7 @@ class LocationController extends AbstractController
         return $this->render(
             'location/all.html.twig',
             [
-                'locations' => $this->getDoctrine()->getRepository(Location::class)->getSortedByDisplayLabel(),
+                'locations' => $this->em->getRepository(Location::class)->getSortedByDisplayLabel(),
             ]
         );
     }

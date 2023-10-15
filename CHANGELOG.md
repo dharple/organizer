@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- Updated code to fix Symfony deprecation warnings.
 - Upgraded to Symfony 5.4 authentication and password hashing system.
 
 ### Fixed

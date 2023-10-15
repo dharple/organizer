@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Upgraded to Symfony 5.4 authentication and password hashing system.
+
 ### Fixed
 
 - Fixed issues reported by PHPStan.

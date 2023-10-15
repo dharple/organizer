@@ -19,7 +19,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 /**
  * Controller for /profile
@@ -33,7 +33,7 @@ class ProfileController extends AbstractController
     public function index(
         Request $request,
         TokenStorageInterface $tokenStorage,
-        UserPasswordEncoderInterface $encoder
+        UserPasswordHasherInterface $passwordHasher
     ) {
         $user = $tokenStorage->getToken()->getUser();
         if (!is_object($user)) {
@@ -53,7 +53,7 @@ class ProfileController extends AbstractController
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $user->setPassword($encoder->encodePassword($user, $form->get('password')->getData()));
+            $user->setPassword($passwordHasher->hashPassword($user, $form->get('password')->getData()));
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);

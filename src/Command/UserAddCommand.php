@@ -18,7 +18,7 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 /**
  * Console command to add a user.
@@ -40,18 +40,18 @@ class UserAddCommand extends Command
     /**
      * Password encoder
      */
-    private UserPasswordEncoderInterface $encoder;
+    private UserPasswordHasherInterface $passwordHasher;
 
     /**
      * Constructor
      */
     public function __construct(
         EntityManagerInterface $em,
-        UserPasswordEncoderInterface $encoder
+        UserPasswordHasherInterface $passwordHasher
     ) {
         parent::__construct();
         $this->em = $em;
-        $this->encoder = $encoder;
+        $this->passwordHasher = $passwordHasher;
     }
 
     /**
@@ -75,7 +75,7 @@ class UserAddCommand extends Command
         $user = new User();
         $user->setEmail($input->getArgument('email'));
         $user->setRoles(['ROLE_USER']);
-        $user->setPassword($this->encoder->encodePassword($user, $input->getArgument('password')));
+        $user->setPassword($this->passwordHasher->hashPassword($user, $input->getArgument('password')));
 
         $this->em->persist($user);
         $this->em->flush();

@@ -30,7 +30,7 @@ class ProfileController extends AbstractController
     /**
      * Constructs a new Location controller
      */
-    public function __construct(EntityManagerInterface $em)
+    public function __construct(protected EntityManagerInterface $em)
     {
     }
 

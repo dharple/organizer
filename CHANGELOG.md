@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- Production logs are now written to a file instead of stderr.
 - The minimum PHP version is now 8.1.  Applied Rector-suggested changes.
 - Updated code to fix Symfony deprecation warnings.
 - Upgraded to Symfony 5.4 authentication and password hashing system.

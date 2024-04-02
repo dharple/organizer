@@ -8,7 +8,6 @@
         "ext-json": "*",
         "ext-redis": "*",
         "antishov/doctrine-extensions-bundle": "^1.4.3",
-        "composer/package-versions-deprecated": "1.11.99.3",
         "doctrine/annotations": "^1.13.3",
         "doctrine/collections": "^1.7",
         "doctrine/doctrine-bundle": "^2.7",

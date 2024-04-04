@@ -59,7 +59,7 @@ class Gravatar
         return sprintf(
             '%s/%s?d=%s&r=%s&s=%d',
             static::BASE_URL,
-            md5(strtolower(trim($email))),
+            hash('sha256', strtolower(trim($email))),
             urlencode(static::DEFAULT),
             urlencode(static::RATING),
             static::SIZE

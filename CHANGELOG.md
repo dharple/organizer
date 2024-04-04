@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- Gravatar hashes now use SHA256 instead of MD5. [#38]
 - Production logs are now written to a file instead of stderr.
 - The minimum PHP version is now 8.1.  Applied Rector-suggested changes.
 - Updated code to fix Symfony deprecation warnings.
@@ -220,6 +221,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [0.2.0]: https://github.com/dharple/organizer/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/dharple/organizer/releases/tag/v0.1.0
 
+[#38]: https://github.com/dharple/organizer/issues/38
 [#27]: https://github.com/dharple/organizer/issues/27
 [#23]: https://github.com/dharple/organizer/issues/23
 [#22]: https://github.com/dharple/organizer/issues/22

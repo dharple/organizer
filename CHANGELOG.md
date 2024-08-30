@@ -21,6 +21,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- Fixed comment for `--format` on `data:export`.
 - Fixed issues reported by PHPStan.
 
 ### Security

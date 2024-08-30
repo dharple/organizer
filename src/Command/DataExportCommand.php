@@ -47,7 +47,7 @@ class DataExportCommand extends Command
         $this
             ->setDescription('Exports box and related data.')
             ->addOption('force', null, InputOption::VALUE_NONE, 'Force the file to write out, even if it alrady exists.')
-            ->addOption('format', 'f', InputOption::VALUE_REQUIRED, 'Export format.  One of: json, xml, yaml.  Defaults to json.')
+            ->addOption('format', 'f', InputOption::VALUE_REQUIRED, 'Export format.  One of: csv, json, ods, xml, xlsx, yaml.  Defaults to json.')
             ->addOption('output', 'o', InputOption::VALUE_REQUIRED, 'Output filename.  Defaults to export-YYYYMMDDHHMM.{format}.')
             ->addOption('type', 't', InputOption::VALUE_REQUIRED, 'Export type.  One of: full, simple.  Defaults to full.');
     }

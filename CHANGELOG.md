@@ -28,6 +28,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Bumped PhpSpreadsheet from v1 to v2, to address [CVE-2024-45048].
   Thanks to [@dependabot].
+- Bumped Twig from v3.12.0 to v3.14.0, to address [CVE-2024-45411].
+  Thanks to [@dependabot].
 
 ## [0.8.0] - 2023-10-14
 
@@ -239,6 +241,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [CVE-2020-5274]: https://nvd.nist.gov/vuln/detail/CVE-2020-5274
 [CVE-2020-5275]: https://nvd.nist.gov/vuln/detail/CVE-2020-5275
 [CVE-2024-45048]: https://nvd.nist.gov/vuln/detail/CVE-2024-45048
+[CVE-2024-45411]: https://nvd.nist.gov/vuln/detail/CVE-2024-45411
 
 [DoctrineExtension]: https://github.com/Atlantic18/DoctrineExtensions
 [ork/phpcs]: https://github.com/AlexHowansky/ork-phpcs

@@ -14,7 +14,7 @@
         "doctrine/migrations": "^2.3.5",
         "doctrine/orm": "^2.19.7",
         "phpdocumentor/reflection-docblock": "^5.4.1",
-        "phpoffice/phpspreadsheet": "^2.2.2",
+        "phpoffice/phpspreadsheet": "^2.3.0",
         "stof/doctrine-extensions-bundle": "^1.10.1",
         "symfony/asset": "^5.4.40",
         "symfony/console": "^5.4.42",

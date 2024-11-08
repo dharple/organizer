@@ -7,7 +7,7 @@
             <a class="card-link float-end" href="{{ path('app_box', {id: box.id}) }}">Edit</a>
             <p class="card-text">
                 {% if box.description is not empty %}
-                    {{ box.description[:90] }}{% if box.description | length > 100 %} ...{% endif %}
+                    {{ box.description[:90] }}{% if box.description | length > 90 %} ...{% endif %}
                     <br />
                 {% endif %}
                 {% if showLocation %}

@@ -1,5 +1,5 @@
 {% macro draw(box, showLocation, showModel) %}
-    <div class="card mb-3">
+    <div class="card card-click mb-3">
         <div class="card-header">
             {{ box.displayLabel }}
         </div>
@@ -7,7 +7,16 @@
             <a class="card-link float-end" href="{{ path('app_box', {id: box.id}) }}">Edit</a>
             <p class="card-text">
                 {% if box.description is not empty %}
-                    {{ box.description[:90] }}{% if box.description | length > 90 %} ...{% endif %}
+                    {% if box.description | length > 90 %}
+                        <span class="flip d-block visible">
+                            {{ box.description[:90] }} ...
+                        </span>
+                        <span class="flip d-none invisible">
+                            {{ box.description }}
+                        </span>
+                    {% else %}
+                        {{ box.description }}
+                    {% endif %}
                     <br />
                 {% endif %}
                 {% if showLocation %}

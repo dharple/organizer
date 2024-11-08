@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- Box descriptions that are truncated can now be expaneded by clicking on them.
 - Gravatar hashes now use SHA256 instead of MD5. [#38]
 - Production logs are now written to a file instead of stderr.
 - The minimum PHP version is now 8.1.  Applied Rector-suggested changes.

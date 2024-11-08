@@ -15,83 +15,83 @@
     <body>
         <nav class="navbar navbar-expand-lg bg-body-tertiary mb-3 sticky-top" data-bs-theme="dark">
             <div class="container-fluid">
-            <a class="navbar-brand" href="{{ path('app_home') }}">Organizer</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+                <a class="navbar-brand" href="{{ path('app_home') }}">Organizer</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
 
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    {% if app.user %}
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Boxes
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="{{ path('app_box_all') }}">See All</a>
-                                <a class="dropdown-item" href="{{ path('app_box_recent') }}">See Recently Changed</a>
-                                <a class="dropdown-item" href="{{ path('app_box_new') }}">Add New</a>
-                            </div>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Box Models
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="{{ path('app_box_model_all') }}">See All</a>
-                                <a class="dropdown-item" href="{{ path('app_box_model_new') }}">Add New</a>
-                            </div>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Locations
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="{{ path('app_location_all') }}">See All</a>
-                                <a class="dropdown-item" href="{{ path('app_location_new') }}">Add New</a>
-                            </div>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Bulk
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="{{ path('app_export') }}">Export Data</a>
-                            </div>
-                        </li>
-                    {% endif %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ path('app_about') }}">About</a>
-                    </li>
-                    {% if app.user %}
-                        <li class="nav-item d-lg-none">
-                            <a class="nav-link" href="{{ path('app_profile') }}">
-                                Change Your Password
-                            </a>
-                        </li>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        {% if app.user %}
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Boxes
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{ path('app_box_all') }}">See All</a>
+                                    <a class="dropdown-item" href="{{ path('app_box_recent') }}">See Recently Changed</a>
+                                    <a class="dropdown-item" href="{{ path('app_box_new') }}">Add New</a>
+                                </div>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Box Models
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{ path('app_box_model_all') }}">See All</a>
+                                    <a class="dropdown-item" href="{{ path('app_box_model_new') }}">Add New</a>
+                                </div>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Locations
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{ path('app_location_all') }}">See All</a>
+                                    <a class="dropdown-item" href="{{ path('app_location_new') }}">Add New</a>
+                                </div>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Bulk
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{ path('app_export') }}">Export Data</a>
+                                </div>
+                            </li>
+                        {% endif %}
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ path('app_logout') }}">Logout</a>
+                            <a class="nav-link" href="{{ path('app_about') }}">About</a>
                         </li>
-                    {% else %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ path('app_login') }}">Login</a>
-                        </li>
-                    {% endif %}
-                </ul>
-                {% if app.user %}
-                    <ul class="nav navbar-nav navbar-right me-3">
-                        <li class="d-none d-lg-inline">
-                            <a href="{{ path('app_profile') }}">
-                                <img src="{{ app.user.avatarUrl }}" class="avatar rounded-circle img-responsive" />
-                            </a>
-                        </li>
+                        {% if app.user %}
+                            <li class="nav-item d-lg-none">
+                                <a class="nav-link" href="{{ path('app_profile') }}">
+                                    Change Your Password
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ path('app_logout') }}">Logout</a>
+                            </li>
+                        {% else %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ path('app_login') }}">Login</a>
+                            </li>
+                        {% endif %}
                     </ul>
-                    <form class="d-lg-flex d-none" role="search" action="{{ path('app_box_search') }}" data-bs-theme="light">
-                        <input class="form-control me-2 " type="search" placeholder="Search" aria-label="Search" name="q">
-                        <button class="btn btn-outline-success" type="submit">Search</button>
-                    </form>
-                {% endif %}
-            </div>
+                    {% if app.user %}
+                        <ul class="nav navbar-nav navbar-right me-3">
+                            <li class="d-none d-lg-inline">
+                                <a href="{{ path('app_profile') }}">
+                                    <img src="{{ app.user.avatarUrl }}" class="avatar rounded-circle img-responsive" />
+                                </a>
+                            </li>
+                        </ul>
+                        <form class="d-lg-flex d-none" role="search" action="{{ path('app_box_search') }}" data-bs-theme="light">
+                            <input class="form-control me-2 " type="search" placeholder="Search" aria-label="Search" name="q">
+                            <button class="btn btn-outline-success" type="submit">Search</button>
+                        </form>
+                    {% endif %}
+                </div>
             </div>
         </nav>
         <div class="container">

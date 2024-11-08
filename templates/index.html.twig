@@ -8,8 +8,8 @@
 {% block body %}
     {% if recentBoxes is not empty %}
         <div class="row mb-3 justify-content-center">
-            <div class="col">
-                <a class="btn btn-block btn-primary-outline border border-primary rounded text-primary" href="{{ url('app_box_recent') }}" role="button">Recently Added or Changed</a>
+            <div class="col d-grid">
+                <a class="btn btn-primary-outline border border-primary rounded text-primary" href="{{ url('app_box_recent') }}" role="button">Recently Added or Changed</a>
             </div>
         </div>
         <div class="row mb-lg-3">
@@ -23,16 +23,16 @@
         </div>
     {% endif %}
     <div class="row mb-3 justify-content-center">
-        <div class="col">
-            <a class="btn btn-block btn-primary-outline border border-primary rounded text-primary" href="{{ url('app_location_all') }}" role="button">Locations with Boxes</a>
+        <div class="col d-grid">
+            <a class="btn btn-primary-outline border border-primary rounded text-primary" href="{{ url('app_location_all') }}" role="button">Locations with Boxes</a>
         </div>
     </div>
     <div class="accordion">
         {% for location in locations %}
             {% set accordionTarget = 'children-' ~ location.id | e('html_attr') %}
             <div class="row mb-3">
-                <div class="col">
-                    <button class="btn btn-block btn-primary btn-accordion" type="button" data-toggle="collapse" data-target="#{{ accordionTarget }}">
+                <div class="col d-grid">
+                    <button class="btn btn-primary btn-accordion" type="button" data-bs-toggle="collapse" data-bs-target="#{{ accordionTarget }}">
                         {{ location.displayLabel }}
                     </button>
                 </div>

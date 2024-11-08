@@ -15,7 +15,7 @@
         </div>
     </div>
     {% if entity.id is not null %}
-        <div class="form-group">
+        <div class="mb-3">
             <label for="boxNumber">Box Number</label>
             <input type="text" class="form-control" disabled id="boxNumber" placeholder="Automatically Assigned" value="{{ entity.displayId | e('html_attr') }}">
         </div>

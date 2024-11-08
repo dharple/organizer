@@ -8,7 +8,7 @@
             <p class="card-text">
                 {% if box.description is not empty %}
                     {% if box.description | length > 90 %}
-                        <span class="flip d-block visible">
+                        <span class="flip d-inline visible">
                             {{ box.description[:90] }} ...
                         </span>
                         <span class="flip d-none invisible">

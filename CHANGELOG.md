@@ -26,6 +26,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Fixed comment for `--format` on `data:export`.
 - Fixed issues reported by PHPStan.
+- Searching for a box number alwys shows that box first in the result set.
 
 ### Security
 

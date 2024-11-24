@@ -29,6 +29,13 @@ use Psr\Log\LoggerInterface;
 class BoxRepository extends ServiceEntityRepository
 {
     /**
+     * How much weight to add when dealing with an exact match.
+     *
+     * @var integer
+     */
+    protected const EXACT_MATCH_WEIGHT = 10;
+
+    /**
      * Constructor
      */
     public function __construct(
@@ -82,10 +89,9 @@ class BoxRepository extends ServiceEntityRepository
         $all = [];
         $counts = [];
         foreach ($output as $box) {
-            if (
-                $box->isHidden() &&
-                ($single == false || $numeric == false || $box->getBoxNumber() != $keyword)
-            ) {
+            $exactMatch = ($single == true && $numeric == true && $box->getBoxNumber() == $keyword);
+
+            if ($box->isHidden() && !$exactMatch) {
                 continue;
             }
 
@@ -95,6 +101,10 @@ class BoxRepository extends ServiceEntityRepository
                 $counts[$id] = 1;
             } else {
                 $counts[$id]++;
+            }
+
+            if ($exactMatch) {
+                $counts[$id] += static::EXACT_MATCH_WEIGHT;
             }
         }
 

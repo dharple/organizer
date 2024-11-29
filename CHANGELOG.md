@@ -19,6 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - The minimum PHP version is now 8.1.  Applied Rector-suggested changes.
 - Tweaked login form.
 - Updated code to fix Symfony deprecation warnings.
+- Updated deploy script to run `composer dump-env`.
 - Upgraded to Bootstrap 5.3.
 - Upgraded to Symfony 5.4 authentication and password hashing system.
 

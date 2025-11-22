@@ -3,7 +3,7 @@
     "type": "project",
     "license": "BSD-2-Clause",
     "require": {
-        "php": ">=8.1.2",
+        "php": "^8.2.29",
         "ext-ctype": "*",
         "ext-iconv": "*",
         "ext-json": "*",
@@ -60,6 +60,10 @@
         "symfony/web-profiler-bundle": "^5.4.48"
     },
     "config": {
+        "optimize-autoloader": true,
+        "platform": {
+            "php": "8.2.29"
+        },
         "preferred-install": {
             "*": "dist"
         },

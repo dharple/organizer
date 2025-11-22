@@ -60,9 +60,6 @@
         "symfony/web-profiler-bundle": "^5.4.48"
     },
     "config": {
-        "platform": {
-            "php": "8.1.2"
-        },
         "preferred-install": {
             "*": "dist"
         },

@@ -32,8 +32,8 @@
         "symfony/property-access": "^5.4.45",
         "symfony/property-info": "^5.4.48",
         "symfony/proxy-manager-bridge": "^5.4.45",
-        "symfony/rate-limiter": "5.4.*",
-        "symfony/runtime": "5.4.*",
+        "symfony/rate-limiter": "^5.4.47",
+        "symfony/runtime": "^5.4.46",
         "symfony/security-bundle": "^5.4.45",
         "symfony/serializer": "^5.4.45",
         "symfony/string": "^5.4.47",
@@ -42,8 +42,8 @@
         "symfony/validator": "^5.4.48",
         "symfony/web-link": "^5.4.45",
         "symfony/yaml": "^5.4.45",
-        "twig/extra-bundle": "^2.12|^3.22.1",
-        "twig/twig": "^2.12|^3.22.0"
+        "twig/extra-bundle": "^3.22.1",
+        "twig/twig": "^3.22.0"
     },
     "require-dev": {
         "outsanity/phpcs": ">=0.4.0",

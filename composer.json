@@ -3,7 +3,7 @@
     "type": "project",
     "license": "BSD-2-Clause",
     "require": {
-        "php": "^8.2.29",
+        "php": "^8.3.6",
         "ext-ctype": "*",
         "ext-iconv": "*",
         "ext-json": "*",
@@ -62,7 +62,7 @@
     "config": {
         "optimize-autoloader": true,
         "platform": {
-            "php": "8.2.29"
+            "php": "8.3.6"
         },
         "preferred-install": {
             "*": "dist"

@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Minimum PHP version is now 8.2.29.
+- Minimum PHP version is now 8.3.6.
 - Updated 3rd party dependencies.
 
 ## [1.0.1] - 2025-09-01

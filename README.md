@@ -4,7 +4,7 @@ A web application for keeping track of storage boxes.
 
 # Requirements
 
-* PHP 8.3+
+* PHP
 * MySQL or SQLite
 * Redis
 
@@ -12,35 +12,24 @@ A web application for keeping track of storage boxes.
 
 Run `composer install`.
 
-Copy `.env` to `.env.local` and configure your database. For SQLite:
+Copy `.env` to `.env.local` and set a DB url.  For instance, to set up SQLite, use:
 ```bash
-DB_CONNECTION=sqlite
-DB_DATABASE=/absolute/path/to/organizer.db
+DATABASE_URL=sqlite:///%kernel.project_dir%/var/organizer.db
 ```
 
-For MySQL:
+Create your database, if it doesn't already exist.
 ```bash
-DB_CONNECTION=mysql
-DB_HOST=127.0.0.1
-DB_PORT=3306
-DB_DATABASE=organizer
-DB_USERNAME=organizer
-DB_PASSWORD=secret
+bin/console doctrine:database:create
 ```
 
-Generate an application key:
+Populate the schema for your database:
 ```bash
-php artisan key:generate
-```
-
-Run the database migrations:
-```bash
-php artisan migrate
+bin/console doctrine:migrations:migrate
 ```
 
 Create a user:
 ```bash
-php artisan user:add test@example.com mySecurePassword
+bin/console user:add test@hotmail.com mySecurePassword
 ```
 
 Start the server:

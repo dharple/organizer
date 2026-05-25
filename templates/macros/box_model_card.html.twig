@@ -1,0 +1,12 @@
+{% macro draw(boxModel) %}
+{% set boxCount = boxModel.boxes.count %}
+    <div class="card mb-3">
+        <div class="card-header">
+            {{ boxModel.label }}
+        </div>
+        <div class="card-body">
+            <a class="card-link" href="{{ path('app_box_model', {id: boxModel.id}) }}">Edit</a>
+            <a class="card-link" href="{{ path('app_box_search_model', {id: boxModel.id}) }}">{{ boxCount }} Box{{ boxCount != 1 ? 'es' }}</a>
+        </div>
+    </div>
+{% endmacro %}

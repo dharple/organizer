@@ -1,14 +1,9 @@
 <?php
 
-use Illuminate\Http\Request;
+use App\Kernel;
 
-define('LARAVEL_START', microtime(true));
+require_once dirname(__DIR__).'/vendor/autoload_runtime.php';
 
-if (file_exists($maintenance = __DIR__.'/../storage/framework/maintenance.php')) {
-    require $maintenance;
-}
-
-require __DIR__.'/../vendor/autoload.php';
-
-(require_once __DIR__.'/../bootstrap/app.php')
-    ->handleRequest(Request::capture());
+return static function (array $context) {
+    return new Kernel($context['APP_ENV'], (bool) $context['APP_DEBUG']);
+};

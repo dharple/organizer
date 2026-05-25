@@ -9,33 +9,27 @@
 export-*.*
 ###< app ###
 
-###> laravel ###
+###> symfony/framework-bundle ###
 /.env.local
+/.env.local.php
 /.env.*.local
-/bootstrap/cache/
-/public/hot
-/public/storage
-/storage/*.key
-/storage/app/*
-/storage/framework/*
-/storage/logs/*
-!/storage/app/public/
-!/storage/framework/cache/
-!/storage/framework/cache/data/
-!/storage/framework/sessions/
-!/storage/framework/testing/
-!/storage/framework/views/
-!/storage/logs/
+/config/secrets/prod/prod.decrypt.private.php
+/public/bundles/
 /var/
 /vendor/
-###< laravel ###
+###< symfony/framework-bundle ###
 
-###> phpunit ###
-/phpunit.xml
+###> symfony/phpunit-bridge ###
 .phpunit.result.cache
-###< phpunit ###
+/phpunit.xml
+###< symfony/phpunit-bridge ###
 
 ###> squizlabs/php_codesniffer ###
 /.phpcs-cache
 /phpcs.xml
 ###< squizlabs/php_codesniffer ###
+
+###> phpunit/phpunit ###
+/phpunit.xml
+.phpunit.result.cache
+###< phpunit/phpunit ###

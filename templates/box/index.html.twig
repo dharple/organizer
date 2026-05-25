@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Organizer: {{ entity.label }}
+{% endblock %}
+
+{% block body %}
+    <div class="row mb-3 text-center">
+        <div class="col">
+            {% if entity.id is not null %}
+                <h4>{{ entity.displayLabel }}</h4>
+            {% else %}
+                <h4>New Box</h4>
+            {% endif %}
+        </div>
+    </div>
+    {% if entity.id is not null %}
+        <div class="mb-3">
+            <label for="boxNumber">Box Number</label>
+            <input type="text" class="form-control" disabled id="boxNumber" placeholder="Automatically Assigned" value="{{ entity.displayId | e('html_attr') }}">
+        </div>
+    {% endif %}
+    {{ form(form) }}
+{% endblock %}

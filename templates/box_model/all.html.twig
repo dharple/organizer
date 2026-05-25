@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+{% import 'macros/box_model_card.html.twig' as boxModelCard %}
+
+{% block title %}
+    Organizer: All Box Models
+{% endblock %}
+
+{% block body %}
+    <div class="row mb-3">
+        <div class="col text-center">
+            All Box Models
+        </div>
+    </div>
+    {% for row in boxModels|batch(3, 'skip') %}
+        <div class="row mb-lg-3">
+            {% for boxModel in row %}
+                <div class="col-12 col-lg-4">
+                    {% if boxModel != 'skip' %}
+                        {{ boxModelCard.draw(boxModel, true) }}
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+    {% endfor %}
+{% endblock %}

@@ -52,8 +52,8 @@ class Gravatar
             '%s/%s?d=%s&r=%s&s=%d',
             static::BASE_URL,
             hash('sha256', strtolower(trim($email))),
-            urlencode(static::DEFAULT),
-            urlencode(static::RATING),
+            urlencode((string) static::DEFAULT),
+            urlencode((string) static::RATING),
             static::SIZE
         );
     }

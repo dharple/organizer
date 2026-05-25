@@ -19,6 +19,8 @@ cd $BASE
 git stash save
 git pull
 composer install --no-dev -o
-bin/console cache:clear
-composer dump-env prod
-bin/console cache:warmup
+php artisan config:cache
+php artisan route:cache
+php artisan view:cache
+php artisan migrate --force
+php artisan optimize

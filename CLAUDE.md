@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Organizer is a personal Symfony 5.4 web application for tracking physical storage boxes. Users manage boxes (auto-numbered), organize them into hierarchical locations, and categorize them by box model (make/model/size/color). Export/import is supported via JSON, XML, YAML, CSV, ODS, and XLSX.
+Organizer is a personal Laravel 13 web application for tracking physical storage boxes. Users manage boxes (auto-numbered), organize them into hierarchical locations, and categorize them by box model (make/model/size/color). Export/import is supported via JSON, XML, YAML, CSV, ODS, and XLSX.
 
 ## Common Commands
 
@@ -14,7 +14,7 @@ composer install
 
 # Development server
 composer go        # PHP built-in server on localhost:8000
-composer nugo      # Symfony CLI server (no TLS)
+php artisan serve  # Laravel development server
 
 # Lint and static analysis
 composer phpcs     # Check code style (outsanity/phpcs ruleset)
@@ -22,35 +22,43 @@ composer phpcbf    # Auto-fix code style
 composer phpstan   # Static analysis at level 5
 
 # Tests (no test classes exist yet)
-bin/phpunit
+php artisan test
 
 # Database
-bin/console doctrine:database:create
-bin/console doctrine:migrations:migrate
-bin/console user:add email@example.com password
+php artisan migrate
+php artisan user:add email@example.com password
+
+# Artisan commands
+php artisan box:list
+php artisan box:move
+php artisan location:list
+php artisan data:export --format=json --type=full
+php artisan data:import filename.json
 ```
 
 ## Architecture
 
-**Stack:** Symfony 5.4 + Doctrine ORM 2.x + Twig 3.x + Bootstrap 5.3 (CDN). No JS build pipeline — no package.json, no webpack.
+**Stack:** Laravel 13 + Eloquent ORM + Blade + Bootstrap 5.3 (CDN). No JS build pipeline — no package.json, no webpack.
 
-**Session storage:** Redis (`ext-redis`). Sessions require a running Redis instance.
+**Session storage:** Redis (`ext-redis`). Sessions require a running Redis instance. Session driver configured via `SESSION_DRIVER=redis` in `.env`.
 
-**Routing:** PHP 8 `#[Route(...)]` attributes on controllers, discovered via `config/routes/annotations.yaml`.
+**Routing:** Explicit route definitions in `routes/web.php` using named routes. All authenticated routes are grouped under the `auth` middleware.
 
-**Entity base class:** All entities extend `AbstractEntity`, which applies Gedmo's `TimestampableEntity` and `SoftDeleteableEntity` traits. The Gedmo `SoftDeleteable` Doctrine filter is globally enabled, so soft-deleted records are hidden from all queries. `getNextBoxNumber()` temporarily disables this filter to preserve number continuity across soft-deleted boxes.
+**Model base class:** All models extend `App\Models\BaseModel`, which extends `Illuminate\Database\Eloquent\Model` and applies `SoftDeletes`. `$timestamps = true` is the Eloquent default. Models implement `App\Models\ModelInterface`.
 
-**Hierarchical locations:** `Location` is self-referential (ManyToOne `parentLocation`). `getDisplayLabel()` walks the parent chain to produce labels like "Home - Garage - Wire Rack" and guards against circular hierarchies.
+**Auto box numbering:** `Box::booted()` registers a `creating` event that sets `box_number` to `Box::withTrashed()->max('box_number') + 1`. `withTrashed()` preserves number continuity across soft-deleted boxes.
 
-**Export/Import:** `ExportService` has two modes — "simple" (box list only, via PHPSpreadsheet or Symfony Serializer) and "full" (all entities via Symfony Serializer into an `ExportContainer`). `ImportService` refuses to import if any entities already exist.
+**Hierarchical locations:** `Location` is self-referential (`parent_location_id` foreign key). `getDisplayLabel()` walks the parent chain via `parentWalker()` to produce labels like "Home - Garage - Wire Rack" and guards against circular hierarchies in `setParentLocation()`.
 
-**`CrudTrait`:** Shared across `BoxController`, `BoxModelController`, and `LocationController` to consolidate form submission, persistence, flash messages, and redirect logic.
+**Export/Import:** `ExportService` has two modes — "simple" (box list only, via PHPSpreadsheet or Symfony Serializer) and "full" (all entities via Symfony Serializer into an `ExportContainer`). `symfony/serializer` and `symfony/yaml` are retained as standalone Composer packages (no Symfony framework). `ImportService` refuses to import if any entities already exist. Export files use snake_case column names (Eloquent convention).
 
-**Migrations:** Live in `src/Migrations/` (not the root `migrations/` directory, which is empty).
+**Form validation:** Laravel Form Requests (`app/Http/Requests/`) replace Symfony Form Types. Blade templates contain plain HTML forms.
+
+**Migrations:** Live in `database/migrations/`. Four migrations represent the final schema.
 
 ## Key Configuration Notes
 
-- **Default `APP_ENV` is `prod`** — the committed `.env` sets `APP_ENV=prod`. Create `.env.local` and set `APP_ENV=dev` for debug mode.
-- Security: all routes require `ROLE_USER` except `/login` and `/about`.
+- **Default `APP_ENV` is `production`** — the committed `.env` sets `APP_ENV=production`. Create `.env.local` (or set env vars) and set `APP_ENV=local` for debug mode.
+- Security: all routes require authentication except `/login`, `/logout`, and `/about`. Enforced via `auth` middleware on a route group in `routes/web.php`.
 - PHPCS uses `outsanity/phpcs` which enforces alphabetically sorted methods and properties.
-- `rector.php` targets PHP 8.1 sets despite `composer.json` requiring PHP ^8.2.29.
+- `rector.php` targets PHP 8.3.

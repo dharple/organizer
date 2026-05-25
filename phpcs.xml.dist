@@ -3,15 +3,16 @@
 
     <rule ref="vendor/outsanity/phpcs/Outsanity/ruleset.xml" />
 
-    <file>bin</file>
-    <file>src</file>
-
-    <rule ref="Generic.Files.LineLength">
-        <exclude-pattern>src/Migrations/*</exclude-pattern>
-    </rule>
+    <file>app</file>
+    <file>database</file>
+    <file>tests</file>
 
     <rule ref="vendor/ork/phpcs/Ork/Sniffs/Formatting">
-        <exclude-pattern>src/Migrations/*</exclude-pattern>
+        <exclude-pattern>tests/*</exclude-pattern>
+    </rule>
+
+    <rule ref="Ork.Formatting.AlphabeticalMethodNames.OutOfOrder">
+        <exclude-pattern>database/migrations/*</exclude-pattern>
     </rule>
 
 </ruleset>

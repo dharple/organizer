@@ -9,6 +9,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- Converted from Symfony 5.4 to Laravel 13.
+- Replaced Doctrine ORM with Eloquent.
+- Replaced Twig templates with Blade.
+- Replaced Symfony Form Types with Laravel Form Requests and plain HTML forms.
+- Replaced Symfony Console Commands with Artisan Commands.
+- Replaced Symfony authentication with Laravel's built-in session auth.
+- Replaced Doctrine migrations with Laravel migrations.
+- Retained `symfony/serializer` and `symfony/yaml` as standalone packages for export/import.
 - Minimum PHP version is now 8.3.6.
 - Updated 3rd party dependencies.
 

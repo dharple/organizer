@@ -48,7 +48,7 @@ class User extends Authenticatable
      *
      * @var string
      */
-    protected $table = 'users';
+    protected $table = 'user';
 
     /**
      * Returns the attribute casts for this model.

@@ -25,9 +25,4 @@ interface ModelInterface
      * Returns the display label for this model.
      */
     public function getDisplayLabel(): string;
-
-    /**
-     * Returns the primary key value for this model.
-     */
-    public function getKey(): mixed;
 }

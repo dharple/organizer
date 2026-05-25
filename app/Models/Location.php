@@ -46,7 +46,7 @@ class Location extends BaseModel
      *
      * @var string
      */
-    protected $table = 'locations';
+    protected $table = 'location';
 
     /**
      * Returns the boxes relationship.

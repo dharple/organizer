@@ -70,9 +70,9 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <form method="POST" action="{{ route('logout') }}" class="d-inline">
+                                <form method="POST" action="{{ route('logout') }}">
                                     @csrf
-                                    <button type="submit" class="nav-link btn btn-link p-0">Logout</button>
+                                    <button type="submit" class="nav-link btn btn-link">Logout</button>
                                 </form>
                             </li>
                         @else
@@ -98,9 +98,6 @@
             </div>
         </nav>
         <div class="container">
-            @foreach (session()->pull('success', []) as $message)
-                <div class="alert alert-success">{{ $message }}</div>
-            @endforeach
             @if (session('success'))
                 <div class="alert alert-success">{{ session('success') }}</div>
             @endif

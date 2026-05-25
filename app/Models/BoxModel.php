@@ -37,7 +37,7 @@ class BoxModel extends BaseModel
      *
      * @var string
      */
-    protected $table = 'box_models';
+    protected $table = 'box_model';
 
     /**
      * Returns the boxes relationship.

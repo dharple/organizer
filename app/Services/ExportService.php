@@ -26,6 +26,7 @@ use Symfony\Component\Serializer\Encoder\JsonEncode;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Encoder\XmlEncoder;
 use Symfony\Component\Serializer\Encoder\YamlEncoder;
+use Symfony\Component\Serializer\NameConverter\SnakeCaseToCamelCaseNameConverter;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
@@ -97,7 +98,7 @@ class ExportService
             ->setLocations($locations);
 
         $encoders = [new JsonEncoder(), new XmlEncoder(), new YamlEncoder()];
-        $normalizers = [new EntityNormalizer(), new ObjectNormalizer()];
+        $normalizers = [new EntityNormalizer(), new ObjectNormalizer(null, new SnakeCaseToCamelCaseNameConverter())];
         $serializer = new Serializer($normalizers, $encoders);
 
         $serialized = $serializer->serialize($data, $options['format'], $this->encoderContext);

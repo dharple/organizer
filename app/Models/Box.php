@@ -17,6 +17,15 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * Represents a storage box.
+ *
+ * @property int      $id
+ * @property Carbon   $created_at
+ * @property ?Carbon  $updated_at
+ * @property ?int     $box_model_id
+ * @property int      $box_number
+ * @property string   $description
+ * @property string   $label
+ * @property ?int     $location_id
  */
 class Box extends BaseModel
 {
@@ -38,7 +47,7 @@ class Box extends BaseModel
      *
      * @var string
      */
-    protected $table = 'boxes';
+    protected $table = 'box';
 
     /**
      * Registers model events.

@@ -14,6 +14,7 @@ namespace App\Models;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Str;
 
 /**
  * Base Eloquent model for Organizer.
@@ -28,14 +29,14 @@ abstract class BaseModel extends Model implements ModelInterface
     public function getData(): array
     {
         $ret = [
-            'display_label' => $this->getDisplayLabel(),
+            'displayLabel' => $this->getDisplayLabel(),
         ];
 
         foreach ($this->getAttributes() as $field => $value) {
             if ($value instanceof Carbon) {
                 $value = $value->format('c');
             }
-            $ret[$field] = $value;
+            $ret[Str::camel($field)] = $value;
         }
 
         ksort($ret);

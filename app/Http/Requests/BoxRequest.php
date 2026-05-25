@@ -34,10 +34,10 @@ class BoxRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'box_model_id' => ['nullable', 'exists:box_models,id'],
+            'box_model_id' => ['nullable', 'exists:box_model,id'],
             'description'  => ['nullable', 'string'],
             'label'        => ['required', 'string', 'max:255'],
-            'location_id'  => ['nullable', 'exists:locations,id'],
+            'location_id'  => ['nullable', 'exists:location,id'],
         ];
     }
 }

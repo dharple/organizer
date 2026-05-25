@@ -60,10 +60,10 @@ class BoxNormalizer implements NormalizerInterface, SerializerAwareInterface
     {
         return [
             'Box Number'  => $this->useDisplayId ? $box->getDisplayId() : $box->box_number,
-            'Description' => $box->description,
             'Label'       => $box->label,
-            'Location'    => $box->location ? $box->location->getDisplayLabel() : null,
+            'Description' => $box->description,
             'Type'        => $box->boxModel ? $box->boxModel->getDisplayLabel() : null,
+            'Location'    => $box->location ? $box->location->getDisplayLabel() : null,
         ];
     }
 

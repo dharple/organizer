@@ -19,8 +19,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * Represents a storage box.
  *
  * @property int      $id
- * @property Carbon   $created_at
- * @property ?Carbon  $updated_at
  * @property ?int     $box_model_id
  * @property int      $box_number
  * @property string   $description
@@ -48,6 +46,13 @@ class Box extends BaseModel
      * @var string
      */
     protected $table = 'box';
+
+    /**
+     * Whether the model uses created_at and updated_at columns.
+     *
+     * @var bool
+     */
+    public $timestamps = true;
 
     /**
      * Registers model events.

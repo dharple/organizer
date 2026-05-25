@@ -15,6 +15,14 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * Represents a box model (type/size of container).
+ *
+ * @property int      $id
+ * @property string   $color
+ * @property string   $label
+ * @property string   $latch
+ * @property string   $make
+ * @property string   $model
+ * @property string   $size
  */
 class BoxModel extends BaseModel
 {
@@ -38,6 +46,13 @@ class BoxModel extends BaseModel
      * @var string
      */
     protected $table = 'box_model';
+
+    /**
+     * Whether the model uses created_at and updated_at columns.
+     *
+     * @var bool
+     */
+    public $timestamps = true;
 
     /**
      * Returns the boxes relationship.

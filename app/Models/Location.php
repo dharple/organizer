@@ -17,6 +17,12 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * Represents a storage location, which may have a parent location.
+ *
+ * @property int     $id
+ * @property string  $description
+ * @property boolean $hide_from_search
+ * @property string  $label
+ * @property ?int    $parent_location_id
  */
 class Location extends BaseModel
 {
@@ -47,6 +53,13 @@ class Location extends BaseModel
      * @var string
      */
     protected $table = 'location';
+
+    /**
+     * Whether the model uses created_at and updated_at columns.
+     *
+     * @var bool
+     */
+    public $timestamps = true;
 
     /**
      * Returns the boxes relationship.

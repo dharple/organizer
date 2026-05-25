@@ -17,6 +17,10 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 /**
  * Represents an application user.
+ *
+ * @property int     $id
+ * @property string  $email
+ * @property string  $password
  */
 class User extends Authenticatable
 {
@@ -49,6 +53,13 @@ class User extends Authenticatable
      * @var string
      */
     protected $table = 'user';
+
+    /**
+     * Whether the model uses created_at and updated_at columns.
+     *
+     * @var bool
+     */
+    public $timestamps = true;
 
     /**
      * Returns the attribute casts for this model.

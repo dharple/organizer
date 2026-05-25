@@ -32,10 +32,17 @@ abstract class BaseModel extends Model implements ModelInterface
             'displayLabel' => $this->getDisplayLabel(),
         ];
 
-        foreach ($this->getAttributes() as $field => $value) {
+        foreach ($this->getAttributes() as $field => $ignore) {
+            $value = $this->$field;
+
             if ($value instanceof Carbon) {
                 $value = $value->format('c');
             }
+
+            if (str_ends_with($field, '_id')) {
+                $field = substr($field, 0, -3);
+            }
+
             $ret[Str::camel($field)] = $value;
         }
 

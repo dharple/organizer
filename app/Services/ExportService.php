@@ -45,8 +45,8 @@ class ExportService
         JsonEncode::OPTIONS        => JSON_PRETTY_PRINT,
         XmlEncoder::FORMAT_OUTPUT  => true,
         XmlEncoder::ROOT_NODE_NAME => 'export',
-        'yaml_indent'              => 0,
-        'yaml_inline'              => 10,
+        YamlEncoder::YAML_INDENT   => 0,
+        YamlEncoder::YAML_INLINE   => 10,
     ];
 
     /**

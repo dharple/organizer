@@ -16,11 +16,10 @@ echo Deploying to $BASE
 
 cd $BASE
 
+./artisan down || echo not down
 git stash save
 git pull
 composer install --no-dev -o
-php artisan config:cache
-php artisan route:cache
-php artisan view:cache
-php artisan migrate --force
-php artisan optimize
+./artisan migrate
+./artisan optimize
+./artisan up

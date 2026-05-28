@@ -29,14 +29,14 @@ class SeparatorTest extends TestCase
     public function testTotalWidthEqualsRequestedWidth(): void
     {
         $result = Separator::generate('Hello', Separator::WIDTH);
-        $this->assertSame(Separator::WIDTH, strlen($result));
+        $this->assertSame(Separator::WIDTH, strlen((string) $result));
     }
 
     public function testCenterAlignDefault(): void
     {
         $result = Separator::generate('Hello', 20);
         $this->assertStringContainsString('[ Hello ]', $result);
-        $this->assertSame(20, strlen($result));
+        $this->assertSame(20, strlen((string) $result));
 
         // For center: left padding = ceil((20 - 9) / 2) = ceil(5.5) = 6, right = 5
         $this->assertStringStartsWith('------', $result);
@@ -54,7 +54,7 @@ class SeparatorTest extends TestCase
     {
         $result = Separator::generate('Hello', 20, Separator::ALIGN_LEFT);
         $this->assertStringContainsString('[ Hello ]', $result);
-        $this->assertSame(20, strlen($result));
+        $this->assertSame(20, strlen((string) $result));
         // Left-aligned: ALIGN_WIDTH (5) dashes before the title
         $this->assertStringStartsWith(str_repeat('-', Separator::ALIGN_WIDTH), $result);
     }
@@ -63,7 +63,7 @@ class SeparatorTest extends TestCase
     {
         $result = Separator::generate('Hello', 20, Separator::ALIGN_RIGHT);
         $this->assertStringContainsString('[ Hello ]', $result);
-        $this->assertSame(20, strlen($result));
+        $this->assertSame(20, strlen((string) $result));
         // Right-aligned: ALIGN_WIDTH (5) dashes after the title
         $this->assertStringEndsWith(str_repeat('-', Separator::ALIGN_WIDTH), $result);
     }

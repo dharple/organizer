@@ -47,7 +47,7 @@ class Separator
             }
 
             return sprintf(
-                "%s%s%s",
+                '%s%s%s',
                 str_repeat('-', $lineLengthLeft),
                 $title,
                 str_repeat('-', $lineLengthRight)

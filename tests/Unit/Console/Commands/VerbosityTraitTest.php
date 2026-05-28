@@ -3,9 +3,11 @@
 namespace Tests\Unit\Console\Commands;
 
 use App\Console\Commands\VerbosityTrait;
+use PHPUnit\Framework\Attributes\AllowMockObjectsWithoutExpectations;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Output\OutputInterface;
 
+#[AllowMockObjectsWithoutExpectations]
 class VerbosityTraitTest extends TestCase
 {
     private function makeConsumer(int $verbosity): object
@@ -18,7 +20,9 @@ class VerbosityTraitTest extends TestCase
         return new class ($output) {
             use VerbosityTrait;
 
-            public function __construct(private OutputInterface $output) {}
+            public function __construct(private OutputInterface $output)
+            {
+            }
 
             public function getOutput(): OutputInterface
             {

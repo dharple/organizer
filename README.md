@@ -49,3 +49,5 @@ composer go
 ```
 
 Connect to http://localhost:8000 and log in.
+
+...

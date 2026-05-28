@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Added a data:dump command, to allow for automated exports of the data.
+
 ### Changed
 
 - Converted from Symfony 5.4 to Laravel 13 using Claude Code.

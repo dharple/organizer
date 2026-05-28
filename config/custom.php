@@ -19,12 +19,20 @@ return [
                 'type'   => 'simple',
             ],
             [
-                'format' => 'yaml',
+                'format' => 'json',
+                'type'   => 'full',
+            ],
+            [
+                'format' => 'json',
                 'type'   => 'simple',
             ],
             [
                 'format' => 'yaml',
                 'type'   => 'full',
+            ],
+            [
+                'format' => 'yaml',
+                'type'   => 'simple',
             ],
         ],
     ],

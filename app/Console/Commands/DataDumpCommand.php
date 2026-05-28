@@ -5,42 +5,18 @@ namespace App\Console\Commands;
 use Illuminate\Console\Attributes\Description;
 use Illuminate\Console\Attributes\Signature;
 use Illuminate\Console\Command;
+use App\Utility\Separator;
 
 #[Signature('data:dump')]
 #[Description('Runs several data exports')]
 class DataDumpCommand extends Command
 {
+    use VerbosityTrait;
+
     /**
      *
      */
     protected const SUB_COMMAND = 'data:export';
-
-    /**
-     *
-     */
-    protected function generateSeparator($title = null, $width = 78)
-    {
-        if (empty($title)) {
-            return str_repeat('-', $width);
-        }
-
-        $title = sprintf('[ %s ]', $title);
-        $titleLength = strlen($title);
-
-        if ($titleLength < $width) {
-            $lineLengthLeft = ceil(($width - $titleLength) / 2);
-            $lineLengthRight = $width - $titleLength - $lineLengthLeft;
-
-            return sprintf(
-                "%s%s%s",
-                str_repeat('-', $lineLengthLeft),
-                $title,
-                str_repeat('-', $lineLengthRight)
-            );
-        }
-
-        return $title;
-    }
 
     /**
      * Execute the console command.
@@ -48,7 +24,7 @@ class DataDumpCommand extends Command
     public function handle()
     {
         if ($this->getOutput()->isVerbose()) {
-            $this->info($this->generateSeparator(date('c')));
+            $this->info(Separator::generate(title: date('c')));
         }
 
         $path = config('custom.dump.path');
@@ -56,14 +32,7 @@ class DataDumpCommand extends Command
             mkdir($path, 0o775, true);
         }
 
-        $verbosityFlag = null;
-        if ($this->getOutput()->isDebug()) {
-            $verbosityFlag = '-vvv';
-        } elseif ($this->getOutput()->isVeryVerbose()) {
-            $verbosityFlag = '-vv';
-        } elseif ($this->getOutput()->isVerbose()) {
-            $verbosityFlag = '-v';
-        }
+        $verbosityFlag = $this->getVerbosityFlag();
 
         foreach (config('custom.dump.exports') as $row) {
             $options = [
@@ -79,9 +48,9 @@ class DataDumpCommand extends Command
 
             if ($this->getOutput()->isDebug()) {
                 $this->newLine();
-                $this->line($this->generateSeparator('options'));
+                $this->line(Separator::generate(title: 'options', align: Separator::ALIGN_RIGHT));
                 $this->line(sprintf('calling %s with options %s', static::SUB_COMMAND, var_export($options, true)));
-                $this->line($this->generateSeparator());
+                $this->line(Separator::generate());
                 $this->newLine();
             }
 

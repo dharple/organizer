@@ -14,9 +14,9 @@ class Separator
      * Generates a separator
      */
     public static function generate(
-        string $title = null,
-        int $width = null,
-        string $align = null
+        ?string $title = null,
+        ?int $width = null,
+        ?string $align = null
     ) {
         $width ??= static::WIDTH;
         $align ??= static::ALIGN_CENTER;

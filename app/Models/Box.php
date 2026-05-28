@@ -61,7 +61,7 @@ class Box extends BaseModel
     {
         static::creating(function (Box $box) {
             if (empty($box->box_number)) {
-                $box->box_number = ($this->withTrashed()->max('box_number') ?? 0) + 1;
+                $box->box_number = (Box::withTrashed()->max('box_number') ?? 0) + 1;
             }
         });
     }

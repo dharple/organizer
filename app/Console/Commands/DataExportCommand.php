@@ -13,31 +13,23 @@ namespace App\Console\Commands;
 
 use App\Services\ExportService;
 use Exception;
+use Illuminate\Console\Attributes\Description;
+use Illuminate\Console\Attributes\Signature;
 use Illuminate\Console\Command;
 
 /**
  * Exports box and related data to a file.
  */
+#[Description('Exports box and related data')]
+#[Signature(
+    'data:export
+    {--force       : Force the file to write out, even if it already exists}
+    {--format=json : Export format: csv, json, ods, xml, xlsx, yaml}
+    {--output=     : Output filename (defaults to export-YYYYMMDDHHMM.FORMAT)}
+    {--type=full   : Export type: full, simple}'
+)]
 class DataExportCommand extends Command
 {
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
-    protected $description = 'Exports box and related data';
-
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
-    protected $signature = 'data:export
-        {--force       : Force the file to write out, even if it already exists}
-        {--format=json : Export format: csv, json, ods, xml, xlsx, yaml}
-        {--output=     : Output filename (defaults to export-YYYYMMDDHHMM.{format})}
-        {--type=full   : Export type: full, simple}';
-
     /**
      * Constructor.
      */

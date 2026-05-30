@@ -12,27 +12,17 @@
 namespace App\Console\Commands;
 
 use App\Models\Location;
+use Illuminate\Console\Attributes\Description;
+use Illuminate\Console\Attributes\Signature;
 use Illuminate\Console\Command;
 
 /**
  * Lists all locations with box counts.
  */
+#[Description('List locations')]
+#[Signature('location:list')]
 class LocationListCommand extends Command
 {
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
-    protected $description = 'List locations';
-
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
-    protected $signature = 'location:list';
-
     /**
      * Executes the command.
      */

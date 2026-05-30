@@ -12,30 +12,22 @@
 namespace App\Console\Commands;
 
 use App\Models\Box;
+use Illuminate\Console\Attributes\Description;
+use Illuminate\Console\Attributes\Signature;
 use Illuminate\Console\Command;
 
 /**
  * Lists boxes with optional filtering.
  */
+#[Description('List boxes')]
+#[Signature(
+    'box:list
+    {--box=* : Box Number(s) to search on}
+    {--id=*  : Box ID(s) to search on}
+    {--location=* : Location ID(s) to search on}'
+)]
 class BoxListCommand extends Command
 {
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
-    protected $description = 'List boxes';
-
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
-    protected $signature = 'box:list
-        {--box=* : Box Number(s) to search on}
-        {--id=*  : Box ID(s) to search on}
-        {--location=* : Location ID(s) to search on}';
-
     /**
      * Executes the command.
      */

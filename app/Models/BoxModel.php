@@ -11,6 +11,8 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Attributes\Fillable;
+use Illuminate\Database\Eloquent\Attributes\Table;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
@@ -24,29 +26,17 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property string   $model
  * @property string   $size
  */
+#[Fillable([
+    'color',
+    'label',
+    'latch',
+    'make',
+    'model',
+    'size',
+])]
+#[Table(name: 'box_model')]
 class BoxModel extends BaseModel
 {
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<string>
-     */
-    protected $fillable = [
-        'color',
-        'label',
-        'latch',
-        'make',
-        'model',
-        'size',
-    ];
-
-    /**
-     * The table associated with the model.
-     *
-     * @var string
-     */
-    protected $table = 'box_model';
-
     /**
      * Whether the model uses created_at and updated_at columns.
      *

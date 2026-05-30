@@ -11,16 +11,16 @@
 
 namespace App\Console\Commands;
 
+use App\Utility\Separator;
 use Illuminate\Console\Attributes\Description;
 use Illuminate\Console\Attributes\Signature;
 use Illuminate\Console\Command;
-use App\Utility\Separator;
 
 /**
  * Exports multiple version of the current data set to a configured location.
  */
-#[Signature('data:dump')]
 #[Description('Runs several data exports')]
+#[Signature('data:dump')]
 class DataDumpCommand extends Command
 {
     use VerbosityTrait;

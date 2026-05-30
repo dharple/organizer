@@ -12,28 +12,18 @@
 namespace App\Console\Commands;
 
 use App\Models\User;
+use Illuminate\Console\Attributes\Description;
+use Illuminate\Console\Attributes\Signature;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Hash;
 
 /**
  * Creates a new application user.
  */
+#[Description('Add a user')]
+#[Signature('user:add {email : Email address} {password : Password}')]
 class UserAddCommand extends Command
 {
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
-    protected $description = 'Add a user';
-
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
-    protected $signature = 'user:add {email : Email address} {password : Password}';
-
     /**
      * Executes the command.
      */

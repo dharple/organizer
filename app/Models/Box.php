@@ -12,6 +12,8 @@
 namespace App\Models;
 
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Attributes\Fillable;
+use Illuminate\Database\Eloquent\Attributes\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -25,28 +27,16 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property string   $label
  * @property ?int     $location_id
  */
+#[Fillable([
+    'box_model_id',
+    'box_number',
+    'description',
+    'label',
+    'location_id',
+])]
+#[Table(name: 'box')]
 class Box extends BaseModel
 {
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<string>
-     */
-    protected $fillable = [
-        'box_model_id',
-        'box_number',
-        'description',
-        'label',
-        'location_id',
-    ];
-
-    /**
-     * The table associated with the model.
-     *
-     * @var string
-     */
-    protected $table = 'box';
-
     /**
      * Whether the model uses created_at and updated_at columns.
      *

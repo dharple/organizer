@@ -13,32 +13,24 @@ namespace App\Console\Commands;
 
 use App\Services\MoveService;
 use Exception;
+use Illuminate\Console\Attributes\Description;
+use Illuminate\Console\Attributes\Signature;
 use Illuminate\Console\Command;
 
 /**
  * Moves boxes between locations.
  */
+#[Description('Move boxes')]
+#[Signature(
+    'box:move
+    {--box=*     : Box Number(s) to move}
+    {--dry-run   : Simulate the move without affecting the database}
+    {--from=*    : Source Location ID(s)}
+    {--id=*      : Box ID(s) to move}
+    {--to=       : Destination Location ID}'
+)]
 class BoxMoveCommand extends Command
 {
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
-    protected $description = 'Move boxes';
-
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
-    protected $signature = 'box:move
-        {--box=*     : Box Number(s) to move}
-        {--dry-run   : Simulate the move without affecting the database}
-        {--from=*    : Source Location ID(s)}
-        {--id=*      : Box ID(s) to move}
-        {--to=       : Destination Location ID}';
-
     /**
      * Constructor.
      */

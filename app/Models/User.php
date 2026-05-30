@@ -12,6 +12,9 @@
 namespace App\Models;
 
 use App\Support\Gravatar;
+use Illuminate\Database\Eloquent\Attributes\Fillable;
+use Illuminate\Database\Eloquent\Attributes\Hidden;
+use Illuminate\Database\Eloquent\Attributes\Table;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -22,37 +25,19 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @property string  $email
  * @property string  $password
  */
+#[Fillable([
+    'email',
+    'password',
+    'roles',
+])]
+#[Hidden([
+    'password',
+    'remember_token',
+])]
+#[Table(name: 'user')]
 class User extends Authenticatable
 {
     use SoftDeletes;
-
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<string>
-     */
-    protected $fillable = [
-        'email',
-        'password',
-        'roles',
-    ];
-
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<string>
-     */
-    protected $hidden = [
-        'password',
-        'remember_token',
-    ];
-
-    /**
-     * The table associated with the model.
-     *
-     * @var string
-     */
-    protected $table = 'user';
 
     /**
      * Whether the model uses created_at and updated_at columns.

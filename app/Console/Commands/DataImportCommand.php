@@ -13,30 +13,22 @@ namespace App\Console\Commands;
 
 use App\Services\ImportService;
 use Exception;
+use Illuminate\Console\Attributes\Description;
+use Illuminate\Console\Attributes\Signature;
 use Illuminate\Console\Command;
 
 /**
  * Imports box and related data from a file.
  */
+#[Description('Imports box and related data')]
+#[Signature(
+    'data:import
+    {filename       : The file to import from}
+    {--dry-run      : Simulate the import without affecting the database}
+    {--format=      : Import format: json, xml, yaml (defaults to file extension)}'
+)]
 class DataImportCommand extends Command
 {
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
-    protected $description = 'Imports box and related data';
-
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
-    protected $signature = 'data:import
-        {filename       : The file to import from}
-        {--dry-run      : Simulate the import without affecting the database}
-        {--format=      : Import format: json, xml, yaml (defaults to file extension)}';
-
     /**
      * Constructor.
      */

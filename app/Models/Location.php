@@ -12,6 +12,8 @@
 namespace App\Models;
 
 use Exception;
+use Illuminate\Database\Eloquent\Attributes\Fillable;
+use Illuminate\Database\Eloquent\Attributes\Table;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
@@ -24,6 +26,13 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property string  $label
  * @property ?int    $parent_location_id
  */
+#[Fillable([
+    'description',
+    'hide_from_search',
+    'label',
+    'parent_location_id',
+])]
+#[Table(name: 'location')]
 class Location extends BaseModel
 {
     /**
@@ -34,25 +43,6 @@ class Location extends BaseModel
     protected $casts = [
         'hide_from_search' => 'boolean',
     ];
-
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<string>
-     */
-    protected $fillable = [
-        'description',
-        'hide_from_search',
-        'label',
-        'parent_location_id',
-    ];
-
-    /**
-     * The table associated with the model.
-     *
-     * @var string
-     */
-    protected $table = 'location';
 
     /**
      * Whether the model uses created_at and updated_at columns.

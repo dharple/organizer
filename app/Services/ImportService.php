@@ -38,6 +38,7 @@ class ImportService
      * Imports data from the given file according to options.
      *
      * @param array<string, mixed> $options
+     *
      * @throws Exception
      */
     public function import(array $options): void

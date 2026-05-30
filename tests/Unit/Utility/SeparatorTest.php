@@ -38,6 +38,7 @@ class SeparatorTest extends TestCase
         $this->assertStringContainsString('[ Hello ]', $result);
         $this->assertSame(20, strlen((string) $result));
 
+        // phpcs:ignore Squiz.PHP.CommentedOutCode.Found
         // For center: left padding = ceil((20 - 9) / 2) = ceil(5.5) = 6, right = 5
         $this->assertStringStartsWith('------', $result);
         $this->assertStringEndsWith('-----', $result);

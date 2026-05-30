@@ -60,6 +60,7 @@ class ExportService
      * Exports data according to the given options and returns the response.
      *
      * @param array<string, string> $options
+     *
      * @throws Exception
      */
     public function export(array $options): ExportResponse
@@ -114,6 +115,7 @@ class ExportService
      * Exports a simple box list using PHPSpreadsheet.
      *
      * @param array<string, string> $options
+     *
      * @throws Exception
      */
     protected function simpleUsePhpSpreadsheet(array $options): ExportResponse

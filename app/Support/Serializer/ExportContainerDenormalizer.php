@@ -27,6 +27,7 @@ class ExportContainerDenormalizer implements DenormalizerInterface
     /**
      * Applies created_at, updated_at, and deleted_at from an import row to a model.
      *
+     * @param object               $model
      * @param array<string, mixed> $row
      */
     protected function applyTimestamps(object $model, array $row): void
@@ -47,10 +48,8 @@ class ExportContainerDenormalizer implements DenormalizerInterface
     }
 
     /**
-     * Denormalizes an export array into an ExportContainer.
+     * {@inhertDoc}
      *
-     * @param array<string, mixed> $data
-     * @param array<string, mixed> $context
      * @throws Exception
      */
     public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): ExportContainer
@@ -140,9 +139,7 @@ class ExportContainerDenormalizer implements DenormalizerInterface
     }
 
     /**
-     * Returns the types supported by this denormalizer.
-     *
-     * @return array<class-string, bool>
+     * {@inheritDoc}
      */
     public function getSupportedTypes(?string $format): array
     {
@@ -150,9 +147,7 @@ class ExportContainerDenormalizer implements DenormalizerInterface
     }
 
     /**
-     * Returns true if this denormalizer supports the given type.
-     *
-     * @param array<string, mixed> $context
+     * {@inheritDoc}
      */
     public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
     {

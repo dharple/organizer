@@ -20,9 +20,7 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 class EntityNormalizer implements NormalizerInterface
 {
     /**
-     * Returns the types supported by this normalizer.
-     *
-     * @return array<class-string, bool>
+     * {@inheritDoc}
      */
     public function getSupportedTypes(?string $format): array
     {
@@ -30,10 +28,7 @@ class EntityNormalizer implements NormalizerInterface
     }
 
     /**
-     * Normalizes a model entity to an array via getData().
-     *
-     * @param array<string, mixed> $context
-     * @return array<string, mixed>
+     * {@inheritDoc}
      */
     public function normalize(mixed $entity, ?string $format = null, array $context = []): array
     {
@@ -41,9 +36,7 @@ class EntityNormalizer implements NormalizerInterface
     }
 
     /**
-     * Returns true if the data is a ModelInterface instance.
-     *
-     * @param array<string, mixed> $context
+     * {@inheritDoc}
      */
     public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
     {

@@ -41,9 +41,7 @@ class BoxNormalizer implements NormalizerInterface, SerializerAwareInterface
     }
 
     /**
-     * Returns the types supported by this normalizer.
-     *
-     * @return array<class-string, bool>
+     * {@inheritDoc}
      */
     public function getSupportedTypes(?string $format): array
     {
@@ -51,10 +49,7 @@ class BoxNormalizer implements NormalizerInterface, SerializerAwareInterface
     }
 
     /**
-     * Normalizes a Box to an array.
-     *
-     * @param array<string, mixed> $context
-     * @return array<string, mixed>
+     * {@inheritDoc}
      */
     public function normalize(mixed $box, ?string $format = null, array $context = []): array
     {
@@ -68,9 +63,7 @@ class BoxNormalizer implements NormalizerInterface, SerializerAwareInterface
     }
 
     /**
-     * Returns true if this normalizer supports the given data.
-     *
-     * @param array<string, mixed> $context
+     * {@inheritDoc}
      */
     public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
     {

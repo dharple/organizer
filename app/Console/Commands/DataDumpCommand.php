@@ -1,5 +1,14 @@
 <?php
 
+/**
+ * This file is part of the Organizer package.
+ *
+ * (c) Doug Harple <dharple@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace App\Console\Commands;
 
 use Illuminate\Console\Attributes\Description;
@@ -7,6 +16,9 @@ use Illuminate\Console\Attributes\Signature;
 use Illuminate\Console\Command;
 use App\Utility\Separator;
 
+/**
+ * Exports multiple version of the current data set to a configured location.
+ */
 #[Signature('data:dump')]
 #[Description('Runs several data exports')]
 class DataDumpCommand extends Command
@@ -14,7 +26,9 @@ class DataDumpCommand extends Command
     use VerbosityTrait;
 
     /**
+     * Subcommand to run.
      *
+     * @var string
      */
     protected const SUB_COMMAND = 'data:export';
 

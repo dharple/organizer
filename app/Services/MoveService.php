@@ -32,7 +32,9 @@ class MoveService
      * Moves boxes according to the given options and returns a summary.
      *
      * @param array<string, mixed> $options
+     *
      * @return array<int, array<string, mixed>>
+     *
      * @throws Exception
      */
     public function move(array $options): array

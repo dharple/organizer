@@ -7,18 +7,27 @@ use PHPUnit\Framework\TestCase;
 
 class SeparatorTest extends TestCase
 {
+    /**
+     * Tests that no title produces a string of repeated dashes.
+     */
     public function testNoTitleProducesRepeatedDashes(): void
     {
         $result = Separator::generate();
         $this->assertSame(str_repeat('-', Separator::WIDTH), $result);
     }
 
+    /**
+     * Tests that an empty title produces a string of repeated dashes.
+     */
     public function testEmptyTitleProducesRepeatedDashes(): void
     {
         $result = Separator::generate('');
         $this->assertSame(str_repeat('-', Separator::WIDTH), $result);
     }
 
+    /**
+     * Tests that a custom width with no title produces the correct number of dashes.
+     */
     public function testCustomWidthNoTitle(): void
     {
         $result = Separator::generate(null, 20);
@@ -26,12 +35,18 @@ class SeparatorTest extends TestCase
         $this->assertSame(20, strlen($result));
     }
 
+    /**
+     * Tests that the total width of the generated separator equals the requested width.
+     */
     public function testTotalWidthEqualsRequestedWidth(): void
     {
         $result = Separator::generate('Hello', Separator::WIDTH);
         $this->assertSame(Separator::WIDTH, strlen((string) $result));
     }
 
+    /**
+     * Tests that center alignment is the default.
+     */
     public function testCenterAlignDefault(): void
     {
         $result = Separator::generate('Hello', 20);
@@ -44,6 +59,9 @@ class SeparatorTest extends TestCase
         $this->assertStringEndsWith('-----', $result);
     }
 
+    /**
+     * Tests that explicit center alignment matches the default.
+     */
     public function testCenterAlignExplicit(): void
     {
         $implicit = Separator::generate('Hello', 20);
@@ -51,6 +69,9 @@ class SeparatorTest extends TestCase
         $this->assertSame($implicit, $explicit);
     }
 
+    /**
+     * Tests that left alignment places a fixed number of dashes before the title.
+     */
     public function testLeftAlign(): void
     {
         $result = Separator::generate('Hello', 20, Separator::ALIGN_LEFT);
@@ -60,6 +81,9 @@ class SeparatorTest extends TestCase
         $this->assertStringStartsWith(str_repeat('-', Separator::ALIGN_WIDTH), $result);
     }
 
+    /**
+     * Tests that right alignment places a fixed number of dashes after the title.
+     */
     public function testRightAlign(): void
     {
         $result = Separator::generate('Hello', 20, Separator::ALIGN_RIGHT);
@@ -69,6 +93,9 @@ class SeparatorTest extends TestCase
         $this->assertStringEndsWith(str_repeat('-', Separator::ALIGN_WIDTH), $result);
     }
 
+    /**
+     * Tests that a title longer than the width returns the wrapped title without padding.
+     */
     public function testTitleLongerThanWidthReturnsWrappedTitleOnly(): void
     {
         // title "[ AB ]" = 6 chars; width = 4 → title exceeds width
@@ -76,6 +103,9 @@ class SeparatorTest extends TestCase
         $this->assertSame('[ AB ]', $result);
     }
 
+    /**
+     * Tests that a title exactly fitting the width returns the wrapped title without padding.
+     */
     public function testTitleExactlyFitsWidth(): void
     {
         // "[ AB ]" is 6 chars; with width=6 titleLength == width, so no padding branch
@@ -83,6 +113,9 @@ class SeparatorTest extends TestCase
         $this->assertSame('[ AB ]', $result);
     }
 
+    /**
+     * Tests that the Separator constants have the expected values.
+     */
     public function testConstantsHaveExpectedValues(): void
     {
         $this->assertSame('center', Separator::ALIGN_CENTER);

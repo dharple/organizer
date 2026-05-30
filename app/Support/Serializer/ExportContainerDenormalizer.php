@@ -27,8 +27,8 @@ class ExportContainerDenormalizer implements DenormalizerInterface
     /**
      * Applies created_at, updated_at, and deleted_at from an import row to a model.
      *
-     * @param object               $model
-     * @param array<string, mixed> $row
+     * @param object               $model The object to update.
+     * @param array<string, mixed> $row   The row to pull timestamps from.
      */
     protected function applyTimestamps(object $model, array $row): void
     {

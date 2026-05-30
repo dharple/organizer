@@ -32,15 +32,11 @@ class ExportResponse
 
     /**
      * The path to the temporary export file.
-     *
-     * @var string
      */
     protected string $filename;
 
     /**
      * The file format extension.
-     *
-     * @var string
      */
     protected string $format = 'bin';
 

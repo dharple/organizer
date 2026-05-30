@@ -25,8 +25,6 @@ class BoxNormalizer implements NormalizerInterface, SerializerAwareInterface
 
     /**
      * Whether to use the display ID (zero-padded) instead of the raw box number.
-     *
-     * @var bool
      */
     protected bool $useDisplayId = false;
 

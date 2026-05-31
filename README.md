@@ -30,17 +30,17 @@ DB_PASSWORD=secret
 
 Generate an application key:
 ```bash
-php artisan key:generate
+./artisan key:generate
 ```
 
 Run the database migrations:
 ```bash
-php artisan migrate
+./artisan migrate
 ```
 
 Create a user:
 ```bash
-php artisan user:add test@example.com mySecurePassword
+./artisan user:add test@example.com mySecurePassword
 ```
 
 Start the server:

@@ -1,39 +1,81 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This file provides guidance to Claude Code (claude.ai/code) when working with
+code in this repository.
 
 ## Project Overview
 
-Organizer is a personal Laravel 13 web application for tracking physical storage boxes. Users manage boxes (auto-numbered), organize them into hierarchical locations, and categorize them by box model (make/model/size/color). Export/import is supported via JSON, XML, YAML, CSV, ODS, and XLSX.
+Organizer is a Laravel 13 web application for tracking physical storage boxes.
+Users manage boxes (auto-numbered), organize them into hierarchical locations,
+and categorize them by box model (make/model/size/color).
 
-## Common Commands
+Data can be exported and imported in JSON, XML, and YAML format, using the
+app's "full" export capability.
+
+Data can also be exported in a "simple" export, which is easier for humans to
+read, but cannot be reimported into the app.  This simple export supports CSV,
+JSON, ODS, XML, XLSX, and YAML formats.
+
+## Commands
+
+### Setup
 
 ```bash
-# Install dependencies
 composer install
+./artisan key:generate
+./artisan migrate
+```
 
-# Development server
-composer go        # PHP built-in server on localhost:8000
-php artisan serve  # Laravel development server
+### Running
 
-# Lint and static analysis
-composer phpcs     # Check code style (outsanity/phpcs ruleset)
-composer phpcbf    # Auto-fix code style
-composer phpstan   # Static analysis at level 5
+```bash
+composer go     # Flush caches and start PHP dev server on localhost:8000
+```
 
-# Tests (no test classes exist yet)
-php artisan test
+### Manage Users
 
-# Database
-php artisan migrate
-php artisan user:add email@example.com password
+```bash
+./artisan user:add email@example.com password
+```
 
-# Artisan commands
-php artisan box:list
-php artisan box:move
-php artisan location:list
-php artisan data:export --format=json --type=full
-php artisan data:import filename.json
+### Box and Location Helper Tools
+
+```bash
+./artisan box:list
+./artisan box:move
+./artisan location:list
+```
+
+### Data Export and Import Tools
+
+```bash
+./artisan data:export --format=json --type=full
+./artisan data:import filename.json
+```
+
+### Database
+
+```bash
+./artisan migrate         # Apply migrations
+./artisan migrate:fresh   # Drop and recreate database
+```
+
+### Dev Tools
+
+```bash
+# All of these commands can take one or more filenames or directories on the
+# command line, to narrow the scope of their execution
+
+composer phpstan    # Static Analysis
+composer phpcs      # Check Code Style
+composer phpcbf     # Fix Code Style
+composer rector     # Show Opportunities for Automatic Refactoring
+composer test       # Run unit tests
+
+# Direct access tools
+
+vendor/bin/rector   # Do Automatic Refactoring
+vendor/bin/phpunit --filter <pattern> # Run unit tests matching a given pattern
 ```
 
 ## Architecture

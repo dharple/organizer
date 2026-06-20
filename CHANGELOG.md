@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Converted from Symfony 5.4 to Laravel 13 using Claude Code.
 - Minimum PHP version is now 8.3.6.
+- Tuned SQLite for server operation per [Sylvain Kerkour].
 - Updated 3rd party dependencies.
 
 ## [1.0.1] - 2025-09-01
@@ -272,6 +273,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [CVE-2024-45293]: https://nvd.nist.gov/vuln/detail/CVE-2024-45293
 [CVE-2024-45411]: https://nvd.nist.gov/vuln/detail/CVE-2024-45411
 
+[@dependabot]: https://github.com/dependabot
 [DoctrineExtension]: https://github.com/Atlantic18/DoctrineExtensions
 [ork/phpcs]: https://github.com/AlexHowansky/ork-phpcs
-[@dependabot]: https://github.com/dependabot
+[Sylvain Kerkour]: https://kerkour.com/sqlite-for-servers

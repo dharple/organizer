@@ -18,6 +18,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Tuned SQLite for server operation per [Sylvain Kerkour].
 - Updated 3rd party dependencies.
 
+### Fixed
+
+- Fixed an issue with adding or editing locations, when "Hide From Search" is
+  unchecked.
+
 ## [1.0.1] - 2025-09-01
 
 ### Changed

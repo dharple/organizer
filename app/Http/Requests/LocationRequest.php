@@ -35,7 +35,7 @@ class LocationRequest extends FormRequest
     {
         return [
             'description'        => ['nullable', 'string'],
-            'hide_from_search'   => ['nullable', 'boolean'],
+            'hide_from_search'   => ['boolean'],
             'label'              => ['required', 'string', 'max:255'],
             'parent_location_id' => ['nullable', 'exists:location,id'],
         ];

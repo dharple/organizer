@@ -13,21 +13,14 @@ namespace App\Services;
 
 use App\Models\Box;
 use App\Models\Location;
+use Illuminate\Support\Facades\Log;
 use Exception;
-use Psr\Log\LoggerInterface;
 
 /**
  * Moves boxes between locations.
  */
 class MoveService
 {
-    /**
-     * Constructor.
-     */
-    public function __construct(protected LoggerInterface $logger)
-    {
-    }
-
     /**
      * Moves boxes according to the given options and returns a summary.
      *
@@ -39,7 +32,7 @@ class MoveService
      */
     public function move(array $options): array
     {
-        $this->logger->info(json_encode($options, JSON_PARTIAL_OUTPUT_ON_ERROR));
+        Log::info(json_encode($options, JSON_PARTIAL_OUTPUT_ON_ERROR));
 
         if (empty($options['box']) && empty($options['id']) && empty($options['from'])) {
             throw new Exception('At least one Box ID, Box Number, or Source Location must be specified');

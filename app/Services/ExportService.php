@@ -17,11 +17,11 @@ use App\Models\Location;
 use App\Support\Serializer\BoxNormalizer;
 use App\Support\Serializer\EntityNormalizer;
 use Exception;
+use Illuminate\Support\Facades\Log;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Csv as CsvWriter;
 use PhpOffice\PhpSpreadsheet\Writer\Ods as OdsWriter;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx as XlsxWriter;
-use Psr\Log\LoggerInterface;
 use Symfony\Component\Serializer\Encoder\JsonEncode;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Encoder\XmlEncoder;
@@ -50,13 +50,6 @@ class ExportService
     ];
 
     /**
-     * Constructor.
-     */
-    public function __construct(protected LoggerInterface $logger)
-    {
-    }
-
-    /**
      * Exports data according to the given options and returns the response.
      *
      * @param array<string, string> $options
@@ -65,7 +58,7 @@ class ExportService
      */
     public function export(array $options): ExportResponse
     {
-        $this->logger->info(json_encode($options, JSON_PARTIAL_OUTPUT_ON_ERROR));
+        Log::info(json_encode($options, JSON_PARTIAL_OUTPUT_ON_ERROR));
 
         if ($options['type'] == 'simple') {
             return match ($options['format']) {
@@ -104,7 +97,7 @@ class ExportService
 
         $serialized = $serializer->serialize($data, $options['format'], $this->encoderContext);
 
-        $this->logger->info($serialized);
+        Log::info($serialized);
 
         return (new ExportResponse())
             ->setFormat($options['format'])
@@ -209,7 +202,7 @@ class ExportService
 
         $serialized = $serializer->serialize($data, $options['format'], $context);
 
-        $this->logger->info($serialized);
+        Log::info($serialized);
 
         return (new ExportResponse())
             ->setFormat($options['format'])

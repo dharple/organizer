@@ -16,7 +16,7 @@ use App\Models\BoxModel;
 use App\Models\Location;
 use App\Support\Serializer\ExportContainerDenormalizer;
 use Exception;
-use Psr\Log\LoggerInterface;
+use Illuminate\Support\Facades\Log;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Encoder\XmlEncoder;
 use Symfony\Component\Serializer\Encoder\YamlEncoder;
@@ -28,13 +28,6 @@ use Symfony\Component\Serializer\Serializer;
 class ImportService
 {
     /**
-     * Constructor.
-     */
-    public function __construct(protected LoggerInterface $logger)
-    {
-    }
-
-    /**
      * Imports data from the given file according to options.
      *
      * @param array<string, mixed> $options
@@ -43,7 +36,7 @@ class ImportService
      */
     public function import(array $options): void
     {
-        $this->logger->info(json_encode($options, JSON_PARTIAL_OUTPUT_ON_ERROR));
+        Log::info(json_encode($options, JSON_PARTIAL_OUTPUT_ON_ERROR));
 
         if (Box::count() > 0 || BoxModel::count() > 0 || Location::count() > 0) {
             throw new Exception('Database is already populated.  Cannot import with existing data.');

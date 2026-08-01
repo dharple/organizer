@@ -10,7 +10,7 @@
         "ext-redis": "*",
         "laravel/framework": "^13.12",
         "laravel/tinker": "^3.0.2",
-        "phpoffice/phpspreadsheet": "^2.4.5",
+        "phpoffice/phpspreadsheet": "^5.9.0",
         "symfony/property-access": "^7.4.8",
         "symfony/serializer": "^7.4.10",
         "symfony/yaml": "^7.4.13"

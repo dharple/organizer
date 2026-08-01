@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- Bumped PHPSpreadsheet from version 2.4.5 to 5.9.0.
 - Converted from Symfony 5.4 to Laravel 13 using Claude Code.
 - Minimum PHP version is now 8.3.6.
 - Tuned SQLite for server operation per [Sylvain Kerkour].

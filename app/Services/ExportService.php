@@ -160,8 +160,8 @@ class ExportService
             $cell->getStyle()->getAlignment()->setWrapText(true);
         }
 
-        foreach ($headerRow as $column => $label) {
-            $sheet->getColumnDimensionByColumn($column)->setAutoSize(true);
+        foreach (array_keys($headerRow) as $column) {
+            $sheet->getColumnDimensionByColumn($column + 1)->setAutoSize(true);
         }
 
         $filename = tempnam(sys_get_temp_dir(), 'export_spreadsheet_');

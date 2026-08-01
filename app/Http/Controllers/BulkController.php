@@ -34,7 +34,7 @@ class BulkController extends Controller
     /**
      * Processes the export form submission and streams the file download.
      */
-    public function exportSubmit(ExportRequest $request, ExportService $exportService): View|Response|RedirectResponse
+    public function exportSubmit(ExportRequest $request, ExportService $exportService)
     {
         try {
             $file = $exportService->export($request->validated());

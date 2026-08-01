@@ -34,7 +34,7 @@ class ExportRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'format' => ['required', 'in:csv,json,ods,xlsx,xml,yaml'],
+            'format' => ['required', 'in:csv,html,json,ods,xlsx,xml,yaml'],
             'type'   => ['required', 'in:full,simple'],
         ];
     }

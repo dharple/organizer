@@ -20,6 +20,7 @@ use Exception;
 use Illuminate\Support\Facades\Log;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Csv as CsvWriter;
+use PhpOffice\PhpSpreadsheet\Writer\Html as HtmlWriter;
 use PhpOffice\PhpSpreadsheet\Writer\Ods as OdsWriter;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx as XlsxWriter;
 use Symfony\Component\Serializer\Encoder\JsonEncode;
@@ -63,14 +64,14 @@ class ExportService
         if ($options['type'] == 'simple') {
             return match ($options['format']) {
                 'json', 'xml', 'yaml' => $this->simpleUseSerializer($options),
-                'csv', 'ods', 'xlsx'  => $this->simpleUsePhpSpreadsheet($options),
+                'csv', 'html', 'ods', 'xlsx'  => $this->simpleUsePhpSpreadsheet($options),
                 default => throw new Exception('Invalid format: ' . $options['format']),
             };
         }
 
         return match ($options['format']) {
             'json', 'xml', 'yaml' => $this->fullUseSerializer($options),
-            'csv', 'ods', 'xlsx'  => throw new Exception('Format "' . $options['format'] . '" does not support full exports'),
+            'csv', 'html', 'ods', 'xlsx'  => throw new Exception('Format "' . $options['format'] . '" does not support full exports'),
             default => throw new Exception('Invalid format: ' . $options['format']),
         };
     }
@@ -160,7 +161,7 @@ class ExportService
             $cell->getStyle()->getAlignment()->setWrapText(true);
         }
 
-        if ($options['format'] == 'xlsx') {
+        if ($options['format'] != 'ods') {
             foreach (array_keys($headerRow) as $column) {
                 $sheet->getColumnDimensionByColumn($column + 1)->setAutoSize(true);
             }
@@ -169,6 +170,7 @@ class ExportService
         $filename = tempnam(sys_get_temp_dir(), 'export_spreadsheet_');
         $writer = match ($options['format']) {
             'csv'  => new CsvWriter($spreadsheet),
+            'html' => new HtmlWriter($spreadsheet),
             'ods'  => new OdsWriter($spreadsheet),
             'xlsx' => new XlsxWriter($spreadsheet),
             default => throw new Exception('Invalid format: ' . $options['format']),

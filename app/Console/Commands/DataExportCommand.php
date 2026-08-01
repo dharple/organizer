@@ -24,7 +24,7 @@ use Illuminate\Console\Command;
 #[Signature(
     'data:export
     {--force       : Force the file to write out, even if it already exists}
-    {--format=json : Export format: csv, json, ods, xml, xlsx, yaml}
+    {--format=json : Export format: csv, html, json, ods, xml, xlsx, yaml}
     {--output=     : Output filename (defaults to export-YYYYMMDDHHMM.FORMAT)}
     {--type=full   : Export type: full, simple}'
 )]

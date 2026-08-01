@@ -13,12 +13,13 @@
         <div class="mb-3">
             <label for="format" class="form-label">File Format</label>
             <select class="form-select @error('format') is-invalid @enderror" id="format" name="format">
-                <option value="csv" {{ old('format', 'xlsx') === 'csv' ? 'selected' : '' }}>CSV</option>
-                <option value="xlsx" {{ old('format', 'xlsx') === 'xlsx' ? 'selected' : '' }}>Excel</option>
-                <option value="json" {{ old('format', 'xlsx') === 'json' ? 'selected' : '' }}>JSON</option>
-                <option value="ods" {{ old('format', 'xlsx') === 'ods' ? 'selected' : '' }}>OpenDocument Spreadsheet</option>
-                <option value="xml" {{ old('format', 'xlsx') === 'xml' ? 'selected' : '' }}>XML</option>
-                <option value="yaml" {{ old('format', 'xlsx') === 'yaml' ? 'selected' : '' }}>YAML</option>
+                <option value="csv"  {{ old('format') === 'csv'  ? 'selected' : '' }}>CSV</option>
+                <option value="html" {{ old('format') === 'html' ? 'selected' : '' }}>HTML</option>
+                <option value="json" {{ old('format') === 'json' ? 'selected' : '' }}>JSON</option>
+                <option value="ods"  {{ old('format') === 'ods'  ? 'selected' : '' }}>ODS</option>
+                <option value="xlsx" {{ old('format') === 'xlsx' ? 'selected' : '' }}>XLSX</option>
+                <option value="xml"  {{ old('format') === 'xml'  ? 'selected' : '' }}>XML</option>
+                <option value="yaml" {{ old('format') === 'yaml' ? 'selected' : '' }}>YAML</option>
             </select>
             @error('format')<div class="invalid-feedback">{{ $message }}</div>@enderror
         </div>

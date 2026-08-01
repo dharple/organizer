@@ -23,6 +23,7 @@ class ExportResponse
      */
     protected const MIME_TYPES = [
         'csv'  => 'text/csv',
+        'html' => 'text/html',
         'json' => 'application/json',
         'ods'  => 'application/vnd.oasis.opendocument.spreadsheet',
         'xlsx' => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',

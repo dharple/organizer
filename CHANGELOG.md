@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Added a data:dump command, to allow for automated exports of the data.
+- Added HTML export (simple only).
 
 ### Changed
 

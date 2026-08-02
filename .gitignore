@@ -13,11 +13,12 @@ export-*
 /phpcs.xml
 
 # PHPUnit
+/.phpunit.cache/
+/.phpunit.result.cache
 /phpunit.xml
-.phpunit.result.cache
 
 # PHPStan
-phpstan.neon
+/phpstan.neon
 
 # Laravel
 *.log

@@ -58,10 +58,6 @@ class ImportService
             $format
         );
 
-        if (!($container instanceof ExportContainer)) {
-            throw new Exception('Expected an ExportContainer');
-        }
-
         foreach ($container->getLocations() as $location) {
             printf("Importing Location: %s\n", $location->getDisplayLabel());
             if (!($options['dry-run'] ?? false)) {

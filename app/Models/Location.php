@@ -20,7 +20,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 /**
  * Represents a storage location, which may have a parent location.
  *
- * @property int     $id
+ * @property ?int    $id
  * @property string  $description
  * @property boolean $hide_from_search
  * @property string  $label
@@ -53,6 +53,8 @@ class Location extends BaseModel
 
     /**
      * Returns the boxes relationship.
+     *
+     * @return HasMany<Box, $this>
      */
     public function boxes(): HasMany
     {
@@ -76,6 +78,8 @@ class Location extends BaseModel
 
     /**
      * Returns the parent location relationship.
+     *
+     * @return BelongsTo<Location, $this>
      */
     public function parentLocation(): BelongsTo
     {

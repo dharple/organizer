@@ -46,6 +46,8 @@ class BoxModel extends BaseModel
 
     /**
      * Returns the boxes relationship.
+     *
+     * @return HasMany<Box, $this>
      */
     public function boxes(): HasMany
     {

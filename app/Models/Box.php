@@ -58,6 +58,8 @@ class Box extends BaseModel
 
     /**
      * Returns the box model relationship.
+     *
+     * @return BelongsTo<BoxModel, $this>
      */
     public function boxModel(): BelongsTo
     {
@@ -97,6 +99,8 @@ class Box extends BaseModel
 
     /**
      * Returns the location relationship.
+     *
+     * @return BelongsTo<Location, $this>
      */
     public function location(): BelongsTo
     {

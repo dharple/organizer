@@ -36,8 +36,8 @@ class IndexController extends Controller
     {
         $locations = Location::whereIn('id', function ($query) {
             $query->selectRaw('DISTINCT location_id')
-                ->from('box')
-                ->whereNull('box.deleted_at')
+                ->from('boxes')
+                ->whereNull('boxes.deleted_at')
                 ->whereNotNull('location_id');
         })
             ->where('hide_from_search', false)

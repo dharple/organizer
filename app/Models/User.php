@@ -21,9 +21,10 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 /**
  * Represents an application user.
  *
- * @property int     $id
- * @property string  $email
- * @property string  $password
+ * @property int                 $id
+ * @property string              $email
+ * @property string              $password
+ * @property ?array<int, string> $roles
  */
 #[Fillable([
     'email',
@@ -34,7 +35,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
     'password',
     'remember_token',
 ])]
-#[Table(name: 'user')]
+#[Table(name: 'users')]
 class User extends Authenticatable
 {
     use SoftDeletes;

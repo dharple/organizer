@@ -34,7 +34,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
     'label',
     'location_id',
 ])]
-#[Table(name: 'box')]
+#[Table(name: 'boxes')]
 class Box extends BaseModel
 {
     /**

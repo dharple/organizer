@@ -34,7 +34,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
     'model',
     'size',
 ])]
-#[Table(name: 'box_model')]
+#[Table(name: 'box_models')]
 class BoxModel extends BaseModel
 {
     /**

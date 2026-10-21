@@ -96,7 +96,7 @@ vendor/bin/phpunit --filter <pattern> # Run unit tests matching a given pattern
 
 **Form validation:** Laravel Form Requests (`app/Http/Requests/`) replace Symfony Form Types. Blade templates contain plain HTML forms.
 
-**Migrations:** Live in `database/migrations/`. Four migrations represent the final schema.
+**Migrations:** Live in `database/migrations/`. Four migrations represent the final schema. A fifth copies data from the singular tables left by the Symfony version of the app into the plural tables, when needed.
 
 ## Key Configuration Notes
 

@@ -32,7 +32,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
     'label',
     'parent_location_id',
 ])]
-#[Table(name: 'location')]
+#[Table(name: 'locations')]
 class Location extends BaseModel
 {
     /**

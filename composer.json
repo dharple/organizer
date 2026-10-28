@@ -30,7 +30,7 @@
     "config": {
         "optimize-autoloader": true,
         "platform": {
-            "php": "8.3.0"
+            "php": "8.3.6"
         },
         "process-timeout": 0,
         "preferred-install": {

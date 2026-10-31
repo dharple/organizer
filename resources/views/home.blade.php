@@ -32,16 +32,12 @@
                     </button>
                 </div>
             </div>
-            <div class="container collapse accordionTarget" id="{{ $accordionTarget }}">
-                @foreach ($location->boxes->chunk(3) as $row)
-                    <div class="row mb-lg-3">
-                        @foreach ($row as $box)
-                            <div class="col-12 col-lg-4">
-                                @include('partials.box-card', ['box' => $box, 'showLocation' => false, 'showModel' => true])
-                            </div>
-                        @endforeach
+            <div class="container collapse accordionTarget" id="{{ $accordionTarget }}" data-boxes-url="{{ route('location.boxes', ['id' => $location->id]) }}">
+                <div class="text-center mb-3">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Loading...</span>
                     </div>
-                @endforeach
+                </div>
             </div>
         @endforeach
     </div>

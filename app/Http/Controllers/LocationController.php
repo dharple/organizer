@@ -23,6 +23,22 @@ use Illuminate\View\View;
 class LocationController extends Controller
 {
     /**
+     * Returns the box cards for a location as an HTML fragment, for the home
+     * page to load when a location is expanded.
+     */
+    public function boxes(int $id): View
+    {
+        $entity = Location::find($id);
+        if (!$entity) {
+            abort(404);
+        }
+
+        return view('location.boxes', [
+            'boxes' => $entity->boxes()->with('boxModel')->get(),
+        ]);
+    }
+
+    /**
      * Displays the create location form.
      */
     public function create(): View

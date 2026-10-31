@@ -130,8 +130,8 @@
             </div>
         @endif
         <script
-            src="https://cdn.jsdelivr.net/npm/jquery@4.0.0/dist/jquery.slim.min.js"
-            integrity="sha384-tcspKDb5tWvyRCOWzevlAeQgHeEzYdUHJpcgnIhcP9w4CnfD7DLAcS+k9QzLbRJO"
+            src="https://cdn.jsdelivr.net/npm/jquery@4.0.0/dist/jquery.min.js"
+            integrity="sha384-fgGyf7Mo7DURSOMnOy7ed+dkq5Job205Gnzu6QIg0BOHKaqt4D76Dt8VlDCzcMHV"
             crossorigin="anonymous"></script>
         <script
             src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"

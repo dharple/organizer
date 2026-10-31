@@ -34,23 +34,33 @@ class IndexController extends Controller
      */
     public function index(): View
     {
-        $locations = Location::whereIn('id', function ($query) {
-            $query->selectRaw('DISTINCT location_id')
-                ->from('boxes')
-                ->whereNull('boxes.deleted_at')
-                ->whereNotNull('location_id');
-        })
-            ->where('hide_from_search', false)
-            ->get()
+        $allLocations = Location::allWithParents();
+
+        $locationIdsWithBoxes = Box::whereNotNull('location_id')
+            ->distinct()
+            ->pluck('location_id');
+
+        $locations = $allLocations->only($locationIdsWithBoxes->all())
+            ->reject(fn(Location $l) => $l->hide_from_search)
             ->sortBy(fn(Location $l) => $l->getDisplayLabel())
             ->values();
 
+        $recentBoxes = Box::recent('-1 week')
+            ->with('boxModel')
+            ->limit(3)
+            ->get()
+            ->each(fn(Box $box) => $box->setRelation(
+                'location',
+                $box->location_id === null ? null : $allLocations->get($box->location_id)
+            ));
+
+        // Boxes for each location are loaded on demand; see LocationController::boxes().
         return view('home', [
             'boxCount'      => Box::count(),
             'boxModelCount' => BoxModel::count(),
-            'locationCount' => Location::count(),
+            'locationCount' => $allLocations->count(),
             'locations'     => $locations,
-            'recentBoxes'   => Box::recent('-1 week')->limit(3)->get(),
+            'recentBoxes'   => $recentBoxes,
         ]);
     }
 }

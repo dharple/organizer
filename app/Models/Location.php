@@ -14,6 +14,7 @@ namespace App\Models;
 use Exception;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Table;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
@@ -50,6 +51,28 @@ class Location extends BaseModel
      * @var bool
      */
     public $timestamps = true;
+
+    /**
+     * Loads every location in a single query, with each parentLocation
+     * relation resolved in memory so display labels need no further queries.
+     *
+     * Soft-deleted parents resolve to null, matching the relation's behavior.
+     *
+     * @return Collection<int, Location> keyed by location ID
+     */
+    public static function allWithParents(): Collection
+    {
+        $locations = static::all()->keyBy('id');
+
+        foreach ($locations as $location) {
+            $location->setRelation(
+                'parentLocation',
+                $location->parent_location_id === null ? null : $locations->get($location->parent_location_id)
+            );
+        }
+
+        return $locations;
+    }
 
     /**
      * Returns the boxes relationship.

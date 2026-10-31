@@ -43,6 +43,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/location', [LocationController::class, 'store'])->name('location.store');
     Route::get('/location/{id}', [LocationController::class, 'edit'])->name('location.edit')->where('id', '\d+');
     Route::post('/location/{id}', [LocationController::class, 'update'])->name('location.update')->where('id', '\d+');
+    Route::get('/location/{id}/boxes', [LocationController::class, 'boxes'])->name('location.boxes')->where('id', '\d+');
 
     // Bulk
     Route::get('/export', [BulkController::class, 'export'])->name('bulk.export');

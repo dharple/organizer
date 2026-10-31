@@ -70,6 +70,22 @@ class ExportApiTest extends TestCase
     }
 
     /**
+     * Rejects requests beyond the rate limit.
+     */
+    public function testThrottlesRequests(): void
+    {
+        Box::create(['label' => 'Holiday Lights']);
+
+        $headers = ['Authorization' => 'Bearer ' . self::TOKEN];
+
+        for ($i = 0; $i < 5; $i++) {
+            $this->get('/api/export?type=simple&format=csv', $headers)->assertOk();
+        }
+
+        $this->get('/api/export?type=simple&format=csv', $headers)->assertTooManyRequests();
+    }
+
+    /**
      * Returns the export when the token matches.
      */
     public function testReturnsExport(): void
@@ -79,6 +95,7 @@ class ExportApiTest extends TestCase
         $response = $this->get('/api/export?type=full&format=yaml', ['Authorization' => 'Bearer ' . self::TOKEN]);
 
         $response->assertOk();
+        $this->assertSame('no-store, private', $response->headers->get('Cache-Control'));
 
         $data = Yaml::parse($response->streamedContent());
         $this->assertSame('Holiday Lights', $data['boxes'][0]['label']);

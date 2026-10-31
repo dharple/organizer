@@ -94,7 +94,7 @@ vendor/bin/phpunit --filter <pattern> # Run unit tests matching a given pattern
 
 **Export/Import:** `ExportService` has two modes — "simple" (box list only, via PHPSpreadsheet or Symfony Serializer) and "full" (all entities via Symfony Serializer into an `ExportContainer`). `symfony/serializer` and `symfony/yaml` are retained as standalone Composer packages (no Symfony framework). `ImportService` refuses to import if any entities already exist. Full exports use camelCase keys (via `BaseModel::getData()`), with foreign keys named after the relation (e.g. `boxModel`, `location`, `parentLocation`). `ExportContainerDenormalizer` reads camelCase keys and falls back to snake_case column names for older exports.
 
-**Export API:** `GET /api/export?type=…&format=…` (`routes/api.php`) reuses `ExportRequest` and `ExportService`. It has no session; `VerifyExportToken` middleware checks an `Authorization: Bearer` header against `EXPORT_API_TOKEN` (`config('custom.export_api.token')`) and rejects everything when that is empty. Throttled to 30 requests/minute. API errors render as JSON.
+**Export API:** `GET /api/export?type=…&format=…` (`routes/api.php`) reuses `ExportRequest` and `ExportService`. It has no session; `VerifyExportToken` middleware checks an `Authorization: Bearer` header against `EXPORT_API_TOKEN` (`config('custom.export_api.token')`) and rejects everything when that is empty. Throttled to 5 requests/minute. Responses send `Cache-Control: no-store, private` so Cloudflare does not cache them. API errors render as JSON.
 
 **Form validation:** Laravel Form Requests (`app/Http/Requests/`) replace Symfony Form Types. Blade templates contain plain HTML forms.
 

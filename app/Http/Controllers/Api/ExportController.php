@@ -23,15 +23,22 @@ class ExportController extends Controller
 {
     /**
      * Generates the requested export and streams it back.
+     *
+     * Laravel's download() marks the response public, so Cache-Control is
+     * replaced afterwards to keep proxies such as Cloudflare from caching it.
      */
     public function __invoke(ExportRequest $request, ExportService $exportService): BinaryFileResponse
     {
         $file = $exportService->export($request->validated());
 
-        return response()->download(
+        $response = response()->download(
             $file->getFilename(),
             $file->getSuggestedFilename(),
             ['Content-Type' => $file->getContentType()]
         )->deleteFileAfterSend();
+
+        $response->headers->set('Cache-Control', 'no-store, private');
+
+        return $response;
     }
 }

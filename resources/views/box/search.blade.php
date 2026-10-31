@@ -22,7 +22,7 @@
             </div>
         </div>
     @endif
-    @if (!empty($boxes))
+    @if (count($boxes) > 0)
         @foreach (collect($boxes)->chunk(3) as $row)
             <div class="row mb-lg-3">
                 @foreach ($row as $box)

@@ -38,7 +38,13 @@ class LocationQueryCountTest extends TestCase
             'location edit'   => [fn() => '/location/' . Location::firstOrFail()->id],
             'location index'  => [fn() => '/location/showAll'],
             'box model index' => [fn() => '/box/model/showAll'],
-            'search'          => [fn() => '/box/search?q=nomatch'],
+            'search miss'     => [fn() => '/box/search?q=nomatch'],
+            'search hits'     => [fn() => '/box/search?q=box'],
+            'all boxes'       => [fn() => '/box/showAll'],
+            'recent boxes'    => [fn() => '/box/recent'],
+            'single box'      => [fn() => '/box/search/id/' . Box::firstOrFail()->id],
+            'by location'     => [fn() => '/box/search/location/' . Location::firstOrFail()->id],
+            'by box model'    => [fn() => '/box/search/model/' . BoxModel::firstOrFail()->id],
         ];
     }
 
@@ -55,11 +61,13 @@ class LocationQueryCountTest extends TestCase
     }
 
     /**
-     * Adds a chain of nested locations, each holding boxes of one model.
+     * Adds a chain of nested locations, each holding boxes, plus more boxes in
+     * the first location. All boxes share one box model, so the per-location
+     * and per-model pages grow too.
      */
     private function addLocations(int $depth, int $boxesEach): void
     {
-        $model = BoxModel::create(['label' => 'Model ' . uniqid()]);
+        $model = BoxModel::firstOrCreate(['label' => 'Sterilite 18qt']);
         $parent = null;
 
         for ($i = 0; $i < $depth; $i++) {
@@ -67,6 +75,11 @@ class LocationQueryCountTest extends TestCase
             for ($j = 0; $j < $boxesEach; $j++) {
                 Box::create(['label' => 'Box ' . uniqid(), 'location_id' => $parent->id, 'box_model_id' => $model->id]);
             }
+        }
+
+        $first = Location::firstOrFail();
+        for ($j = 0; $j < $boxesEach; $j++) {
+            Box::create(['label' => 'Box ' . uniqid(), 'location_id' => $first->id, 'box_model_id' => $model->id]);
         }
     }
 
@@ -131,6 +144,32 @@ class LocationQueryCountTest extends TestCase
 
         $this->addLocations(5, 3);
         $this->assertSame($baseline, $this->countQueries($url()));
+    }
+
+    /**
+     * Location and box model pages say so when there are no boxes.
+     */
+    public function testEmptyResultsMessage(): void
+    {
+        $location = Location::create(['label' => 'Garage']);
+        $model = BoxModel::create(['label' => 'Sterilite 18qt']);
+
+        $this->actingAs($this->user);
+        $this->get('/box/search/location/' . $location->id)->assertSee('No results found');
+        $this->get('/box/search/model/' . $model->id)->assertSee('No results found');
+    }
+
+    /**
+     * Keyword search skips boxes in hidden locations unless matched by exact number.
+     */
+    public function testSearchHidesHiddenLocations(): void
+    {
+        $hidden = Location::create(['label' => 'Secret Stash', 'hide_from_search' => true]);
+        $box = Box::create(['label' => 'Holiday Lights', 'location_id' => $hidden->id]);
+
+        $this->actingAs($this->user);
+        $this->get('/box/search?q=holiday')->assertDontSee('Holiday Lights');
+        $this->get('/box/search?q=' . $box->box_number)->assertSee('Holiday Lights');
     }
 
     /**

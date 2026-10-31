@@ -45,14 +45,10 @@ class IndexController extends Controller
             ->sortBy(fn(Location $l) => $l->getDisplayLabel())
             ->values();
 
-        $recentBoxes = Box::recent('-1 week')
-            ->with('boxModel')
-            ->limit(3)
-            ->get()
-            ->each(fn(Box $box) => $box->setRelation(
-                'location',
-                $box->location_id === null ? null : $allLocations->get($box->location_id)
-            ));
+        $recentBoxes = Box::loadDisplayRelations(
+            Box::recent('-1 week')->limit(3)->get(),
+            $allLocations
+        );
 
         // Boxes for each location are loaded on demand; see LocationController::boxes().
         return view('home', [

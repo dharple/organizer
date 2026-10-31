@@ -15,6 +15,7 @@ use App\Http\Requests\BoxRequest;
 use App\Models\Box;
 use App\Models\BoxModel;
 use App\Models\Location;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -64,7 +65,7 @@ class BoxController extends Controller
     public function index(): View
     {
         return view('box.index', [
-            'boxes' => Box::sortedByDisplayLabel()->get(),
+            'boxes' => Box::loadDisplayRelations(Box::sortedByDisplayLabel()->get()),
             'title' => 'All Boxes',
         ]);
     }
@@ -75,7 +76,7 @@ class BoxController extends Controller
     public function recent(): View
     {
         return view('box.index', [
-            'boxes' => Box::recent('-30 days')->get(),
+            'boxes' => Box::loadDisplayRelations(Box::recent('-30 days')->get()),
             'title' => 'Boxes Added or Changed Over the Past 30 Days',
         ]);
     }
@@ -106,7 +107,7 @@ class BoxController extends Controller
         }
 
         return view('box.search', [
-            'boxes'  => $entity->boxes,
+            'boxes'  => $entity->boxes()->with('boxModel')->get(),
             'entity' => $entity,
             'type'   => 'Location',
         ]);
@@ -123,7 +124,7 @@ class BoxController extends Controller
         }
 
         return view('box.search', [
-            'boxes'  => $entity->boxes,
+            'boxes'  => Box::loadDisplayRelations($entity->boxes),
             'entity' => $entity,
             'type'   => 'BoxModel',
         ]);
@@ -143,7 +144,7 @@ class BoxController extends Controller
         $request->session()->forget(static::SESSION_NEW_BOX);
 
         return view('box.search', [
-            'boxes'       => [$entity],
+            'boxes'       => Box::loadDisplayRelations(new Collection([$entity])),
             'entity'      => $entity,
             'hideMessage' => $hideMessage,
             'type'        => 'Box',
@@ -228,6 +229,8 @@ class BoxController extends Controller
                 $output[] = $box;
             }
         }
+
+        Box::loadDisplayRelations(new Collection($output), $allLocations);
 
         $all = [];
         $counts = [];

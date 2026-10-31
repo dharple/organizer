@@ -15,6 +15,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
@@ -95,6 +96,31 @@ class Box extends BaseModel
         }
 
         return (bool) $location->hide_from_search;
+    }
+
+    /**
+     * Loads the box model and location (with its full parent chain) for each
+     * box, using a fixed number of queries regardless of how many boxes or
+     * locations there are.
+     *
+     * @param Collection<int, Box>       $boxes
+     * @param ?Collection<int, Location> $locations Locations from Location::allWithParents(), if already loaded.
+     *
+     * @return Collection<int, Box>
+     */
+    public static function loadDisplayRelations(Collection $boxes, ?Collection $locations = null): Collection
+    {
+        $boxes->loadMissing('boxModel');
+
+        $locations ??= Location::allWithParents();
+        foreach ($boxes as $box) {
+            $box->setRelation(
+                'location',
+                $box->location_id === null ? null : $locations->get($box->location_id)
+            );
+        }
+
+        return $boxes;
     }
 
     /**

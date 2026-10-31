@@ -34,16 +34,19 @@ class ExportContainerDenormalizer implements DenormalizerInterface
     {
         $model->timestamps = false;
 
-        if (isset($row['created_at'])) {
-            $model->created_at = Carbon::parse($row['created_at']);
+        $createdAt = $this->getValue($row, 'createdAt', 'created_at');
+        if ($createdAt !== null) {
+            $model->created_at = Carbon::parse($createdAt);
         }
 
-        if (isset($row['updated_at'])) {
-            $model->updated_at = Carbon::parse($row['updated_at']);
+        $updatedAt = $this->getValue($row, 'updatedAt', 'updated_at');
+        if ($updatedAt !== null) {
+            $model->updated_at = Carbon::parse($updatedAt);
         }
 
-        if (isset($row['deleted_at'])) {
-            $model->deleted_at = Carbon::parse($row['deleted_at']);
+        $deletedAt = $this->getValue($row, 'deletedAt', 'deleted_at');
+        if ($deletedAt !== null) {
+            $model->deleted_at = Carbon::parse($deletedAt);
         }
     }
 
@@ -65,7 +68,7 @@ class ExportContainerDenormalizer implements DenormalizerInterface
                 'id'               => $row['id'] ?? null,
                 'label'            => $row['label'],
                 'description'      => $row['description'] ?? null,
-                'hide_from_search' => $row['hide_from_search'] ?? false,
+                'hide_from_search' => (bool) ($this->getValue($row, 'hideFromSearch', 'hide_from_search') ?? false),
             ]);
 
             $this->applyTimestamps($location, $row);
@@ -75,17 +78,17 @@ class ExportContainerDenormalizer implements DenormalizerInterface
         }
 
         foreach ($data['locations'] ?? [] as $row) {
-            if (!isset($row['parent_location_id'])) {
+            $parentId = $this->getValue($row, 'parentLocation', 'parent_location_id');
+            if ($parentId === null) {
                 continue;
             }
-            $parentId = $row['parent_location_id'];
             if (!array_key_exists($parentId, $locationCache)) {
                 throw new Exception('Could not find Parent Location for Location ID ' . $row['id']);
             }
             $locationCache[$row['id']]->setParentLocation($locationCache[$parentId]);
         }
 
-        foreach ($data['box_models'] ?? [] as $row) {
+        foreach ($this->getValue($data, 'boxModels', 'box_models') ?? [] as $row) {
             $boxModel = new BoxModel();
             $boxModel->forceFill([
                 'id'    => $row['id'] ?? null,
@@ -107,13 +110,13 @@ class ExportContainerDenormalizer implements DenormalizerInterface
             $box = new Box();
             $box->forceFill([
                 'id'          => $row['id'] ?? null,
-                'box_number'  => $row['box_number'] ?? null,
+                'box_number'  => $this->getValue($row, 'boxNumber', 'box_number'),
                 'description' => $row['description'] ?? null,
                 'label'       => $row['label'],
             ]);
 
-            if (isset($row['location_id'])) {
-                $locationId = $row['location_id'];
+            $locationId = $this->getValue($row, 'location', 'location_id');
+            if ($locationId !== null) {
                 if (!array_key_exists($locationId, $locationCache)) {
                     throw new Exception('Could not find Location for Box ID ' . $row['id']);
                 }
@@ -121,8 +124,8 @@ class ExportContainerDenormalizer implements DenormalizerInterface
                 $box->setRelation('location', $locationCache[$locationId]);
             }
 
-            if (isset($row['box_model_id'])) {
-                $boxModelId = $row['box_model_id'];
+            $boxModelId = $this->getValue($row, 'boxModel', 'box_model_id');
+            if ($boxModelId !== null) {
                 if (!array_key_exists($boxModelId, $boxModelCache)) {
                     throw new Exception('Could not find Box Model for Box ID ' . $row['id']);
                 }
@@ -144,6 +147,28 @@ class ExportContainerDenormalizer implements DenormalizerInterface
     public function getSupportedTypes(?string $format): array
     {
         return [ExportContainer::class => true];
+    }
+
+    /**
+     * Returns a value from an import row, preferring the camelCase key used
+     * by current exports over the snake_case key used by older exports.
+     *
+     * Empty strings are treated as missing, since XML exports encode null
+     * values that way.
+     *
+     * @param array<string, mixed> $row      The row to pull the value from.
+     * @param string               $camelKey The camelCase key.
+     * @param string               $snakeKey The snake_case key.
+     */
+    protected function getValue(array $row, string $camelKey, string $snakeKey): mixed
+    {
+        foreach ([$camelKey, $snakeKey] as $key) {
+            if (isset($row[$key]) && $row[$key] !== '') {
+                return $row[$key];
+            }
+        }
+
+        return null;
     }
 
     /**

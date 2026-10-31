@@ -37,7 +37,7 @@ class BoxController extends Controller
         return view('box.edit', [
             'boxModels' => BoxModel::orderBy('label')->get(),
             'entity'    => new Box(),
-            'locations' => Location::all()->sortBy(fn(Location $l) => $l->getDisplayLabel())->values(),
+            'locations' => Location::allWithParents()->sortBy(fn(Location $l) => $l->getDisplayLabel())->values(),
         ]);
     }
 
@@ -54,7 +54,7 @@ class BoxController extends Controller
         return view('box.edit', [
             'boxModels' => BoxModel::orderBy('label')->get(),
             'entity'    => $entity,
-            'locations' => Location::all()->sortBy(fn(Location $l) => $l->getDisplayLabel())->values(),
+            'locations' => Location::allWithParents()->sortBy(fn(Location $l) => $l->getDisplayLabel())->values(),
         ]);
     }
 
@@ -201,6 +201,7 @@ class BoxController extends Controller
 
         $output = [];
         $numeric = false;
+        $allLocations = Location::allWithParents();
 
         foreach ($keywords as $kw) {
             if (is_numeric($kw)) {
@@ -211,7 +212,7 @@ class BoxController extends Controller
                 }
             }
 
-            $matchingLocationIds = Location::all()
+            $matchingLocationIds = $allLocations
                 ->filter(fn(Location $l) => stripos($l->getDisplayLabel(), $kw) !== false)
                 ->pluck('id')
                 ->toArray();

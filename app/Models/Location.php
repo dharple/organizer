@@ -26,6 +26,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property boolean $hide_from_search
  * @property string  $label
  * @property ?int    $parent_location_id
+ *
+ * @property-read int $boxes_count only present when loaded via withCount() or loadCount()
  */
 #[Fillable([
     'description',

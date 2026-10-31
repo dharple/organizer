@@ -1,4 +1,4 @@
-@php $boxCount = $location->boxes->count() @endphp
+@php $boxCount = $location->boxes_count @endphp
 <div class="card mb-3">
     <div class="card-header">
         {{ $location->getDisplayLabel() }}

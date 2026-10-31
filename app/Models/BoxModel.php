@@ -25,6 +25,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property string   $make
  * @property string   $model
  * @property string   $size
+ *
+ * @property-read int $boxes_count only present when loaded via withCount() or loadCount()
  */
 #[Fillable([
     'color',

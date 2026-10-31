@@ -28,7 +28,8 @@ class LocationListCommand extends Command
      */
     public function handle(): int
     {
-        $locations = Location::all()
+        $locations = Location::allWithParents()
+            ->loadCount('boxes')
             ->sortBy(fn(Location $l) => $l->getDisplayLabel())
             ->values();
 
@@ -37,7 +38,7 @@ class LocationListCommand extends Command
             $locations->map(fn(Location $location) => [
                 $location->id,
                 $location->getDisplayLabel(),
-                $location->boxes()->count(),
+                $location->boxes_count,
             ])
         );
 

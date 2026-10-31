@@ -45,7 +45,7 @@ class LocationController extends Controller
     {
         return view('location.edit', [
             'entity'    => new Location(),
-            'locations' => Location::all()->sortBy(fn(Location $l) => $l->getDisplayLabel())->values(),
+            'locations' => Location::allWithParents()->sortBy(fn(Location $l) => $l->getDisplayLabel())->values(),
         ]);
     }
 
@@ -61,7 +61,7 @@ class LocationController extends Controller
 
         return view('location.edit', [
             'entity'    => $entity,
-            'locations' => Location::all()->sortBy(fn(Location $l) => $l->getDisplayLabel())->values(),
+            'locations' => Location::allWithParents()->sortBy(fn(Location $l) => $l->getDisplayLabel())->values(),
         ]);
     }
 
@@ -71,7 +71,10 @@ class LocationController extends Controller
     public function index(): View
     {
         return view('location.index', [
-            'locations' => Location::all()->sortBy(fn(Location $l) => $l->getDisplayLabel())->values(),
+            'locations' => Location::allWithParents()
+                ->loadCount('boxes')
+                ->sortBy(fn(Location $l) => $l->getDisplayLabel())
+                ->values(),
         ]);
     }
 

@@ -52,7 +52,7 @@ class BoxModelController extends Controller
     public function index(): View
     {
         return view('box-model.index', [
-            'boxModels' => BoxModel::orderBy('label')->get(),
+            'boxModels' => BoxModel::withCount('boxes')->orderBy('label')->get(),
         ]);
     }
 

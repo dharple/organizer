@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Added a token-authenticated export API (`GET /api/export`), for pulling
+  exports from another machine.  Set `EXPORT_API_TOKEN` to enable it.
+
 ## [2.0.0] - 2026-10-20
 
 ### Added

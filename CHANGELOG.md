@@ -11,6 +11,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Added a token-authenticated export API (`GET /api/export`), for pulling
   exports from another machine.  Set `EXPORT_API_TOKEN` to enable it.
+- Added `GET /api/last-updated`, which returns the most recent update time of
+  any box, box model, or location.
 
 ## [2.0.0] - 2026-10-20
 

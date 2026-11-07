@@ -7,9 +7,9 @@
         <link rel="icon" type="image/svg+xml" href="{{ asset('assets/fontawesome/dolly-solid-multicolor.svg') }}" />
         <link rel="apple-touch-icon" type="image/png" href="{{ asset('assets/fontawesome/dolly-solid-multicolor.png') }}" />
         <link rel="stylesheet"
-            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
-            integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
-            crossorigin="anonymous">
+            href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.8/css/bootstrap.min.css"
+            integrity="sha512-2bBQCjcnw658Lho4nlXJcc6WkV/UxpE/sAokbXPxQNGqmNdQrWqtw26Ns9kFF/yG792pKR1Sx8/Y1Lf1XN4GKA=="
+            crossorigin="anonymous" referrerpolicy="no-referrer">
         <link rel="stylesheet" href="{{ asset('assets/organizer.css') }}">
     </head>
     <body>
@@ -129,18 +129,19 @@
                 @yield('body')
             </div>
         @endif
+
         <script
-            src="https://cdn.jsdelivr.net/npm/jquery@4.0.0/dist/jquery.min.js"
-            integrity="sha384-fgGyf7Mo7DURSOMnOy7ed+dkq5Job205Gnzu6QIg0BOHKaqt4D76Dt8VlDCzcMHV"
-            crossorigin="anonymous"></script>
+            src="https://cdnjs.cloudflare.com/ajax/libs/jquery/4.0.0/jquery.min.js"
+            integrity="sha512-8LENNbXmzI/Gbj+OwXmqR6V4QaUAw0/porPzy1+dQoJqC0JPHedWoe0DDOTL2uHA5XXJyIsPtiMHH86pVlay6A=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         <script
-            src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
-            integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
-            crossorigin="anonymous"></script>
+            src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.8/umd/popper.min.js"
+            integrity="sha512-TPh2Oxlg1zp+kz3nFA0C5vVC6leG/6mm1z9+mA81MI5eaUVqasPLO8Cuk4gMF4gUfP5etR73rgU/8PNMsSesoQ=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         <script
-            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.min.js"
-            integrity="sha384-G/EV+4j2dNv+tEPo3++6LCgdCROaejBqfUeNjuKAiuXbjrxilcCdDz6ZAVfHWe1Y"
-            crossorigin="anonymous"></script>
+            src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.8/js/bootstrap.min.js"
+            integrity="sha512-nKXmKvJyiGQy343jatQlzDprflyB5c+tKCzGP3Uq67v+lmzfnZUi/ZT+fc6ITZfSC5HhaBKUIvr/nTLCV+7F+Q=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         <script src="https://kit.fontawesome.com/9471099de1.js" crossorigin="anonymous"></script>
         <script src="{{ asset('assets/organizer.js') }}"></script>
     </body>

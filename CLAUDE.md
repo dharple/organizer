@@ -96,6 +96,10 @@ vendor/bin/phpunit --filter <pattern> # Run unit tests matching a given pattern
 
 **Export API:** `GET /api/export?type=…&format=…` (`routes/api.php`) reuses `ExportRequest` and `ExportService`. It has no session; `VerifyExportToken` middleware checks an `Authorization: Bearer` header against `EXPORT_API_TOKEN` (`config('custom.export_api.token')`) and rejects everything when that is empty. Throttled to 5 requests/minute. Responses send `Cache-Control: no-store, private` so Cloudflare does not cache them. API errors render as JSON.
 
+**Login throttling:** `POST /login` uses the `login` rate limiter defined in `AppServiceProvider`: 5/minute per email and IP, 20/minute per IP, 30/hour per email. The email-only limit is the backstop if the client IP is forged.
+
+**Proxies:** `App\Http\Middleware\TrustProxies` replaces the framework's middleware. `config/trustedproxy.php` reads `TRUSTED_PROXIES` and `TRUSTED_PROXY_CLIENT_IP_HEADER`. With neither set, the framework trusts all proxies on Laravel Cloud (also Forge and Vapor), and Laravel Cloud uses `CF-Connecting-IP` as the visitor's IP. When moving to another host behind a proxy, set `TRUSTED_PROXIES`, or every visitor shares the proxy's IP.
+
 **Form validation:** Laravel Form Requests (`app/Http/Requests/`) replace Symfony Form Types. Blade templates contain plain HTML forms.
 
 **Migrations:** Live in `database/migrations/`. Four migrations represent the final schema. A fifth copies data from the singular tables left by the Symfony version of the app into the plural tables, when needed.

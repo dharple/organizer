@@ -9,10 +9,6 @@
             <form method="POST" action="{{ route('login.submit') }}">
                 @csrf
 
-                @if ($errors->any())
-                    <div class="alert alert-danger">{{ $errors->first() }}</div>
-                @endif
-
                 @auth
                     <div class="mb-3">
                         You are logged in as {{ auth()->user()->email }}, <a href="#" onclick="document.getElementById('logout-form').submit()">Logout</a>

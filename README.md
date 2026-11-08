@@ -12,7 +12,7 @@ A web application for keeping track of storage boxes.
 
 Run `composer install`.
 
-Copy `.env` to `.env.local` and configure your database. For SQLite:
+Copy `.env.example` to `.env` and configure your database. For SQLite:
 ```bash
 DB_CONNECTION=sqlite
 DB_DATABASE=/absolute/path/to/organizer.db

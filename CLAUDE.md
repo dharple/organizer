@@ -102,7 +102,8 @@ vendor/bin/phpunit --filter <pattern> # Run unit tests matching a given pattern
 
 ## Key Configuration Notes
 
-- **Default `APP_ENV` is `production`** — the committed `.env` sets `APP_ENV=production`. Create `.env.local` (or set env vars) and set `APP_ENV=local` for debug mode.
+- **Environment files:** No `.env` is committed. `.env.example` is intentionally set up for getting a local copy running (`APP_ENV=local`, `APP_DEBUG=true`); copy it to `.env` to start. `config/app.php` falls back to `production` with debug off when these values are unset.
+- **Production** runs on Laravel Cloud, and its settings are managed there as environment variables, not in this repository.
 - Security: all routes require authentication except `/login`, `/logout`, and `/about`. Enforced via `auth` middleware on a route group in `routes/web.php`. `/api/export` uses bearer-token auth instead (see Export API).
 - PHPCS uses `outsanity/phpcs` which enforces alphabetically sorted methods and properties.
 - `rector.php` targets PHP 8.3.

@@ -29,7 +29,7 @@ class VerifyExportToken
         $provided = (string) $request->bearerToken();
 
         if ($expected === '' || $provided === '' || !hash_equals($expected, $provided)) {
-            abort(401);
+            abort(401, 'Unauthorized');
         }
 
         return $next($request);

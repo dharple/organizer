@@ -35,9 +35,6 @@ class AppServiceProvider extends ServiceProvider
     /**
      * Returns the limits applied to login attempts.
      *
-     * The email-only limit is deliberately independent of the IP, so it still
-     * holds if the client IP is forged or rotated.
-     *
      * @return Limit[]
      */
     private function limitLogins(Request $request): array
@@ -47,9 +44,7 @@ class AppServiceProvider extends ServiceProvider
         $ip = (string) $request->ip();
 
         $limits = [
-            Limit::perMinute(5)->by('email-ip:' . $email . '|' . $ip),
-            Limit::perMinute(20)->by('ip:' . $ip),
-            Limit::perHour(30)->by('email:' . $email),
+            Limit::perMinute(3)->by('ip:' . $ip),
         ];
 
         return array_map(fn (Limit $limit) => $limit->response($this->respondToThrottledLogin(...)), $limits);

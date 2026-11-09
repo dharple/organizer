@@ -42,6 +42,8 @@ class ProfileController extends Controller
         $user->password = Hash::make($request->validated('password'));
         $user->save();
 
+        $request->session()->regenerate(true);
+
         return redirect()->route('home')->with('success', 'Password Updated');
     }
 }

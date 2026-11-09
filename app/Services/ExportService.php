@@ -98,8 +98,6 @@ class ExportService
 
         $serialized = $serializer->serialize($data, $options['format'], $this->encoderContext);
 
-        Log::info($serialized);
-
         return (new ExportResponse())
             ->setFormat($options['format'])
             ->setData($serialized);
@@ -205,8 +203,6 @@ class ExportService
         ];
 
         $serialized = $serializer->serialize($data, $options['format'], $context);
-
-        Log::info($serialized);
 
         return (new ExportResponse())
             ->setFormat($options['format'])

@@ -44,7 +44,8 @@ class AppServiceProvider extends ServiceProvider
         $ip = (string) $request->ip();
 
         $limits = [
-            Limit::perMinute(3)->by('ip:' . $ip),
+            Limit::perSecond(...config('custom.throttling.login.ip'))->by('ip:' . $ip),
+            Limit::perSecond(...config('custom.throttling.login.email'))->by('email:' . $email),
         ];
 
         return array_map(fn (Limit $limit) => $limit->response($this->respondToThrottledLogin(...)), $limits);

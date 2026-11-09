@@ -68,7 +68,7 @@ class LoginThrottleTest extends TestCase
     {
         $_SERVER['LARAVEL_CLOUD'] = '1';
 
-        for ($i = 1; $i <= 5; $i++) {
+        for ($i = 1; $i <= config('custom.throttling.login.ip.maxAttempts'); $i++) {
             $this->assertNotThrottled($this->attempt('user@example.com', '10.0.0.1', [
                 'CF-Connecting-IP' => '198.51.100.7',
                 'X-Forwarded-For'  => '192.0.2.' . $i,
@@ -86,7 +86,7 @@ class LoginThrottleTest extends TestCase
      */
     public function testThrottlesEmailAcrossIps(): void
     {
-        for ($i = 1; $i <= 30; $i++) {
+        for ($i = 1; $i <= config('custom.throttling.login.email.maxAttempts'); $i++) {
             $this->assertNotThrottled($this->attempt('user@example.com', '203.0.113.' . $i));
         }
 
@@ -94,16 +94,15 @@ class LoginThrottleTest extends TestCase
     }
 
     /**
-     * Limits one email from one IP, regardless of the email's case.
+     * Limits one email across any number of IPs, regardless of case.
      */
-    public function testThrottlesEmailFromOneIp(): void
+    public function testThrottlesEmailIgnoresCase(): void
     {
-        for ($i = 1; $i <= 5; $i++) {
-            $this->assertNotThrottled($this->attempt('user@example.com'));
+        for ($i = 1; $i <= config('custom.throttling.login.email.maxAttempts'); $i++) {
+            $this->assertNotThrottled($this->attempt('user@example.com', '203.0.113.' . $i));
         }
 
-        $this->assertThrottled($this->attempt('USER@example.com'));
-        $this->assertNotThrottled($this->attempt('user@example.com', '203.0.113.11'));
+        $this->assertThrottled($this->attempt('USER@example.com', '203.0.113.200'));
     }
 
     /**
@@ -111,7 +110,7 @@ class LoginThrottleTest extends TestCase
      */
     public function testThrottlesIpAcrossEmails(): void
     {
-        for ($i = 1; $i <= 20; $i++) {
+        for ($i = 1; $i <= config('custom.throttling.login.ip.maxAttempts'); $i++) {
             $this->assertNotThrottled($this->attempt('user' . $i . '@example.com'));
         }
 

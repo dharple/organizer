@@ -23,9 +23,9 @@ export-*
 # Laravel
 *.log
 .DS_Store
-.env
-.env.backup
-.env.production
+.env*
+!.env.example
+!.env.test
 .phpactor.json
 /.codex
 /.cursor/

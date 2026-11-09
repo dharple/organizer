@@ -35,7 +35,7 @@ composer go     # Flush caches and start PHP dev server on localhost:8000
 ### Manage Users
 
 ```bash
-./artisan user:add email@example.com password
+./artisan user:add email@example.com
 ```
 
 ### Box and Location Helper Tools

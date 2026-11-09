@@ -40,7 +40,7 @@ Run the database migrations:
 
 Create a user:
 ```bash
-./artisan user:add test@example.com mySecurePassword
+./artisan user:add test@example.com
 ```
 
 Start the server:

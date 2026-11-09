@@ -21,7 +21,7 @@ use Illuminate\Support\Facades\Hash;
  * Creates a new application user.
  */
 #[Description('Add a user')]
-#[Signature('user:add {email : Email address} {password : Password}')]
+#[Signature('user:add {email : Email address}')]
 class UserAddCommand extends Command
 {
     /**
@@ -32,7 +32,14 @@ class UserAddCommand extends Command
         $user = new User();
         $user->email    = $this->argument('email');
         $user->roles    = ['ROLE_USER'];
-        $user->password = Hash::make($this->argument('password'));
+
+        $password = (string) $this->secret('Password');
+        if (strlen($password) < 8) {
+            $this->error('Password must be at least 8 characters.');
+            return self::FAILURE;
+        }
+        $user->password = Hash::make($password);
+
         $user->save();
 
         $this->info('created user: ' . $user->email);

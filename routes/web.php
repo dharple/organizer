@@ -15,7 +15,7 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 Route::get('/about', [IndexController::class, 'about'])->name('about');
 
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth', 'auth.session'])->group(function () {
     Route::get('/', [IndexController::class, 'index'])->name('home');
 
     // Box

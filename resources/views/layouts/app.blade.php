@@ -10,6 +10,14 @@
             href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.8/css/bootstrap.min.css"
             integrity="sha512-2bBQCjcnw658Lho4nlXJcc6WkV/UxpE/sAokbXPxQNGqmNdQrWqtw26Ns9kFF/yG792pKR1Sx8/Y1Lf1XN4GKA=="
             crossorigin="anonymous" referrerpolicy="no-referrer">
+        <link rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/fontawesome.min.css"
+            integrity="sha512-SMQ1DwSGiIDyNoXdQae7kUBADdtQa8Xsb3LxBxzAXExZNCCH/36yQSpZSYo1c6ckFshd1iMp9eD9+s9+tdhmyg=="
+            crossorigin="anonymous" referrerpolicy="no-referrer">
+        <link rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/solid.min.css"
+            integrity="sha512-E5l6RuM1LLr8r+BTSEtKE9mqwPrO+HQNKbBacr303FoExXNvjq2dX7/0A3sV6OwusCkVmMRZ5zcSDwCziA+n8Q=="
+            crossorigin="anonymous" referrerpolicy="no-referrer">
         <link rel="stylesheet" href="{{ asset('assets/organizer.css') }}">
     </head>
     <body>
@@ -141,14 +149,6 @@
         <script
             src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.8/js/bootstrap.min.js"
             integrity="sha512-nKXmKvJyiGQy343jatQlzDprflyB5c+tKCzGP3Uq67v+lmzfnZUi/ZT+fc6ITZfSC5HhaBKUIvr/nTLCV+7F+Q=="
-            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-        <script
-            src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/js/fontawesome.min.js"
-            integrity="sha512-WgR61jcssTjrH2a2vWm5JiWaEy1kmFIE5G0ybjKB0UEDzygVCebYW4eP2p96XmJWXA0zk/sNhbCfb09Wx39t4A=="
-            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-        <script
-            src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/js/solid.min.js"
-            integrity="sha512-T7EGedkSB4ewtlSHpcmpJm6FQMnxZzLYhAYRPk6n4zF30ap1uJrPuXX98A3SYMwv04/ZVTOfbF89Oa6dIJyljw=="
             crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         <script src="{{ asset('assets/organizer.js') }}"></script>
     </body>

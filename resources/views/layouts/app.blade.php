@@ -11,12 +11,8 @@
             integrity="sha512-2bBQCjcnw658Lho4nlXJcc6WkV/UxpE/sAokbXPxQNGqmNdQrWqtw26Ns9kFF/yG792pKR1Sx8/Y1Lf1XN4GKA=="
             crossorigin="anonymous" referrerpolicy="no-referrer">
         <link rel="stylesheet"
-            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/fontawesome.min.css"
-            integrity="sha512-SMQ1DwSGiIDyNoXdQae7kUBADdtQa8Xsb3LxBxzAXExZNCCH/36yQSpZSYo1c6ckFshd1iMp9eD9+s9+tdhmyg=="
-            crossorigin="anonymous" referrerpolicy="no-referrer">
-        <link rel="stylesheet"
-            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/solid.min.css"
-            integrity="sha512-E5l6RuM1LLr8r+BTSEtKE9mqwPrO+HQNKbBacr303FoExXNvjq2dX7/0A3sV6OwusCkVmMRZ5zcSDwCziA+n8Q=="
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.css"
+            integrity="sha512-4wfcoXlib1Aq0mUtsLLM74SZtmB73VHTafZAvxIp/Wk9u1PpIsrfmTvK0+yKetghCL8SHlZbMyEcV8Z21v42UQ=="
             crossorigin="anonymous" referrerpolicy="no-referrer">
         <link rel="stylesheet" href="{{ asset('assets/organizer.css') }}">
     </head>

@@ -119,8 +119,8 @@
                             <form class="form-inline" action="{{ route('box.search') }}">
                                 <div class="input-group">
                                     <input class="form-control me-sm-2" type="search" placeholder="Search" aria-label="Search" name="q">
-                                    <button class="btn btn-outline-primary" type="submit"><i class="fas fa-search"></i></button>
-                                    <a class="btn btn-outline-primary ms-4" href="{{ route('box.create') }}"><i class="fas fa-plus"></i></a>
+                                    <button class="btn btn-outline-primary" type="submit">🔍</button>
+                                    <a class="btn btn-outline-primary ms-4" href="{{ route('box.create') }}">➕</a>
                                 </div>
                             </form>
                         </div>
@@ -142,7 +142,6 @@
             src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.8/js/bootstrap.min.js"
             integrity="sha512-nKXmKvJyiGQy343jatQlzDprflyB5c+tKCzGP3Uq67v+lmzfnZUi/ZT+fc6ITZfSC5HhaBKUIvr/nTLCV+7F+Q=="
             crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-        <script src="https://kit.fontawesome.com/9471099de1.js" crossorigin="anonymous"></script>
         <script src="{{ asset('assets/organizer.js') }}"></script>
     </body>
 </html>

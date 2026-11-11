@@ -150,7 +150,6 @@
             src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/js/solid.min.js"
             integrity="sha512-T7EGedkSB4ewtlSHpcmpJm6FQMnxZzLYhAYRPk6n4zF30ap1uJrPuXX98A3SYMwv04/ZVTOfbF89Oa6dIJyljw=="
             crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-        <script src="https://kit.fontawesome.com/9471099de1.js" crossorigin="anonymous"></script>
         <script src="{{ asset('assets/organizer.js') }}"></script>
     </body>
 </html>

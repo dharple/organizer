@@ -100,6 +100,8 @@ vendor/bin/phpunit --filter <pattern> # Run unit tests matching a given pattern
 
 **Proxies:** `App\Http\Middleware\TrustProxies` replaces the framework's middleware. `config/trustedproxy.php` reads `TRUSTED_PROXIES` and `TRUSTED_PROXY_CLIENT_IP_HEADER`. With neither set, the framework trusts all proxies on Laravel Cloud (also Forge and Vapor), and Laravel Cloud uses `CF-Connecting-IP` as the visitor's IP. When moving to another host behind a proxy, set `TRUSTED_PROXIES`, or every visitor shares the proxy's IP.
 
+**Content Security Policy:** `App\Http\Middleware\ContentSecurityPolicy` is prepended to the `web` group (so it also covers auth redirects and CSRF errors); API routes get no CSP. Directives live under `custom.csp.directives` in `config/custom.php`. `CSP_REPORT_ONLY=true` sends `Content-Security-Policy-Report-Only` instead, which `.env.example` uses for local development (Laravel's debug error pages need inline scripts). The policy has no `'unsafe-inline'`, so views and AJAX-loaded partials must not use inline `<script>`, `<style>`, `on*=` handlers, or `style=""` attributes; put behavior in `public/assets/organizer.js` and styles in `public/assets/organizer.css`. External assets come only from `cdnjs.cloudflare.com`.
+
 **Form validation:** Laravel Form Requests (`app/Http/Requests/`) replace Symfony Form Types. Blade templates contain plain HTML forms.
 
 **Migrations:** Live in `database/migrations/`. Four migrations represent the final schema. A fifth copies data from the singular tables left by the Symfony version of the app into the plural tables, when needed.

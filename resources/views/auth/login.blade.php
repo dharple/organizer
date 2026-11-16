@@ -6,15 +6,15 @@
 <div class="container login-window">
     <div class="row mb-3">
         <div class="col">
+            @auth
+                <form id="logout-form" method="POST" action="{{ route('logout') }}" class="mb-3">
+                    @csrf
+                    You are logged in as {{ auth()->user()->email }}, <button type="submit" class="btn btn-link p-0 align-baseline">Logout</button>
+                </form>
+            @endauth
+
             <form method="POST" action="{{ route('login.submit') }}">
                 @csrf
-
-                @auth
-                    <div class="mb-3">
-                        You are logged in as {{ auth()->user()->email }}, <a href="#" onclick="document.getElementById('logout-form').submit()">Logout</a>
-                        <form id="logout-form" method="POST" action="{{ route('logout') }}" class="d-none">@csrf</form>
-                    </div>
-                @endauth
 
                 <div class="mb-3">
                     <input type="email" value="{{ old('email', $last_username ?? '') }}" name="email" id="inputEmail" class="form-control" placeholder="Email" autocomplete="email" required autofocus>

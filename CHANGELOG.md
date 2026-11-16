@@ -14,6 +14,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added `GET /api/last-updated`, which returns the most recent update time of
   any box, box model, or location.
 
+### Changed
+
+- Optimized queries and other data manipulation.
+- Switched from jsdelivr to cdnjs.
+- Switched to free Font Awesome 5.
+
+### Security
+
+- Enabled login throttling, trusted proxies, and Content-Security-Policy rules.
+- Updated user creation to change how passwords are passed to the app.
+
 ## [2.0.0] - 2026-10-20
 
 ### Added

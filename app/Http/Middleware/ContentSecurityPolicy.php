@@ -42,7 +42,16 @@ class ContentSecurityPolicy
     {
         $response = $next($request);
 
-        $policy = $this->buildPolicy((array) config('custom.csp.directives', []));
+        $directives = (array) config('custom.csp.directives', []);
+
+        // A fresh nonce on every response lets Cloudflare tag the inline
+        // JavaScript Detections script it injects; Cloudflare reads the
+        // nonce from this header.
+        if (isset($directives['script-src'])) {
+            $directives['script-src'][] = "'nonce-" . base64_encode(random_bytes(16)) . "'";
+        }
+
+        $policy = $this->buildPolicy($directives);
         if ($policy === '') {
             return $response;
         }

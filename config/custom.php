@@ -12,6 +12,7 @@ return [
     | that locally, where Laravel's debug error pages rely on inline scripts.
     |
     | Bootstrap's CSS uses data: SVGs for some icons, so img-src allows data:.
+    | Profile avatars come from Gravatar (see App\Support\Gravatar).
     |
     */
 
@@ -22,7 +23,7 @@ return [
             'script-src'      => ["'self'", 'https://cdnjs.cloudflare.com'],
             'style-src'       => ["'self'", 'https://cdnjs.cloudflare.com'],
             'font-src'        => ["'self'", 'https://cdnjs.cloudflare.com'],
-            'img-src'         => ["'self'", 'data:'],
+            'img-src'         => ["'self'", 'data:', 'https://www.gravatar.com'],
             'connect-src'     => ["'self'"],
             'object-src'      => ["'none'"],
             'base-uri'        => ["'self'"],

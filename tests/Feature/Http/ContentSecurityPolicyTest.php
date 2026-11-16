@@ -50,6 +50,21 @@ class ContentSecurityPolicyTest extends TestCase
     }
 
     /**
+     * Adds a script nonce that changes on every response.
+     */
+    public function testScriptNonceIsUniquePerResponse(): void
+    {
+        $pattern = "/script-src [^;]*'nonce-([A-Za-z0-9+\/]{22}==)'/";
+
+        $first = (string) $this->get('/login')->headers->get(self::ENFORCE);
+        $second = (string) $this->get('/login')->headers->get(self::ENFORCE);
+
+        $this->assertMatchesRegularExpression($pattern, $first);
+        $this->assertMatchesRegularExpression($pattern, $second);
+        $this->assertNotSame($first, $second);
+    }
+
+    /**
      * Sends the report-only header instead when configured.
      */
     public function testReportOnlyMode(): void
